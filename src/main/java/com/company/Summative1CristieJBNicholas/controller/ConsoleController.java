@@ -30,31 +30,30 @@ public class ConsoleController {
         return repo.findAll();
     }
 
-//    // find Console by iD
-//    @GetMapping("/Console/{console_id}")
-//    public Console getConsoleById(@PathVariable Integer console_id) {
-//        Optional<Console> returnVal = repo.findById(console_id);
-//        return returnVal.get();
-//    }
-
-//    // find Console by Manufacturer
-//    @GetMapping("/Console/{manufacturer}")
-//    public Console getConsoleByManufacturer(@PathVariable String manufacturer) {
-//       List<Console> returnVal = repo.findByManufacturer(manufacturer);
-//        return returnVal.get();
-//    }
-
-    // update an existing Console record
-    @PutMapping("/Console")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateConsole(@RequestBody Console manufacturer) {
-        repo.save(manufacturer);
+    // find Console by iD
+    @GetMapping("/Console/consoleId/{consoleId}")
+    public Console getConsoleById(@PathVariable Integer consoleId) {
+        Optional<Console> returnVal = repo.findById(consoleId);
+        return returnVal.get();
     }
 
+    // find Console by Manufacturer
+    @GetMapping("/Console/manufacturer/{manufacturer}")
+    public List<Console> getConsolesByManufacturer(@PathVariable String manufacturer) {
+        return repo.findAllConsolesByManufacturer(manufacturer);
+    }
+
+   // update an existing Console record
+//    @PutMapping("/Console/{id}")
+//    @ResponseStatus(HttpStatus.ACCEPTED)
+//    public void updateConsole(@RequestBody Console console) {
+//        repo.save(console);
+//    }
+
     // delete an existing Console record
-    @DeleteMapping("/Console/{console_id}")
+    @DeleteMapping("/Console/{consoleId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteConsole(@PathVariable Integer console_id) {
-        repo.deleteById(console_id);
+    public void deleteConsole(@PathVariable Integer consoleId) {
+        repo.deleteById(consoleId);
     }
 }
