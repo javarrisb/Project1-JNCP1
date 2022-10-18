@@ -1,4 +1,4 @@
-/*package com.company.Summative1CristieJBNicholas.models;
+package com.company.Summative1CristieJBNicholas.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
@@ -17,7 +17,7 @@ public class Invoice implements Serializable {
     private Integer  id;
     @Column(name = "name")
     private String name;
-     @Column(name = "street")
+    @Column(name = "street")
     private String street;
     @Column(name = "city")
     private String city;
@@ -211,4 +211,3 @@ public class Invoice implements Serializable {
 //  Read All
 //  By Customer Name
 
-*/

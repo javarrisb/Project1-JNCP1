@@ -1,4 +1,4 @@
-/*package com.company.Summative1CristieJBNicholas.services;
+package com.company.Summative1CristieJBNicholas.services;
 
 import com.company.Summative1CristieJBNicholas.models.Invoice;
 import com.company.Summative1CristieJBNicholas.repository.InvoiceRepository;
@@ -10,7 +10,7 @@ import java.util.Optional;
 
 @Service
 public class ServiceLayer {
-   private InvoiceRepository repo;
+    private InvoiceRepository repo;
 
     @Autowired
     public ServiceLayer(InvoiceRepository repo) {
@@ -43,15 +43,12 @@ public class ServiceLayer {
 //        return repo.findByInvoiceId(invoice_id);
 //    }
 
-    public List<Invoice> findByState(String state) {
-        return repo.findByAddressState(state);
-    }
 
     public List<Invoice> findAll() {
+        return null;
     }
 
     public void deleteInvoiceById(Integer id) {
         repo.deleteById(id);
     }
 }
-*/
