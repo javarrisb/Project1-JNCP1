@@ -3,7 +3,6 @@ package com.company.Summative1CristieJBNicholas.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
@@ -21,11 +20,11 @@ public class Games {
 
     private String description;
 
-    private BigDecimal price;
+    private Double price;
 
     private String studio;
 
-    private int quantity;
+    private Integer quantity;
 
     public Integer getId() {
         return id;
@@ -59,11 +58,11 @@ public class Games {
         this.description = description;
     }
 
-    public BigDecimal getPrice() {
+    public Double getPrice() {
         return price;
     }
 
-    public void setPrice(BigDecimal price) {
+    public void setPrice(Double price) {
         this.price = price;
     }
 
@@ -75,11 +74,11 @@ public class Games {
         this.studio = studio;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -88,7 +87,7 @@ public class Games {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Games games = (Games) o;
-        return getQuantity() == games.getQuantity() && Objects.equals(getId(), games.getId()) && Objects.equals(getTitle(), games.getTitle()) && Objects.equals(getEsrb_rating(), games.getEsrb_rating()) && Objects.equals(getDescription(), games.getDescription()) && Objects.equals(getPrice(), games.getPrice()) && Objects.equals(getStudio(), games.getStudio());
+        return Objects.equals(getId(), games.getId()) && Objects.equals(getTitle(), games.getTitle()) && Objects.equals(getEsrb_rating(), games.getEsrb_rating()) && Objects.equals(getDescription(), games.getDescription()) && Objects.equals(getPrice(), games.getPrice()) && Objects.equals(getStudio(), games.getStudio()) && Objects.equals(getQuantity(), games.getQuantity());
     }
 
     @Override
