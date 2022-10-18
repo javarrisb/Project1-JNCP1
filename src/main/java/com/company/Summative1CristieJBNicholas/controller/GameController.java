@@ -23,5 +23,16 @@ public class GameController {
     public List<Games> getGamesbyTitle(@PathVariable String title)
     {return repo.findAllGamesByTitle(title);}
 
+    @GetMapping(value="/games/studio")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Games> getGamesByStudio(@PathVariable String studio){
+        return repo.findAllGamesByStudio(studio);}
+
+    @GetMapping(value="/games/esrb_rating")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Games> getGamesByEsrbRating(@PathVariable String esrb_rating){
+        return repo.findAllGamesByEsrbRating(esrb_rating);
+    }
+
 
 }
