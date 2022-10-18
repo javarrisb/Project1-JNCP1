@@ -54,6 +54,6 @@ public class ConsoleController {
     @DeleteMapping("/Console/{console_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteConsole(@PathVariable Integer console_id) {
-        repo.deleteById(console_id;
+        repo.deleteById(console_id);
     }
 }
