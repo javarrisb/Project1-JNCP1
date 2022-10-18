@@ -1,24 +1,13 @@
 package com.company.Summative1CristieJBNicholas.repository;
 
 import com.company.Summative1CristieJBNicholas.models.Console;
-import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ConsoleRepository  {
-    Console save(Console console);
-
-
-
-    Optional<Console> findById(Integer console_id);
-
-    Optional<Console> findByColor(String manufacturer);
-
-
-    void deleteById(Integer console_id);
-
-    List<Console> findAll();
-
+public interface ConsoleRepository extends JpaRepository<Console, Integer> {
+    List<Console> findByManufacturer(String manufacturer);
 }
