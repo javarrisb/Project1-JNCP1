@@ -30,19 +30,19 @@ public class ConsoleController {
         return repo.findAll();
     }
 
-    // find Console by iD
-    @GetMapping("/Console/{console_id}")
-    public Console getConsoleById(@PathVariable Integer console_id) {
-        Optional<Console> returnVal = repo.findById(console_id);
-        return returnVal.get();
-    }
+//    // find Console by iD
+//    @GetMapping("/Console/{console_id}")
+//    public Console getConsoleById(@PathVariable Integer console_id) {
+//        Optional<Console> returnVal = repo.findById(console_id);
+//        return returnVal.get();
+//    }
 
-    // find Console by Manufacturer
-    @GetMapping("/Console/{manufacturer}")
-    public Console getConsoleByManufacturer(@PathVariable String manufacturer) {
-       List<Console> returnVal = repo.findByManufacturer(manufacturer);
-        return returnVal.get();
-    }
+//    // find Console by Manufacturer
+//    @GetMapping("/Console/{manufacturer}")
+//    public Console getConsoleByManufacturer(@PathVariable String manufacturer) {
+//       List<Console> returnVal = repo.findByManufacturer(manufacturer);
+//        return returnVal.get();
+//    }
 
     // update an existing Console record
     @PutMapping("/Console")
