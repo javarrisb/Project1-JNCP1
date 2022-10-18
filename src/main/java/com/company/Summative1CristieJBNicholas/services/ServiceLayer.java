@@ -28,24 +28,29 @@ public class ServiceLayer {
         repo.save(invoice);
     }
 
-    public void deleteInvoiceByID(int id) {
-        repo.deleteById(id);
+    public void deleteById(int invoice_id) {
+        repo.deleteById(invoice_id);
     }
 
     public Optional<Invoice> findByID(int id) {
-        Optional<Invoice> customer = repo.findById(id);
-        if (customer.isPresent()) return customer;
+        Optional<Invoice> invoice = repo.findById(id);
+        if (invoice.isPresent()) return invoice;
         return null;
     }
 
-    public List<Invoice> findByLevel(String level) {
-
-        return repo.findByLevel(level);
-    }
+//    public List<Invoice> findByInvoiceId(Integer invoice_id) {
+//
+//        return repo.findByInvoiceId(invoice_id);
+//    }
 
     public List<Invoice> findByState(String state) {
         return repo.findByAddressState(state);
     }
 
-}
+    public List<Invoice> findAll() {
+    }
+
+    public void deleteInvoiceById(Integer id) {
+        repo.deleteById(id);
+    }
 }
