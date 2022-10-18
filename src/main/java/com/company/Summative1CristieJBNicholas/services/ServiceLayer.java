@@ -1,3 +1,4 @@
+
 //package com.company.Summative1CristieJBNicholas.services;
 //
 //import com.company.Summative1CristieJBNicholas.models.Invoice;
@@ -32,6 +33,9 @@
 //        repo.deleteById(invoice_id);
 //    }
 
+/*package com.company.Summative1CristieJBNicholas.services;
+
+
 //    public Optional<Invoice> findByID(int id) {
 //        Optional<Invoice> invoice = repo.findById(id);
 //        if (invoice.isPresent()) return invoice;
@@ -42,6 +46,7 @@
 //
 //        return repo.findByInvoiceId(invoice_id);
 //    }
+
 //
 //    public List<Invoice> findByState(String state) {
 //        return repo.findByAddressState(state);
@@ -54,3 +59,18 @@
 //        repo.deleteById(id);
 //    }
 //}
+=======
+
+    public List<Invoice> findByState(String state) {
+        return repo.findByAddressState(state);
+    }
+
+    public List<Invoice> findAll() {
+    }
+
+    public void deleteInvoiceById(Integer id) {
+        repo.deleteById(id);
+    }
+}
+*/
+

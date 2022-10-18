@@ -11,7 +11,7 @@ public class TShirtDataLoaderController {
     @Autowired
     TShirtRepository repo;
 
-    @GetMapping("/load-data")
+    @GetMapping("/load-tshirt-data")
 
     public void loadData() {
         TShirt tShirt  = new TShirt();
