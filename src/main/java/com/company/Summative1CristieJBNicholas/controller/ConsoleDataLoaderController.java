@@ -30,7 +30,7 @@ public class ConsoleDataLoaderController {
         console1.setProcessor("Custom AMD RDNA 2");
         console1.setPrice(619.99);
         console1.setQuantity(100);
-        repo.save(console);
+        repo.save(console1);
 
         Console console2 = new Console();
         console2.setModel("Switch");
@@ -39,7 +39,7 @@ public class ConsoleDataLoaderController {
         console2.setProcessor("ARM 4 Cortex-A57");
         console2.setPrice(349.99);
         console2.setQuantity(100);
-        repo.save(console);
+        repo.save(console2);
 
         Console console3 = new Console();
         console3.setModel("Chromecast");
@@ -48,6 +48,6 @@ public class ConsoleDataLoaderController {
         console3.setProcessor("Amlogic S905X3");
         console3.setPrice(49.99);
         console3.setQuantity(100);
-        repo.save(console);
+        repo.save(console3);
     }
 }

@@ -1,7 +1,8 @@
 package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.Console;
-import com.company.Summative1CristieJBNicholas.repository.TShirtRepository;
+import com.company.Summative1CristieJBNicholas.repository.ConsoleRepository;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +13,7 @@ import java.util.Optional;
 @RestController
 public class ConsoleController {
     @Autowired
-    TShirtRepository repo;
+    ConsoleRepository repo;
 
     // create a new Console
     @PostMapping("/Console")
@@ -39,7 +40,7 @@ public class ConsoleController {
     // find Console by Manufacturer
     @GetMapping("/Console/{manufacturer}")
     public Console getConsoleByManufacturer(@PathVariable String manufacturer) {
-        Optional<Console> returnVal = repo.findByColor(manufacturer);
+       List<Console> returnVal = repo.findByManufacturer(manufacturer);
         return returnVal.get();
     }
 
@@ -54,6 +55,6 @@ public class ConsoleController {
     @DeleteMapping("/Console/{console_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteConsole(@PathVariable Integer console_id) {
-        repo.deleteById(console_id;
+        repo.deleteById(console_id);
     }
 }
