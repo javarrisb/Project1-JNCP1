@@ -1,20 +1,15 @@
 package com.company.Summative1CristieJBNicholas.repository;
+
 import com.company.Summative1CristieJBNicholas.models.TShirt;
 
 import java.util.List;
-import java.util.Optional;
 
-public interface TShirtRepository {
-    TShirt save(TShirt tShirt);
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-    Optional<TShirt> findById(Integer t_shirt_id);
+@Repository
+public interface TShirtRepository extends JpaRepository<TShirt, Integer> {
+    List<TShirt> findByColor(String color);
 
-    Optional<TShirt> findByColor(String color);
-
-    Optional<TShirt> findBySize(String size);
-
-    void deleteById(Integer id);
-
-    List<TShirt> findAll();
-
+    List<TShirt> findBySize(String size);
 }
