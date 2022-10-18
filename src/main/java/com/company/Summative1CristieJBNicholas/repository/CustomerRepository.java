@@ -1,16 +1,24 @@
-// used in 01-stu-customer-data-service work
+package com.company.Summative1CristieJBNicholas.repository;
 
-//package com.company.Summative1CristieJBNicholas.repository;
-//
-//import com.example.customerdataservice.model.Customer;
-//import org.springframework.data.jpa.repository.JpaRepository;
-//import org.springframework.stereotype.Repository;
-//
-//import java.util.List;
-//
-//@Repository
-//public interface CustomerRepository extends JpaRepository<Customer, Long> {
-//
-//    List<Customer> findAllCustomersByState(String state);
-//    List<Customer> findAllCustomersByLevel(String level);
-//}
+import com.company.Summative1CristieJBNicholas.models.Console;
+import com.company.Summative1CristieJBNicholas.models.TShirt;
+
+import java.util.List;
+import java.util.Optional;
+
+public interface CustomerRepository {
+    TShirt save(TShirt tShirt);
+
+    Optional<TShirt> findById(Integer t_shirt_id);
+
+    Optional<TShirt> findByColor(String color);
+
+    Optional<TShirt> findBySize(String size);
+
+    void deleteById(Integer id);
+
+    List<TShirt> findAll();
+
+    Console save(Console console);
+
+}
