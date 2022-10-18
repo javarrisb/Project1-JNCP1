@@ -18,6 +18,7 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.23" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.23" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.23" level="project" />
+
     <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.22" level="project" />
     <orderEntry type="module-library">
       <library name="testng">
