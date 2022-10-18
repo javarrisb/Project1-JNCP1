@@ -1,4 +1,4 @@
-package com.company.Summative1CristieJBNicholas.controllers;
+package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.TShirt;
 import com.company.Summative1CristieJBNicholas.repository.TShirtRepository;
