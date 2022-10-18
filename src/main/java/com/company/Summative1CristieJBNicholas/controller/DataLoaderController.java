@@ -36,6 +36,28 @@ public class DataLoaderController {
         game2.setTitle("Grand Theft Auto V");
         game2.setEsrb_rating("Mature");
         game2.setDescription("Single player story follows three protagonists and their attempts to commit heists while under pressure from a corrupt government agency and powerful criminals.");
-        
+        game2.setPrice(59.99);
+        game2.setStudio("Rockstar North");
+        game2.setQuantity(250);
+        repo.save(game2);
+
+        Games game3 = new Games();
+        game3.setTitle("Wii Sports");
+        game3.setEsrb_rating("Early Childhood");
+        game3.setDescription("A collection of five sports games (tennis, baseball, bowling, golf and boxing) designed to demonstrate the motion-sensing capabilities");
+        game3.setPrice(35.99);
+        game3.setStudio("Nintendo");
+        game3.setQuantity(10);
+        repo.save(game3);
+
+        Games game4 = new Games();
+        game4.setTitle("NBA 2K23");
+        game4.setEsrb_rating("Everyone");
+        game4.setDescription("A player interactive game based on the NBA that allows you to play as NBA teams as well as create your own player.");
+        game4.setPrice(70.00);
+        game4.setStudio("2K");
+        game4.setQuantity(75);
+        repo.save(game4);
+
     }
 }
