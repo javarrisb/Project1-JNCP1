@@ -1,7 +1,7 @@
 package com.company.Summative1CristieJBNicholas.controllers;
 
 import com.company.Summative1CristieJBNicholas.models.Console;
-import com.company.Summative1CristieJBNicholas.repository.CustomerRepository;
+import com.company.Summative1CristieJBNicholas.repository.TShirtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -12,7 +12,7 @@ import java.util.Optional;
 @RestController
 public class ConsoleController {
     @Autowired
-    CustomerRepository repo;
+    TShirtRepository repo;
 
     // create a new Console
     @PostMapping("/Console")

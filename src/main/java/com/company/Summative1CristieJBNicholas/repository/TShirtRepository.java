@@ -1,12 +1,10 @@
 package com.company.Summative1CristieJBNicholas.repository;
-
-import com.company.Summative1CristieJBNicholas.models.Console;
 import com.company.Summative1CristieJBNicholas.models.TShirt;
 
 import java.util.List;
 import java.util.Optional;
 
-public interface CustomerRepository {
+public interface TShirtRepository {
     TShirt save(TShirt tShirt);
 
     Optional<TShirt> findById(Integer t_shirt_id);
@@ -18,7 +16,5 @@ public interface CustomerRepository {
     void deleteById(Integer id);
 
     List<TShirt> findAll();
-
-    Console save(Console console);
 
 }
