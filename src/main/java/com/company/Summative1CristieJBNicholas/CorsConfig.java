@@ -1,4 +1,4 @@
-package com.company.Summative1CristieJBNicholas;
+/*package com.company.Summative1CristieJBNicholas;
 
 
 import org.springframework.context.annotation.Configuration;
@@ -14,3 +14,4 @@ public class CorsConfig implements WebMvcConfigurer {
         registry.addMapping("/**").allowedMethods("GET", "PUT", "DELETE", "POST");
     }
 }
+*/

@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class GameController {
     @GetMapping(value="/games/esrb_rating")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getGamesByEsrbRating(@PathVariable String esrb_rating){
-        return repo.findAllGamesByESRBrating(esrb_rating);
+        return repo.findAllGamesByEsrbRating(esrb_rating);
     }
     }
 
