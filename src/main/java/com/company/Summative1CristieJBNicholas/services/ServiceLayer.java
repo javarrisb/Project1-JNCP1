@@ -1,4 +1,4 @@
-package com.company.Summative1CristieJBNicholas.services;
+/*package com.company.Summative1CristieJBNicholas.services;
 
 import com.company.Summative1CristieJBNicholas.models.Invoice;
 import com.company.Summative1CristieJBNicholas.repository.InvoiceRepository;
@@ -54,3 +54,4 @@ public class ServiceLayer {
         repo.deleteById(id);
     }
 }
+*/

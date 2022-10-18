@@ -15,8 +15,8 @@ public class Games {
     private Integer id;
 
     private String title;
-
-    private String esrb_rating;
+    @Column(name="esrb_rating")
+    private String esrbRating;
 
     private String description;
 
@@ -25,6 +25,19 @@ public class Games {
     private String studio;
 
     private Integer quantity;
+
+    public Games(Integer id, String title, String esrbRating, String description, Double price, String studio, Integer quantity) {
+        this.id = id;
+        this.title = title;
+        this.esrbRating = esrbRating;
+        this.description = description;
+        this.price = price;
+        this.studio = studio;
+        this.quantity = quantity;
+    }
+
+    public Games() {
+    }
 
     public Integer getId() {
         return id;
@@ -42,12 +55,12 @@ public class Games {
         this.title = title;
     }
 
-    public String getEsrb_rating() {
-        return esrb_rating;
+    public String getEsrbRating() {
+        return esrbRating;
     }
 
-    public void setEsrb_rating(String esrb_rating) {
-        this.esrb_rating = esrb_rating;
+    public void setEsrbRating(String esrbRating) {
+        this.esrbRating = esrbRating;
     }
 
     public String getDescription() {
@@ -87,12 +100,12 @@ public class Games {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Games games = (Games) o;
-        return Objects.equals(getId(), games.getId()) && Objects.equals(getTitle(), games.getTitle()) && Objects.equals(getEsrb_rating(), games.getEsrb_rating()) && Objects.equals(getDescription(), games.getDescription()) && Objects.equals(getPrice(), games.getPrice()) && Objects.equals(getStudio(), games.getStudio()) && Objects.equals(getQuantity(), games.getQuantity());
+        return Objects.equals(getId(), games.getId()) && Objects.equals(getTitle(), games.getTitle()) && Objects.equals(getEsrbRating(), games.getEsrbRating()) && Objects.equals(getDescription(), games.getDescription()) && Objects.equals(getPrice(), games.getPrice()) && Objects.equals(getStudio(), games.getStudio()) && Objects.equals(getQuantity(), games.getQuantity());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getEsrb_rating(), getDescription(), getPrice(), getStudio(), getQuantity());
+        return Objects.hash(getId(), getTitle(), getEsrbRating(), getDescription(), getPrice(), getStudio(), getQuantity());
     }
 
     @Override
@@ -100,7 +113,7 @@ public class Games {
         return "Games{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
-                ", esrb_rating='" + esrb_rating + '\'' +
+                ", esrbRating='" + esrbRating + '\'' +
                 ", description='" + description + '\'' +
                 ", price=" + price +
                 ", studio='" + studio + '\'' +
