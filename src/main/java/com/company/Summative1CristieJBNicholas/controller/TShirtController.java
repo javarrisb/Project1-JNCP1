@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 
@@ -30,9 +31,9 @@ public class TShirtController {
         return repo.findAll();
     }
     // find TShirt by iD
-//    @GetMapping("/TShirt/{t_shirt_id}")
-//    public TShirt getTShirtById(@PathVariable Integer t_shirt_id) {
-//        List<TShirt> returnVal = repo.findById(t_shirt_id);
+//    @GetMapping("/TShirt/tShirtId/{tShirtId}")
+//    public TShirt getTShirtById(@PathVariable Integer tShirtId) {
+//        Optional<TShirt> returnVal = repo.findById(tShirtId);
 //        return returnVal.get();
 //    }
     // find TShirt by Color

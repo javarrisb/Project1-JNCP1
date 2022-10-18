@@ -44,11 +44,12 @@ public class ConsoleController {
     }
 
    // update an existing Console record
-//    @PutMapping("/Console/{id}")
-//    @ResponseStatus(HttpStatus.ACCEPTED)
-//    public void updateConsole(@RequestBody Console console) {
-//        repo.save(console);
-//    }
+    @PutMapping(value="/Console")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void updateConsole(@RequestBody Console console) {
+        repo.save(console);
+    }
+
 
     // delete an existing Console record
     @DeleteMapping("/Console/{consoleId}")
