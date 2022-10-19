@@ -35,16 +35,15 @@ public class InvoiceControllerTest {
     //    for our test
     private Invoice invoice1;
     private Invoice invoice2;
-    private Invoice street1;
-    private Invoice street2;
+
 
     ObjectMapper mapper = new ObjectMapper();
 
     @Before
     public void setup() throws Exception {
-
-        invoice1 = new Invoice( "Nicko", "Crystal","san antonio", "Texas", "78250");
-        invoice2 = new Invoice("Cleo","Crystal", "san antonio", "Texas", "78250");
+//(int id, String name, String street, String city, String state, String zipcode)
+        invoice1 = new Invoice(1, "Nicko", "Crystal","san antonio", "Texas", "78250");
+        invoice2 = new Invoice(2, "Cleo","Crystal", "san antonio", "Texas", "78250");
     }
     @Test
     public void shouldCreateNewInvoice() throws Exception {
@@ -57,8 +56,19 @@ public class InvoiceControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect((ResultMatcher) content().json(input));
+                .andExpect(content().json(input));
 
+    }
+    @Test
+    public void shouldReturnInvoiceById() throws Exception {
+        String input = mapper.writeValueAsString("/invoice/5");
+
+        mockMvc.perform(
+                        get("/invoice/5")
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(input));
     }
 
 }
