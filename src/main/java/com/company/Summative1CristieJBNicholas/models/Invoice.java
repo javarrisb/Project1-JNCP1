@@ -3,6 +3,7 @@ package com.company.Summative1CristieJBNicholas.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -15,6 +16,8 @@ public class Invoice implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoice_id")//PK
     private Integer  id;
+
+    @NotEmpty(message = "You must supply a name for the invoice please.")
     @Column(name = "name")
     private String name;
     @Column(name = "street")
@@ -44,13 +47,32 @@ public class Invoice implements Serializable {
     public Invoice(){
 
     }
-    public Invoice(int id, String name, String street, String city, String state, String zipcode) {
+
+//    public Invoice(int id, String name, String street, String city, String state, String zipcode) {
+//        this.id = id;
+//        this.name = name;
+//        this.street = street;
+//        this.city = city;
+//        this.state = state;
+//        this.zipcode = zipcode;
+//    }
+
+    public Invoice(Integer id, String name, String street, String city, String state, String zipcode,
+                   Integer item_id, String item_type, double unit_price, int quantity, double processing_fee,
+                   double tax, double total) {
         this.id = id;
         this.name = name;
         this.street = street;
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
+        this.item_id = item_id;
+        this.item_type = item_type;
+        this.unit_price = unit_price;
+        this.quantity = quantity;
+        this.processing_fee = processing_fee;
+        this.tax = tax;
+        this.total = total;
     }
 
 
