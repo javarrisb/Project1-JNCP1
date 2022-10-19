@@ -1,5 +1,7 @@
 package com.company.Summative1CristieJBNicholas.controller;
 
+import com.company.Summative1CristieJBNicholas.exception.ProductNotFoundException;
+import com.company.Summative1CristieJBNicholas.models.Console;
 import com.company.Summative1CristieJBNicholas.models.TShirt;
 import com.company.Summative1CristieJBNicholas.repository.TShirtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,14 +33,18 @@ public class TShirtController {
         return repo.findAll();
     }
     // find TShirt by iD; ; throws 422 error if invalid ID is selected
-    @GetMapping("/TShirt/tShirtId/{tShirtId}")
+    @GetMapping("/TShirt/{tShirtId}")
     public TShirt getTShirtById(@PathVariable Integer tShirtId) {
         // from echo-range-service class work
         if (tShirtId < 1) {
             throw new IllegalArgumentException("T-Shirt ID must be at least 1");
         }
         Optional<TShirt> returnVal = repo.findById(tShirtId);
-        return returnVal.get();
+        if (returnVal.isPresent()){
+            return returnVal.get();
+        } else {
+            throw new ProductNotFoundException("No such console. id:  " + tShirtId);
+        }
     }
 
     // find TShirt by Color

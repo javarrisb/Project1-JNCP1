@@ -1,5 +1,6 @@
 package com.company.Summative1CristieJBNicholas.controller;
 
+import com.company.Summative1CristieJBNicholas.exception.ProductNotFoundException;
 import com.company.Summative1CristieJBNicholas.models.Console;
 import com.company.Summative1CristieJBNicholas.repository.ConsoleRepository;
 
@@ -13,7 +14,7 @@ import java.util.Optional;
 
 // using JSR 303 annotations to validate inputs
 
-// create a global error ahndler for all exceptions thrown by controller methods
+// create a global error handler for all exceptions thrown by controller methods
 @RestController
 public class ConsoleController {
     @Autowired
@@ -35,26 +36,25 @@ public class ConsoleController {
     }
 
     // find Console by iD; throws 422 error if invalid ID is selected
-    @GetMapping("/Console/consoleId/{consoleId}")
+    @GetMapping("/Console/{consoleId}")
     public Console getConsoleById(@PathVariable Integer consoleId) {
-    // from echo-range-service class work
         if (consoleId < 1) {
             throw new IllegalArgumentException("Console ID must be at least 1");
         }
         Optional<Console> returnVal = repo.findById(consoleId);
-        return returnVal.get();
+        if (returnVal.isPresent()){
+            return returnVal.get();
+        } else {
+            throw new ProductNotFoundException("No such console. id:  " + consoleId);
+        }
     }
 
     // find Console by Manufacturer
     @GetMapping("/Console/manufacturer/{manufacturer}")
     public List<Console> getConsolesByManufacturer(@PathVariable String manufacturer) {
-
-        // need to find better logic to deal w/ string (don't use  == null)
-        if ((manufacturer == null)) {
-            throw new IllegalArgumentException("Must choose a manufacturer");
-        }
         return repo.findAllConsolesByManufacturer(manufacturer);
     }
+
 
     // update an existing Console record
     @PutMapping(value = "/Console")
@@ -62,7 +62,6 @@ public class ConsoleController {
     public void updateConsole(@RequestBody Console console) {
         repo.save(console);
     }
-
 
     // delete an existing Console record
     @DeleteMapping("/Console/{consoleId}")
