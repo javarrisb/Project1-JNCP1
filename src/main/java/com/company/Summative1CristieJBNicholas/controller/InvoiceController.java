@@ -1,3 +1,4 @@
+
 package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.Invoice;
@@ -47,6 +48,5 @@ public class InvoiceController {
     public Optional<Invoice> findCustomerById (@PathVariable int id) {
         return serviceLayer.findByID(id);
     }
-
 
 }

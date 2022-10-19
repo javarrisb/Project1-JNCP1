@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 
@@ -30,24 +31,23 @@ public class TShirtController {
         return repo.findAll();
     }
     // find TShirt by iD
-//    @GetMapping("/TShirt/{t_shirt_id}")
-//    public TShirt getTShirtById(@PathVariable Integer t_shirt_id) {
-//        List<TShirt> returnVal = repo.findById(t_shirt_id);
-//        return returnVal.get();
-//    }
+    @GetMapping("/TShirt/tShirtId/{tShirtId}")
+    public TShirt getTShirtById(@PathVariable Integer tShirtId) {
+        Optional<TShirt> returnVal = repo.findById(tShirtId);
+        return returnVal.get();
+    }
+
     // find TShirt by Color
-//    @GetMapping("/TShirt/color/{color}")
-//    public TShirt getTShirtByColor(@PathVariable String color) {
-//        List<TShirt> returnVal = repo.findByColor(color);
-//        return returnVal.get();
-//    }
+    @GetMapping("/TShirt/color/{color}")
+    public List<TShirt> getTShirtByColor(@PathVariable String color) {
+        return repo.findAllTShirtByColor(color);
+    }
 
     // find TShirt by Size
-//    @GetMapping("/TShirt/size/{Size}")
-//    public TShirt getTShirtBySize(@PathVariable String size) {
-//     List<TShirt> returnVal = repo.findBySize(size);
-//        return returnVal.get();
-//    }
+    @GetMapping("/TShirt/size/{size}")
+    public List<TShirt> getTShirtBySize(@PathVariable String size) {
+        return repo.findAllTShirtBySize(size);
+    }
 
     // update an existing TShirt record
     @PutMapping("/TShirt")
@@ -57,10 +57,10 @@ public class TShirtController {
     }
 
     // delete an existing TShirt record
-    @DeleteMapping("/TShirt/{id}")
+    @DeleteMapping("/TShirt/{tShirtId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteTShirt(@PathVariable Integer t_shirt_id) {
-        repo.deleteById(t_shirt_id);
+    public void deleteTShirt(@PathVariable Integer tShirtId) {
+        repo.deleteById(tShirtId);
     }
 
 }
