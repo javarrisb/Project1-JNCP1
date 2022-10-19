@@ -13,8 +13,8 @@ public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 
     Optional<Invoice> findById(Integer invoice_id);
 
-    List<Invoice> findByInvoiceId(Integer invoice_id);
+ //   List<Invoice> findByInvoiceId(Integer invoice_id);
 
-    List<Invoice> findByAddressState(String state);
+  //  List<Invoice> findByAddressState(String state);
 }
 
