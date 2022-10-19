@@ -46,4 +46,4 @@ hs_err_pid*
 
 ### VS Code ###
 .vscode/
-
+.application.properties

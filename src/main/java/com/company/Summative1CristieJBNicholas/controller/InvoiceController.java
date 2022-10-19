@@ -1,4 +1,4 @@
-/*package com.company.Summative1CristieJBNicholas.controller;
+package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.Invoice;
 import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
@@ -32,7 +32,7 @@ public class InvoiceController {
 
     @PutMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Invoice updateInvoice(@PathVariable Invoice invoice) {
+    public void updateInvoice(@RequestBody Invoice invoice) {
 
         serviceLayer.updateInvoice(invoice);
     }
@@ -50,4 +50,3 @@ public class InvoiceController {
 
 
 }
-*/

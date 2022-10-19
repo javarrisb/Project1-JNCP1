@@ -55,6 +55,23 @@ public class Invoice implements Serializable {
         this.quantity = quantity;
     }
 
+    public Invoice(String name, String street, String city, String state, String zipcode) {
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+    }
+
+    public Invoice(int id, String name, String street, String city, String state, String zipcode) {
+        this.id = id;
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+    }
+
     public Integer getId() {
         return id;
     }
