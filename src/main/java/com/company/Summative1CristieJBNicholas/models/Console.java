@@ -7,6 +7,8 @@ import java.util.Objects;
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 @Table(name = "console")
+
+
 public class Console {
     @Id
     @Column(name = "console_id")
