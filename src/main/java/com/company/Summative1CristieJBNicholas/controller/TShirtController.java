@@ -30,9 +30,13 @@ public class TShirtController {
         System.out.println("Getting All T-Shirts");
         return repo.findAll();
     }
-    // find TShirt by iD
+    // find TShirt by iD; ; throws 422 error if invalid ID is selected
     @GetMapping("/TShirt/tShirtId/{tShirtId}")
     public TShirt getTShirtById(@PathVariable Integer tShirtId) {
+        // from echo-range-service class work
+        if (tShirtId < 1) {
+            throw new IllegalArgumentException("T-Shirt ID must be at least 1");
+        }
         Optional<TShirt> returnVal = repo.findById(tShirtId);
         return returnVal.get();
     }
@@ -60,6 +64,9 @@ public class TShirtController {
     @DeleteMapping("/TShirt/{tShirtId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTShirt(@PathVariable Integer tShirtId) {
+        if (tShirtId < 1) {
+            throw new IllegalArgumentException("Cannot delete a T-Shirt unless T-Shirt ID is at least 1");
+        }
         repo.deleteById(tShirtId);
     }
 
