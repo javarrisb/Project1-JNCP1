@@ -15,14 +15,16 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -79,6 +81,7 @@ public class ConsoleControllerTest {
 
     }
 
+    //from work done with RSVP-Service
     @Test
     public void shouldCreateNewConsoleOnPostRequest() throws Exception {
         Console inputConsole = new Console();
@@ -90,7 +93,6 @@ public class ConsoleControllerTest {
         inputConsole.setQuantity(100);
 
         String inputJson = mapper.writeValueAsString(inputConsole);
-
         doReturn(gameStoreConsole).when(repo).save(inputConsole);
 
         mockMvc.perform(
@@ -102,5 +104,52 @@ public class ConsoleControllerTest {
 
     }
 
+    @Test
+    public void shouldReturnConsoleById() throws Exception {
+        doReturn(Optional.of(gameStoreConsole)).when(repo).findById(1);
+
+        ResultActions result = mockMvc.perform(
+                        get("/Console/1"))
+                .andExpect(status().isOk())
+                .andExpect((content().json(gameStoreJson))
+                );
+    }
+
+//    @Test
+//    public void shouldBeStatusOkForNonExistentConsoleId() throws Exception {
+//        doReturn(Optional.empty()).when(repo).findById(1234);
+//
+//        mockMvc.perform(
+//                        get("/Console/1234"))
+//                .andExpect(status().isOk()
+//                );
+//
+//    }
+
+    @Test
+    public void shouldReturnAllConsoles() throws Exception {
+        doReturn(allConsoles).when(repo).findAll();
+
+        mockMvc.perform(
+                        get("/Console"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(allConsolesJson)
+                );
+    }
+
+//    @Test
+//    public void shouldUpdateByIdAndReturn200StatusCode() throws Exception {
+//        mockMvc.perform(
+//                        put("/Consoles")
+//                                .content(gameStoreJson)
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                )
+//                .andExpect(status().isOk());
+//    }
+
+//    @Test
+//    public void shouldDeleteByIdAndReturn200StatusCode() throws Exception {
+//        mockMvc.perform(delete("/Console/2")).andExpect(status().isOk());
+//    }
 
 }
