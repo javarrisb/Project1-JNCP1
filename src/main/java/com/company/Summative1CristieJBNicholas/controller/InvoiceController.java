@@ -16,37 +16,23 @@ public class InvoiceController {
     @Autowired
     private ServiceLayer serviceLayer;
 
-
-    @RequestMapping(method = RequestMethod.GET)
-    @ResponseStatus(HttpStatus.OK)
-    public List<Invoice> getAllInvoices() {
-        return serviceLayer.findAll();
-    }
-
+// Create, Read and Read All operations
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.CREATED)
     public Invoice createANewInvoice(@RequestBody Invoice invoice) {
-
         return serviceLayer.createInvoice(invoice);
     }
 
-    @PutMapping
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateInvoice(@RequestBody Invoice invoice) {
-
-        serviceLayer.updateInvoice(invoice);
-    }
-
-   @DeleteMapping(value = "/invoice{id}")
-    @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteInvoiceById(@PathVariable Integer id) {
-        serviceLayer.deleteInvoiceById(id);
-    }
+//read an invoice
     @GetMapping(value = "/invoice{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Invoice> findCustomerById (@PathVariable int id) {
+    public Optional<Invoice> findInvoiceById (@PathVariable int id) {
         return serviceLayer.findByID(id);
     }
-
-
+//read all invoices
+    @RequestMapping(method = RequestMethod.GET)
+    @ResponseStatus(HttpStatus.OK)
+    public List<Invoice> readAllInvoices() {
+        return serviceLayer.findAll();
+    }
 }

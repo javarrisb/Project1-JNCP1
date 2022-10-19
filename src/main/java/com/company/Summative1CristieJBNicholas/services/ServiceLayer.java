@@ -28,9 +28,6 @@ public class ServiceLayer {
         repo.save(invoice);
     }
 
-    public void deleteById(int invoice_id) {
-        repo.deleteById(invoice_id);
-    }
 
     public Optional<Invoice> findByID(int id) {
         Optional<Invoice> invoice = repo.findById(id);
