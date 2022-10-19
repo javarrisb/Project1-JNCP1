@@ -53,6 +53,8 @@ public class Invoice implements Serializable {
         this.zipcode = zipcode;
     }
 
+
+
     public Integer getId() {
         return id;
     }

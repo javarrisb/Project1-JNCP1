@@ -1,9 +1,6 @@
 package com.company.Summative1CristieJBNicholas.controller;
 
 
-
-import com.company.Summative1CristieJBNicholas.controller.InvoiceController;
-
 import com.company.Summative1CristieJBNicholas.models.Invoice;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -47,8 +44,30 @@ public class InvoiceControllerTest {
     }
     @Test
     public void shouldCreateNewInvoice() throws Exception {
+
+
+        // ARRANGE
+        Invoice inputInvoice = new Invoice();
+        inputInvoice.setName("William Shatner");
+        inputInvoice.setStreet("River street");
+        inputInvoice.setCity("Roswell");
+        inputInvoice.setState("NM");
+        inputInvoice.setZipcode("12345");
+
+        // Convert Java Object to JSON.
+//        String inputJson = mapper.writeValueAsString(inputRecord);
         String input = mapper.writeValueAsString(invoice1);
 
+        Invoice outputInvoice = new Invoice();
+        outputInvoice.setName("William Shatner");
+        outputInvoice.setStreet("River street");
+        outputInvoice.setCity("Roswell");
+        outputInvoice.setState("NM");
+        outputInvoice.setZipcode("12345");
+        outputInvoice.setId(1);
+
+        String outputJson = mapper.writeValueAsString(outputInvoice);
+        // ACT
         mockMvc.perform(
                         post("/invoice")
                                 .content(input)
@@ -56,7 +75,7 @@ public class InvoiceControllerTest {
                 )
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(content().json(input));
+                .andExpect((ResultMatcher) content().json(input));
 
     }
     @Test

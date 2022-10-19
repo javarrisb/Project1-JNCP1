@@ -17,7 +17,7 @@ public class ServiceLayer {
         this.repo = repo;
     }
 
-    public List<Invoice> getInvoice(Invoice invoice) {
+    public List<Invoice> getAllInvoices(Invoice invoice) {
         return repo.findAll();
     }
     public Invoice createInvoice(Invoice invoice) {
@@ -27,7 +27,6 @@ public class ServiceLayer {
     public void updateInvoice(Invoice invoice) {
         repo.save(invoice);
     }
-
 
     public Optional<Invoice> findByID(int id) {
         Optional<Invoice> invoice = repo.findById(id);
