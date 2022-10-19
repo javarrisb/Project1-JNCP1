@@ -12,12 +12,8 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.time.LocalDateTime;
 
-
-// template for later in project
-
-// as worked on in class during Spring Boot 3 day
 @RestControllerAdvice
-public class CustomResponseController {
+public class TShirtCustomResponseController {
 
     @ExceptionHandler(value = {IllegalArgumentException.class})
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
@@ -39,5 +35,3 @@ public class CustomResponseController {
         return responseEntity;
     }
 }
-
-
