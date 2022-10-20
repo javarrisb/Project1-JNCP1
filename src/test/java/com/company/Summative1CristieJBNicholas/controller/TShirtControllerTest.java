@@ -114,23 +114,20 @@ public class TShirtControllerTest {
 //                get("/TShirt/1234"));
 //    }
 
+    @Test
+    public void shouldReturnTShirtOnValidGetRequest() throws Exception {
 
+        doReturn(allTShirts).when(repo).findByColor("Blue");
 
-    // broken
-//    @Test
-//    public void shouldReturnTShirtOnValidGetRequest() throws Exception {
-//
-//        doReturn(allTShirts).when(repo).findByTShirt("Blue");
-//
-//        mockMvc.perform(
-//                        get("/TShirt/color/Blue")
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                )
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(content().json(allTShirtsJson)
-//                );
-//    }
+        mockMvc.perform(
+                        get("/TShirt/color/Blue")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(allTShirtsJson)
+                );
+    }
 
 
 
