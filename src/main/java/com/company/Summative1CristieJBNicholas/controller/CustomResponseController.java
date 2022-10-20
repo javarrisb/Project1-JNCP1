@@ -1,5 +1,6 @@
 package com.company.Summative1CristieJBNicholas.controller;
 
+import com.company.Summative1CristieJBNicholas.exception.ProductNotFoundException;
 import com.company.Summative1CristieJBNicholas.models.CustomResponse;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpStatus;
@@ -26,6 +27,16 @@ public class CustomResponseController {
         error.setTimestamp(LocalDateTime.now());
         error.setStatus(HttpStatus.UNPROCESSABLE_ENTITY.value());
         ResponseEntity<CustomResponse> responseEntity = new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
+        return responseEntity;
+    }
+
+    @ExceptionHandler(value = {ProductNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<CustomResponse> itemNotFound(ProductNotFoundException e) {
+        CustomResponse error = new CustomResponse(HttpStatus.NOT_FOUND.toString(), e.getMessage());
+        error.setTimestamp(LocalDateTime.now());
+        error.setStatus(HttpStatus.NOT_FOUND.value());
+        ResponseEntity<CustomResponse> responseEntity = new ResponseEntity<>(error, HttpStatus.NOT_FOUND);
         return responseEntity;
     }
 

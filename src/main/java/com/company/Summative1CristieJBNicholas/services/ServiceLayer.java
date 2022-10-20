@@ -17,7 +17,7 @@ public class ServiceLayer {
         this.repo = repo;
     }
 
-    public List<Invoice> getInvoice(Invoice invoice) {
+    public List<Invoice> findAll() {
         return repo.findAll();
     }
     public Invoice createInvoice(Invoice invoice) {
@@ -28,29 +28,13 @@ public class ServiceLayer {
         repo.save(invoice);
     }
 
-    public void deleteById(int invoice_id) {
-        repo.deleteById(invoice_id);
-    }
-
     public Optional<Invoice> findByID(int id) {
         Optional<Invoice> invoice = repo.findById(id);
         if (invoice.isPresent()) return invoice;
         return null;
     }
 
-//    public List<Invoice> findByInvoiceId(Integer invoice_id) {
-//
-//        return repo.findByInvoiceId(invoice_id);
-//    }
 
-
-    public List<Invoice> findAll() {
-        return null;
-    }
-
-    public void deleteInvoiceById(Integer id) {
-        repo.deleteById(id);
-    }
 }
 
 
