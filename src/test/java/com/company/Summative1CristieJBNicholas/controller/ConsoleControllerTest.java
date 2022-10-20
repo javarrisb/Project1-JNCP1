@@ -127,6 +127,20 @@ public class ConsoleControllerTest {
 //    }
 
     @Test
+    public void shouldReturnConsoleOnValidGetRequest() throws Exception {
+        String gameStoreJson = "Sony";
+
+        mockMvc.perform(
+                        get("/Console/model/Sony")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().string(gameStoreJson));
+    }
+
+
+    @Test
     public void shouldReturnAllConsoles() throws Exception {
         doReturn(allConsoles).when(repo).findAll();
 
