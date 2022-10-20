@@ -18,7 +18,7 @@ public class Console {
    private String model;
 
    private String manufacturer;
-    @Column(name= "memory_amount")
+    @Column(name = "memory_amount")
    private String memoryAmount;
 
    private String processor;
