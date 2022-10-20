@@ -105,14 +105,15 @@ public class GameControllerTest {
                 );
     }
 
-    @Test
-    public void shouldBeStatusOkForNonExistentGameId() throws Exception {
-        ResultActions result = null;
-        doReturn(Optional.empty()).when(repo).findById(1234);
-        mockMvc.perform(
-                get("/Console/1234"));
-
-    }
+    // works but does not test to see if status is ok *****
+//    @Test
+//    public void shouldBeStatusOkForNonExistentGameId() throws Exception {
+//        ResultActions result = null;
+//        doReturn(Optional.empty()).when(repo).findById(1234);
+//        mockMvc.perform(
+//                get("/Console/1234"));
+//
+//    }
 
 
     // broken

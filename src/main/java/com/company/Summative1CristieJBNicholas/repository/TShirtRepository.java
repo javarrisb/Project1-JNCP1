@@ -9,11 +9,10 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface TShirtRepository extends JpaRepository<TShirt, Integer> {
-//    List<TShirt> findByColor(String color);
-//
-//    List<TShirt> findBySize(String size);
 
     List<TShirt> findAllTShirtByColor(String color);
 
     List<TShirt> findAllTShirtBySize(String size);
+
+    void findByTShirt(String blue);
 }
