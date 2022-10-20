@@ -17,7 +17,7 @@ public class ServiceLayer {
         this.repo = repo;
     }
 
-    public List<Invoice> findAllInvoices() {
+    public List<Invoice> findAll() {
         return repo.findAll();
     }
     public Invoice createInvoice(Invoice invoice) {
@@ -33,7 +33,9 @@ public class ServiceLayer {
         if (invoice.isPresent()) return invoice;
         return null;
     }
- }
+
+
+}
 
 
 

@@ -53,7 +53,7 @@ public class InvoiceController {
                 .collect(Collectors.toList());
     }
 //        return returnList;
-        return serviceLayer.findAllInvoices();
+        return serviceLayer.findAll();
 }
 
 

@@ -2,7 +2,9 @@ package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.*;
 import com.company.Summative1CristieJBNicholas.repository.InvoiceRepository;
+import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +13,11 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -22,32 +29,61 @@ public class InvoiceControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    //    for our test
-//    private Invoice invoice1;
-//    private Invoice invoice2;
 
     @MockBean
-    private InvoiceRepository repo;
+    private ServiceLayer serviceLayer;
+
     ObjectMapper mapper = new ObjectMapper();
 
-    //    @Before
-//    public void setup() throws Exception {
-////(int id, String name, String street, String city, String state, String zipcode)
-////        invoice1 = new Invoice(1, "Nicko", "Crystal","san antonio", "Texas", "78250");
-////        invoice2 = new Invoice(2, "Cleo","Crystal", "san antonio", "Texas", "78250");
-//    }
+    private Invoice customerInvoice;
 
-    public void shouldReturnAllInvoices() throws Exception {
+    private List<Invoice> allInvoices = new ArrayList<>();
 
-        // ARRANGE and ACT
-        mockMvc.perform(get("/invoices"))       // Perform the GET request.
-                .andDo(print())                          // Print results to console.
-                .andExpect(status().isOk())              // ASSERT (status code is 200)
+    private String allInvoicesJson;
 
-                // ASSERT that the JSON array is present and not empty. We will test GET all endpoints deeper in the
-                // future but this is good enough for now.
-                .andExpect(jsonPath("$[0]").isNotEmpty());
+    @Before
+    public void setup() throws Exception {
+        customerInvoice = new Invoice();
+        customerInvoice.setId(1);
+        customerInvoice.setName("William Shatner");
+        customerInvoice.setStreet("River street");
+            customerInvoice.setCity("Roswell");
+            customerInvoice.setState("NM");
+            customerInvoice.setZipcode("99999");
+
+
+            allInvoicesJson = mapper.writeValueAsString(allInvoices);
+
+            Invoice invoice = new Invoice();
+
+            invoice.setId(1);
+            invoice.setName("Sony");
+            invoice.setStreet("River street");
+            invoice.setCity("Roswell");
+            invoice.setState("NM");
+            invoice.setZipcode("99999");
+
+            allInvoices.add(customerInvoice);
+            allInvoices.add(invoice);
+
+            allInvoicesJson = mapper.writeValueAsString(allInvoices);
     }
+    @Test
+    public void shouldReturnAllInvoices() throws Exception {
+        doReturn(allInvoices).when(serviceLayer).findAll();
+        mockMvc.perform(
+                get("/invoices"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(allInvoicesJson));
+//        mockMvc.perform(get("/invoices"))
+//            .andDo(print())
+//            .andExpect(status().isOk())
+//            .andExpect(jsonPath("$[0]").isNotEmpty())
+//            .andExpect(jsonPath("$[0].name").isNotEmpty())
+//            .andExpect(jsonPath("$[0].street").isNotEmpty())
+//            .andExpect(jsonPath("$[0].id").isNotEmpty());
+}
+
     @Test
     public void createANewInvoice() throws Exception {
 
