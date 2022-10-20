@@ -1,7 +1,7 @@
 package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.exception.ProductNotFoundException;
-import com.company.Summative1CristieJBNicholas.models.Console;
+
 import com.company.Summative1CristieJBNicholas.models.TShirt;
 import com.company.Summative1CristieJBNicholas.repository.TShirtRepository;
 import org.springframework.beans.factory.annotation.Autowired;
