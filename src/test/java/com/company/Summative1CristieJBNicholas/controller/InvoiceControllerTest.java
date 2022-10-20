@@ -29,44 +29,75 @@ public class InvoiceControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-
     @MockBean
     private ServiceLayer serviceLayer;
-
-    ObjectMapper mapper = new ObjectMapper();
+    private ObjectMapper mapper = new ObjectMapper();
 
     private Invoice customerInvoice;
+    private String inputJson;
+    private String outputJson;
 
     private List<Invoice> allInvoices = new ArrayList<>();
-
     private String allInvoicesJson;
 
     @Before
     public void setup() throws Exception {
-        customerInvoice = new Invoice();
-        customerInvoice.setId(1);
-        customerInvoice.setName("William Shatner");
-        customerInvoice.setStreet("River street");
-            customerInvoice.setCity("Roswell");
-            customerInvoice.setState("NM");
-            customerInvoice.setZipcode("99999");
+       customerInvoice = new Invoice();
+        customerInvoice.setName("William");
+        customerInvoice.setStreet("River Street");
+        customerInvoice.setCity("Roswell");
+        customerInvoice.setState("NM");
+        customerInvoice.setZipcode("99999");
 
 
-            allInvoicesJson = mapper.writeValueAsString(allInvoices);
+        inputJson = mapper.writeValueAsString(customerInvoice);
 
-            Invoice invoice = new Invoice();
+        //output
+        Invoice invoice = new Invoice();
+        invoice.setId(1);
+        invoice.setName("William");
+        invoice.setStreet("River Street");
+        invoice.setCity("Roswell");
+        invoice.setState("NM");
+        invoice.setZipcode("99999");
+        invoice.setItem_id(10);
+        invoice.setItem_type("shirt");
+        invoice.setUnit_price(10.00);
+        invoice.setQuantity(1);
+        invoice.setProcessing_fee(3.00);
+        invoice.setTax(8.75);
+        invoice.setTotal(14.40);
 
-            invoice.setId(1);
-            invoice.setName("Sony");
-            invoice.setStreet("River street");
-            invoice.setCity("Roswell");
-            invoice.setState("NM");
-            invoice.setZipcode("99999");
+        allInvoices.add(invoice);
+        allInvoicesJson = mapper.writeValueAsString(allInvoices);
 
-            allInvoices.add(customerInvoice);
-            allInvoices.add(invoice);
+//        doReturn(outputAlbumViewModel).when(serviceLayer).saveAlbum(inputAlbumViewModel);
+//        doReturn(outputAlbumViewModel).when(serviceLayer).findAlbum(89);
+    }
+//    public void setup() throws Exception {
+//        Invoice invoice1 = new Invoice(1, "William Shatner", "River street", "Roswell", "NM",
+//        "99999", 10, "shirt", 10.00,1, 4.00, 8.75,14.40);
 
-            allInvoicesJson = mapper.writeValueAsString(allInvoices);
+    @Test
+    public void createANewInvoice() throws Exception {
+        Invoice inputInvoice = new Invoice();
+        inputInvoice.setId(1);
+        inputInvoice.setName("William");
+        inputInvoice.setStreet("River Street");
+        inputInvoice.setUnit_price(10.00);
+        inputInvoice.setQuantity(1);
+
+        String inputJson = mapper.writeValueAsString(inputInvoice);
+        doReturn(customerInvoice).when(serviceLayer).repo(inputInvoice);
+
+        mockMvc.perform(
+                        post("/invoice")
+                                .content(inputJson)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isCreated())
+                .andExpect(content().json(outputJson));
+
     }
     @Test
     public void shouldReturnAllInvoices() throws Exception {
@@ -84,48 +115,7 @@ public class InvoiceControllerTest {
 //            .andExpect(jsonPath("$[0].id").isNotEmpty());
 }
 
-    @Test
-    public void createANewInvoice() throws Exception {
 
-        // ARRANGE
-        Invoice inputInvoice = new Invoice();
-        inputInvoice.setName("William Shatner");
-        inputInvoice.setStreet("River street");
-        inputInvoice.setCity("Roswell");
-        inputInvoice.setState("NM");
-        inputInvoice.setZipcode("99999");
-
-        // Convert Java Object to JSON.
-        String inputJson = mapper.writeValueAsString(inputInvoice);
-
-        Invoice outputInvoice = new Invoice();
-        outputInvoice.setId(1);
-        outputInvoice.setName("William Shatner");
-        outputInvoice.setStreet("River street");
-        outputInvoice.setCity("Roswell");
-        outputInvoice.setState("NM");
-        outputInvoice.setZipcode("99999");
-        outputInvoice.setItem_id(10);
-        outputInvoice.setItem_type("shirt");
-        outputInvoice.setUnit_price(10.00);
-        outputInvoice.setQuantity(1);
-        outputInvoice.setProcessing_fee(4.00);
-        outputInvoice.setTax(8.75);
-        outputInvoice.setTotal(14.40);
-
-        String outputJson = mapper.writeValueAsString(outputInvoice);
-
-        // ACT
-        mockMvc.perform(
-                        post("/invoice")
-                                .content(inputJson)
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andDo(print())
-                .andExpect(status().isCreated())
-                .andExpect(content().json(outputJson));
-
-    }
     @Test
     public void shouldReturnInvoiceById() throws Exception {
         String input = mapper.writeValueAsString("/invoice/5");
