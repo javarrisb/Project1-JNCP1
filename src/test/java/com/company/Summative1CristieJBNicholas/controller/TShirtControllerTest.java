@@ -18,9 +18,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -47,8 +47,8 @@ public class TShirtControllerTest {
 
     @Before
     public void setUp() throws Exception {
+        // input
         gameStoreTShirt = new TShirt();
-        gameStoreTShirt.settShirtId(1);
         gameStoreTShirt.setSize("X-Small");
         gameStoreTShirt.setColor("Blue");
         gameStoreTShirt.setDescription("GameStorePromo");
@@ -57,6 +57,7 @@ public class TShirtControllerTest {
 
         tShirtJson = mapper.writeValueAsString(gameStoreTShirt);
 
+        // output
         TShirt tShirt = new TShirt();
         tShirt.settShirtId(1);
         tShirt.setSize("X-Small");
@@ -65,8 +66,9 @@ public class TShirtControllerTest {
         tShirt.setPrice(10.99);
         tShirt.setQuantity(20);
 
-        allTShirts.add(gameStoreTShirt);
         allTShirts.add(tShirt);
+
+        allTShirtsJson = mapper.writeValueAsString(allTShirts);
     }
 
     //from work done with RSVP-Service
@@ -81,7 +83,6 @@ public class TShirtControllerTest {
         inputTShirt.setQuantity(20);
 
         String inputJson = mapper.writeValueAsString(inputTShirt);
-
         doReturn(gameStoreTShirt).when(repo).save(inputTShirt);
 
         mockMvc.perform(
@@ -104,42 +105,58 @@ public class TShirtControllerTest {
                 );
     }
 
-//    @Test
-//    public void shouldBeStatusOkForNonExistentTShirtId() throws Exception {
-//        doReturn(Optional.empty()).when(repo).findById(1234);
-//
-//        mockMvc.perform(
-//                        get("/TShirt/1234"))
-//                .andExpect(status().isOk()
-//                );
-//
-//    }
+    @Test
+    public void shouldReturnTShirtColorOnValidGetRequest() throws Exception {
 
+        doReturn(allTShirts).when(repo).findByColor("Blue");
 
-//    @Test
-//    public void shouldReturnAllTShirts() throws Exception {
-//        doReturn(allTShirts).when(repo).findAll();
-//
-//        mockMvc.perform(
-//                        get("/TShirt"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().json(allTShirtsJson)
-//                );
-//    }
+        mockMvc.perform(
+                        get("/TShirt/color/Blue")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(allTShirtsJson)
+                );
+    }
 
-//@Test
-//public void shouldUpdateByIdAndReturn200StatusCode() throws Exception {
-//    mockMvc.perform(
-//                    put("/TShirt")
-//                            .content(tShirtJson)
-//                            .contentType(MediaType.APPLICATION_JSON)
-//            )
-//            .andExpect(status().isOk());
-//}
+    @Test
+    public void shouldReturnTShirtSizeOnValidGetRequest() throws Exception {
 
+        doReturn(allTShirts).when(repo).findBySize("Medium");
 
-//    @Test
-//    public void shouldDeleteByIdAndReturn200StatusCode() throws Exception {
-//        mockMvc.perform(delete("/Console/2")).andExpect(status().isOk());
-//    }
+        mockMvc.perform(
+                        get("/TShirt/size/Medium")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(allTShirtsJson)
+                );
+    }
+    @Test
+    public void shouldReturnAllTShirts() throws Exception {
+        doReturn(allTShirts).when(repo).findAll();
+
+        mockMvc.perform(
+                        get("/TShirt"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(allTShirtsJson)
+                );
+    }
+
+    @Test
+    public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
+        mockMvc.perform(
+                        put("/TShirt")
+                                .content(tShirtJson)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isNoContent());
+    }
+
+    @Test
+    public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
+        mockMvc.perform(delete("/TShirt/2")).andExpect(status().isNoContent());
+    }
 }

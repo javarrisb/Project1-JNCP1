@@ -19,6 +19,7 @@ public class ServiceLayer {
     public ServiceLayer(InvoiceRepository repo) {
         this.repo = repo;
     }
+ 
     public Invoice createInvoice(Invoice invoice) {
         return repo.save(invoice);
     }
@@ -36,8 +37,7 @@ public class ServiceLayer {
         return null;
     }
 
-
-    @Transactional
+     @Transactional
 //    public AlbumViewModel saveAlbum(AlbumViewModel viewModel) {
 //        // write album information to the database
 //        Album a = new Album();
@@ -59,6 +59,7 @@ public class ServiceLayer {
 //            // write each track to the database
 //            trackRepository.save(track);
 //        }
+ 
 }
 
 

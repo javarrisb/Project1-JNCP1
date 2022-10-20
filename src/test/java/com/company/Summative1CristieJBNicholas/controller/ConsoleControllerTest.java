@@ -1,4 +1,5 @@
 package com.company.Summative1CristieJBNicholas.controller;
+
 import com.company.Summative1CristieJBNicholas.models.Console;
 import com.company.Summative1CristieJBNicholas.repository.ConsoleRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -119,6 +120,7 @@ public class ConsoleControllerTest {
 
         doReturn(allConsoles).when(repo).findAllConsolesByManufacturer("Sony");
 
+
         mockMvc.perform(
                         get("/Console/manufacturer/Sony")
                                 .contentType(MediaType.APPLICATION_JSON)
@@ -128,8 +130,6 @@ public class ConsoleControllerTest {
                 .andExpect(content().json(allConsolesJson)
                 );
     }
-
-
     @Test
     public void shouldReturnAllConsoles() throws Exception {
         doReturn(allConsoles).when(repo).findAll();
@@ -141,7 +141,6 @@ public class ConsoleControllerTest {
                 );
     }
 
-
     @Test
     public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
 
@@ -152,11 +151,8 @@ public class ConsoleControllerTest {
                 )
                 .andExpect(status().isNoContent());
     }
-
-
     @Test
     public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
         mockMvc.perform(delete("/Console/2")).andExpect(status().isNoContent());
     }
-
 }
