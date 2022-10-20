@@ -105,7 +105,6 @@ public class GameControllerTest {
                 );
     }
 
-    // broken
     @Test
     public void shouldReturnTitleOnValidGetRequest() throws Exception {
 
@@ -122,7 +121,6 @@ public class GameControllerTest {
     }
 
 
-    // broken
     @Test
     public void shouldReturnAllGames() throws Exception {
         doReturn(allGames).when(repo).findAll();
@@ -133,7 +131,6 @@ public class GameControllerTest {
                 .andExpect(content().json(allGamesJson)
                 );
     }
-
 
     @Test
     public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
@@ -149,5 +146,4 @@ public class GameControllerTest {
     public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
         mockMvc.perform(delete("/games/2")).andExpect(status().isNoContent());
     }
-
 }

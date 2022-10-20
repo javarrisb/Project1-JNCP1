@@ -120,8 +120,6 @@ public class TShirtControllerTest {
                 );
     }
 
-
-
     @Test
     public void shouldReturnAllTShirts() throws Exception {
         doReturn(allTShirts).when(repo).findAll();
@@ -133,16 +131,15 @@ public class TShirtControllerTest {
                 );
     }
 
-@Test
-public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
-    mockMvc.perform(
-                    put("/TShirt")
-                            .content(tShirtJson)
-                            .contentType(MediaType.APPLICATION_JSON)
-            )
-            .andExpect(status().isNoContent());
-}
-
+    @Test
+    public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
+        mockMvc.perform(
+                        put("/TShirt")
+                                .content(tShirtJson)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isNoContent());
+    }
 
     @Test
     public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
