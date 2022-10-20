@@ -56,7 +56,7 @@ public class TShirtController {
     // find TShirt by Size
     @GetMapping("/TShirt/size/{size}")
     public List<TShirt> getTShirtBySize(@PathVariable String size) {
-        return repo.findAllTShirtBySize(size);
+        return repo.findBySize(size);
     }
 
     // update an existing TShirt record
