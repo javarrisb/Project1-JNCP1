@@ -13,8 +13,9 @@ import java.util.Optional;
 
 @Service
 public class ServiceLayer {
-    private InvoiceRepository repo;
-
+    public InvoiceRepository repo;
+    public void repo(Invoice inputInvoice) {
+    }
     @Autowired
     public ServiceLayer(InvoiceRepository repo) {
         this.repo = repo;
@@ -37,7 +38,9 @@ public class ServiceLayer {
         return null;
     }
 
-     @Transactional
+
+
+//     @Transactional
 //    public AlbumViewModel saveAlbum(AlbumViewModel viewModel) {
 //        // write album information to the database
 //        Album a = new Album();
