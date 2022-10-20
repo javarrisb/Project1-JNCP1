@@ -1,6 +1,8 @@
 package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.Invoice;
+import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 import com.company.Summative1CristieJBNicholas.exception.NotFoundException;
@@ -17,18 +19,44 @@ import java.util.stream.Collectors;
 @RequestMapping(value = "/invoice")
 public class InvoiceController {
 
+    @Autowired
+    private ServiceLayer serviceLayer;
+
     private static int idCounter = 1;
 
     private static List<Invoice> invoiceList = new ArrayList<>(Arrays.asList(
 
-            new Invoice(idCounter++,"Billy Bob", "InADitch street", "San Antonio", "TX",
-                    "78211", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40 ),
+            new Invoice(idCounter++, "Billy Bob", "InADitch street", "San Antonio", "TX",
+                    "78211", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40),
 
-             new Invoice(idCounter++,"Billy Joe", "DownByTheRiver street", "San Antonio", "TX",
-            "78201", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40 )
-           ));
+            new Invoice(idCounter++, "Billy Joe", "DownByTheRiver street", "San Antonio", "TX",
+                    "78201", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40)
+    ));
 
     // Create, Read and Read All operations
+    @GetMapping(value = "/invoices")
+    @ResponseStatus(value = HttpStatus.OK)
+//    public List<Invoice> findAllInvoices(@RequestParam(required = false) String name, @RequestParam(required = false) String zipcode) {
+//        List<Invoice> returnList = invoiceList;
+    /**changed to service layer */
+    public List<Invoice> findAllInvoices(@RequestParam(required = false) String name, @RequestParam(required = false) String zipcode) {
+        List<Invoice> returnList = invoiceList;
+
+        if (name != null) {
+            returnList = invoiceList.stream()
+                    .filter(i -> i.getName().contains(name))
+                    .collect(Collectors.toList());
+        }
+        if (zipcode != null) {
+           returnList = returnList.stream()
+                .filter(i -> i.getZipcode().equals(zipcode))
+                .collect(Collectors.toList());
+    }
+//        return returnList;
+        return serviceLayer.findAllInvoices();
+}
+
+
     @PostMapping(value = "/invoice")
     @ResponseStatus(value = HttpStatus.CREATED)
     public Invoice createANewInvoice(@RequestBody @Valid Invoice invoice) {
@@ -56,23 +84,5 @@ public class InvoiceController {
         return Optional.of(foundInvoice);
     }
 
-    @GetMapping(value = "/invoices")
-    @ResponseStatus(value = HttpStatus.OK)
-    public List<Invoice> getAllInvoices(@RequestParam(required = false) String name, @RequestParam(required = false) String zipcode) {
-    List<Invoice> returnList = invoiceList;
 
-    if (name != null) {
-        returnList = invoiceList.stream()
-                .filter(r -> r.getName().contains(name))
-                .collect(Collectors.toList());
-    }
-
-    if (name != null) {
-        returnList = returnList.stream()
-                .filter( r -> r.getName().equals(name))
-                .collect(Collectors.toList());
-    }
-
-    return returnList;
-}
 }

@@ -14,8 +14,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(InvoiceController.class)
@@ -37,6 +36,18 @@ public class InvoiceControllerTest {
 ////        invoice1 = new Invoice(1, "Nicko", "Crystal","san antonio", "Texas", "78250");
 ////        invoice2 = new Invoice(2, "Cleo","Crystal", "san antonio", "Texas", "78250");
 //    }
+
+    public void shouldReturnAllInvoices() throws Exception {
+
+        // ARRANGE and ACT
+        mockMvc.perform(get("/invoices"))       // Perform the GET request.
+                .andDo(print())                          // Print results to console.
+                .andExpect(status().isOk())              // ASSERT (status code is 200)
+
+                // ASSERT that the JSON array is present and not empty. We will test GET all endpoints deeper in the
+                // future but this is good enough for now.
+                .andExpect(jsonPath("$[0]").isNotEmpty());
+    }
     @Test
     public void createANewInvoice() throws Exception {
 
@@ -70,7 +81,7 @@ public class InvoiceControllerTest {
 
         // ACT
         mockMvc.perform(
-                        post("/invoices")
+                        post("/invoice")
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
