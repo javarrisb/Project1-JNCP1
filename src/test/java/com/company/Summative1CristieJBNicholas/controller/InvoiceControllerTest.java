@@ -1,30 +1,27 @@
 package com.company.Summative1CristieJBNicholas.controller;
 
-
-
-import com.company.Summative1CristieJBNicholas.controller.InvoiceController;
-
-import com.company.Summative1CristieJBNicholas.models.Invoice;
-import com.fasterxml.jackson.core.JsonProcessingException;
+import com.company.Summative1CristieJBNicholas.models.*;
+import com.company.Summative1CristieJBNicholas.repository.InvoiceRepository;
+import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpStatus;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.ResultMatcher;
 
-import static org.junit.Assert.*;
+import java.util.ArrayList;
+import java.util.List;
+
+import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(InvoiceController.class)
@@ -32,31 +29,101 @@ public class InvoiceControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    //    for our test
-    private Invoice invoice1;
-    private Invoice invoice2;
 
+    @MockBean
+    private ServiceLayer serviceLayer;
 
     ObjectMapper mapper = new ObjectMapper();
 
+    private Invoice customerInvoice;
+
+    private List<Invoice> allInvoices = new ArrayList<>();
+
+    private String allInvoicesJson;
+
     @Before
     public void setup() throws Exception {
-//(int id, String name, String street, String city, String state, String zipcode)
-        invoice1 = new Invoice(1, "Nicko", "Crystal","san antonio", "Texas", "78250");
-        invoice2 = new Invoice(2, "Cleo","Crystal", "san antonio", "Texas", "78250");
+        customerInvoice = new Invoice();
+        customerInvoice.setId(1);
+        customerInvoice.setName("William Shatner");
+        customerInvoice.setStreet("River street");
+            customerInvoice.setCity("Roswell");
+            customerInvoice.setState("NM");
+            customerInvoice.setZipcode("99999");
+
+
+            allInvoicesJson = mapper.writeValueAsString(allInvoices);
+
+            Invoice invoice = new Invoice();
+
+            invoice.setId(1);
+            invoice.setName("Sony");
+            invoice.setStreet("River street");
+            invoice.setCity("Roswell");
+            invoice.setState("NM");
+            invoice.setZipcode("99999");
+
+            allInvoices.add(customerInvoice);
+            allInvoices.add(invoice);
+
+            allInvoicesJson = mapper.writeValueAsString(allInvoices);
     }
     @Test
-    public void shouldCreateNewInvoice() throws Exception {
-        String input = mapper.writeValueAsString(invoice1);
+    public void shouldReturnAllInvoices() throws Exception {
+        doReturn(allInvoices).when(serviceLayer).findAll();
+        mockMvc.perform(
+                get("/invoices"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(allInvoicesJson));
+//        mockMvc.perform(get("/invoices"))
+//            .andDo(print())
+//            .andExpect(status().isOk())
+//            .andExpect(jsonPath("$[0]").isNotEmpty())
+//            .andExpect(jsonPath("$[0].name").isNotEmpty())
+//            .andExpect(jsonPath("$[0].street").isNotEmpty())
+//            .andExpect(jsonPath("$[0].id").isNotEmpty());
+}
 
+    @Test
+    public void createANewInvoice() throws Exception {
+
+        // ARRANGE
+        Invoice inputInvoice = new Invoice();
+        inputInvoice.setName("William Shatner");
+        inputInvoice.setStreet("River street");
+        inputInvoice.setCity("Roswell");
+        inputInvoice.setState("NM");
+        inputInvoice.setZipcode("99999");
+
+        // Convert Java Object to JSON.
+        String inputJson = mapper.writeValueAsString(inputInvoice);
+
+        Invoice outputInvoice = new Invoice();
+        outputInvoice.setId(1);
+        outputInvoice.setName("William Shatner");
+        outputInvoice.setStreet("River street");
+        outputInvoice.setCity("Roswell");
+        outputInvoice.setState("NM");
+        outputInvoice.setZipcode("99999");
+        outputInvoice.setItem_id(10);
+        outputInvoice.setItem_type("shirt");
+        outputInvoice.setUnit_price(10.00);
+        outputInvoice.setQuantity(1);
+        outputInvoice.setProcessing_fee(4.00);
+        outputInvoice.setTax(8.75);
+        outputInvoice.setTotal(14.40);
+
+        String outputJson = mapper.writeValueAsString(outputInvoice);
+
+        // ACT
         mockMvc.perform(
                         post("/invoice")
-                                .content(input)
+                                .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isCreated())
-                .andExpect(content().json(input));
+                .andExpect(content().json(outputJson));
 
     }
     @Test

@@ -18,14 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(GameControllerTest.class)
+@WebMvcTest(GameController.class)
 
 public class GameControllerTest {
 
@@ -46,8 +45,8 @@ public class GameControllerTest {
 
     @Before
     public void setUp() throws Exception {
+        // input
         gameStoreGames = new Games();
-        gameStoreGames.setId(1);
         gameStoreGames.setTitle("Minecraft");
         gameStoreGames.setEsrbRating("Ten+");
         gameStoreGames.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
@@ -57,6 +56,7 @@ public class GameControllerTest {
 
         gamesJson = mapper.writeValueAsString(gameStoreGames);
 
+        // output
         Games games = new Games();
         games.setId(1);
         games.setTitle("Minecraft");
@@ -66,9 +66,8 @@ public class GameControllerTest {
         games.setStudio("Mojang");
         games.setQuantity(100);
 
-        allGames.add(gameStoreGames);
         allGames.add(games);
-
+        allGamesJson = mapper.writeValueAsString(allGames);
     }
 
     @Test
