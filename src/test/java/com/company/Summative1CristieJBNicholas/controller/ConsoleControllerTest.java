@@ -61,8 +61,6 @@ public class ConsoleControllerTest {
         gameStoreConsole.setPrice(725.99);
         gameStoreConsole.setQuantity(100);
 
-
-
         gameStoreJson = mapper.writeValueAsString(gameStoreConsole);
 
         Console console = new Console();
@@ -114,30 +112,20 @@ public class ConsoleControllerTest {
                 .andExpect((content().json(gameStoreJson))
                 );
     }
-
 //    @Test
-//    public void shouldBeStatusOkForNonExistentConsoleId() throws Exception {
-//        doReturn(Optional.empty()).when(repo).findById(1234);
+//    public void shouldReturnConsoleOnValidGetRequest() throws Exception {
+//        String gameStoreJson = "Sony";
 //
 //        mockMvc.perform(
-//                        get("/Console/1234"))
-//                .andExpect(status().isOk()
+//                        get("/Console/manufacturer/Sony")
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                )
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(content().json(gameStoreJson)
 //                );
-//
 //    }
-
-    @Test
-    public void shouldReturnConsoleOnValidGetRequest() throws Exception {
-        String gameStoreJson = "Sony";
-
-        mockMvc.perform(
-                        get("/Console/model/Sony")
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().string(gameStoreJson));
-    }
+//
 
 
     @Test
@@ -151,19 +139,27 @@ public class ConsoleControllerTest {
                 );
     }
 
-//    @Test
+
+//        @Test
 //    public void shouldUpdateByIdAndReturn200StatusCode() throws Exception {
+////            Console inputConsole = new Console();
+////            inputConsole.setConsoleId(1);
+////
+////
+////            String inputJson = mapper.writeValueAsString(inputConsole);
+////            doReturn(gameStoreConsole).when(repo).save(inputConsole);
+//
 //        mockMvc.perform(
-//                        put("/Consoles")
+//                        put("/Consoles/1")
 //                                .content(gameStoreJson)
 //                                .contentType(MediaType.APPLICATION_JSON)
 //                )
 //                .andExpect(status().isOk());
-//    }
+    }
 
 //    @Test
 //    public void shouldDeleteByIdAndReturn200StatusCode() throws Exception {
 //        mockMvc.perform(delete("/Console/2")).andExpect(status().isOk());
 //    }
 
-}
+//}
