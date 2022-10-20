@@ -2,6 +2,7 @@ package com.company.Summative1CristieJBNicholas.controller;
 
 
 import com.company.Summative1CristieJBNicholas.exception.ProductNotFoundException;
+import com.company.Summative1CristieJBNicholas.models.Console;
 import com.company.Summative1CristieJBNicholas.models.Games;
 
 import com.company.Summative1CristieJBNicholas.repository.GameRepository;
@@ -18,6 +19,7 @@ public class GameController {
     @Autowired
     GameRepository repo;
 
+    // get all games
     @GetMapping(value="/games/game")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getAllGames() {
@@ -38,6 +40,7 @@ public class GameController {
             throw new ProductNotFoundException("No such console. id:  " + id);
         }
     }
+
     @GetMapping(value="/games/title/{title}")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getGamesbyTitle(@PathVariable String title)
