@@ -16,7 +16,7 @@ public class GameDataLoaderController {
     public void loadData() {
         Games game = new Games();
         game.setTitle("Minecraft");
-        game.setEsrbRating("50+");
+        game.setEsrbRating("Ten+");
         game.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
         game.setPrice(19.99);
         game.setStudio("Mojang");
