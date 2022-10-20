@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ConsoleRepository extends JpaRepository<Console, Integer> {
+//    List<Console> findByManufacturer(String manufacturer);
+
     List<Console> findByManufacturer(String manufacturer);
 
-    List<Console> findAllConsolesByManufacturer(String manufacturer);
+//    void findByManufacturer(String sony);
 }

@@ -18,14 +18,14 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringRunner.class)
-@WebMvcTest(GameControllerTest.class)
+@WebMvcTest(GameController.class)
+
 public class GameControllerTest {
 
     @Autowired
@@ -38,15 +38,17 @@ public class GameControllerTest {
 
     private Games gameStoreGames;
     private String gamesJson;
-    private List<Games> allGames = new ArrayList<>();
+
+   private List<Games> allGames = new ArrayList<>();
 
     private String allGamesJson;
 
     @Before
     public void setUp() throws Exception {
+        // input
         gameStoreGames = new Games();
-        gameStoreGames.setId(1);
         gameStoreGames.setTitle("Minecraft");
+        gameStoreGames.setEsrbRating("Ten+");
         gameStoreGames.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
         gameStoreGames.setPrice(19.99);
         gameStoreGames.setStudio("Mojang");
@@ -54,41 +56,42 @@ public class GameControllerTest {
 
         gamesJson = mapper.writeValueAsString(gameStoreGames);
 
+        // output
         Games games = new Games();
         games.setId(1);
         games.setTitle("Minecraft");
+        games.setEsrbRating("Ten+");
         games.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
         games.setPrice(19.99);
         games.setStudio("Mojang");
         games.setQuantity(100);
 
-        allGames.add(gameStoreGames);
         allGames.add(games);
-
+        allGamesJson = mapper.writeValueAsString(allGames);
     }
 
-//    @Test
-//    public void shouldCreateNewGameOnPostRequest() throws Exception {
-//        Games inputGames = new Games();
-//        inputGames.setId(1);
-//        inputGames.setTitle("Minecraft");
-//        inputGames.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
-//        inputGames.setPrice(19.99);
-//        inputGames.setStudio("Mojang");
-//        inputGames.setQuantity(100);
-//
-//        String inputJson = mapper.writeValueAsString(inputGames);
-//
-//        doReturn(gameStoreGames).when(repo).save(inputGames);
-//
-//        mockMvc.perform(
-//                        post("/games")
-//                                .content(inputJson)
-//                                .contentType(MediaType.APPLICATION_JSON))
-//                .andExpect(status().isCreated())
-//                .andExpect(content().json(gamesJson));
+    @Test
+    public void shouldCreateNewGameOnPostRequest() throws Exception {
+        Games inputGames = new Games();
+        inputGames.setId(1);
+        inputGames.setTitle("Minecraft");
+        inputGames.setEsrbRating("Ten+");
+        inputGames.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
+        inputGames.setPrice(19.99);
+        inputGames.setStudio("Mojang");
+        inputGames.setQuantity(100);
 
-//    }
+        String inputJson = mapper.writeValueAsString(inputGames);
+        doReturn(gameStoreGames).when(repo).save(inputGames);
+
+        mockMvc.perform(
+                        post("/games")
+                                .content(inputJson)
+                                .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isCreated())
+                .andExpect(content().json(gamesJson));
+
+    }
 
 //    @Test
 //    public void shouldReturnGamesById() throws Exception {

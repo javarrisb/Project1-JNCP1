@@ -16,7 +16,7 @@ public class GameDataLoaderController {
     public void loadData() {
         Games game = new Games();
         game.setTitle("Minecraft");
-        game.setEsrbRating("Everyone10+");
+        game.setEsrbRating("Ten+");
         game.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
         game.setPrice(19.99);
         game.setStudio("Mojang");
@@ -25,7 +25,7 @@ public class GameDataLoaderController {
 
         Games game1 = new Games();
         game1.setTitle("Tetris");
-        game1.setEsrbRating("Not Rated");
+        game1.setEsrbRating("NR");
         game1.setDescription("Players must rotate, move, and drop the falling Tetriminos inside the Matrix");
         game1.setPrice(1.59);
         game1.setStudio("Spectrum HoloByte");
@@ -43,7 +43,7 @@ public class GameDataLoaderController {
 
         Games game3 = new Games();
         game3.setTitle("Wii Sports");
-        game3.setEsrbRating("Early Childhood");
+        game3.setEsrbRating("Child");
         game3.setDescription("A collection of five sports games (tennis, baseball, bowling, golf and boxing) designed to demonstrate the motion-sensing capabilities");
         game3.setPrice(35.99);
         game3.setStudio("Nintendo");

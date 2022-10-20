@@ -1,7 +1,5 @@
 package com.company.Summative1CristieJBNicholas.controller;
 
-import static org.junit.Assert.*;
-
 import com.company.Summative1CristieJBNicholas.models.Console;
 import com.company.Summative1CristieJBNicholas.repository.ConsoleRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -21,7 +19,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
-import static org.junit.Assert.*;
 import static org.mockito.Mockito.doReturn;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.delete;
@@ -53,18 +50,17 @@ public class ConsoleControllerTest {
 
     @Before
     public void setup() throws Exception {
+        // input
         gameStoreConsole = new Console();
-        gameStoreConsole.setConsoleId(1);
         gameStoreConsole.setManufacturer("Sony");
         gameStoreConsole.setMemoryAmount("16GB");
         gameStoreConsole.setProcessor("Custom AMD RDNA 2");
         gameStoreConsole.setPrice(725.99);
         gameStoreConsole.setQuantity(100);
 
-
-
         gameStoreJson = mapper.writeValueAsString(gameStoreConsole);
 
+        // output
         Console console = new Console();
         console.setConsoleId(1);
         console.setManufacturer("Sony");
@@ -73,12 +69,8 @@ public class ConsoleControllerTest {
         console.setPrice(725.99);
         console.setQuantity(100);
 
-
-        allConsoles.add(gameStoreConsole);
         allConsoles.add(console);
-
         allConsolesJson = mapper.writeValueAsString(allConsoles);
-
     }
 
     //from work done with RSVP-Service
@@ -115,28 +107,27 @@ public class ConsoleControllerTest {
                 );
     }
 
-//    @Test
-//    public void shouldBeStatusOkForNonExistentConsoleId() throws Exception {
-//        doReturn(Optional.empty()).when(repo).findById(1234);
-//
-//        mockMvc.perform(
-//                        get("/Console/1234"))
-//                .andExpect(status().isOk()
-//                );
-//
-//    }
+    @Test
+    public void shouldBeStatusOkForNonExistentConsoleId() throws Exception {
+        ResultActions result = null;
+        doReturn(Optional.empty()).when(repo).findById(1234);
+        mockMvc.perform(
+                get("/Console/1234"));
+    }
 
     @Test
     public void shouldReturnConsoleOnValidGetRequest() throws Exception {
-        String gameStoreJson = "Sony";
+
+        doReturn(allConsoles).when(repo).findByManufacturer("Sony");
 
         mockMvc.perform(
-                        get("/Console/model/Sony")
+                        get("/Console/manufacturer/Sony")
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(content().string(gameStoreJson));
+                .andExpect(content().json(allConsolesJson)
+                );
     }
 
 
@@ -151,19 +142,22 @@ public class ConsoleControllerTest {
                 );
     }
 
-//    @Test
-//    public void shouldUpdateByIdAndReturn200StatusCode() throws Exception {
-//        mockMvc.perform(
-//                        put("/Consoles")
-//                                .content(gameStoreJson)
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                )
-//                .andExpect(status().isOk());
-//    }
 
-//    @Test
-//    public void shouldDeleteByIdAndReturn200StatusCode() throws Exception {
-//        mockMvc.perform(delete("/Console/2")).andExpect(status().isOk());
-//    }
+    @Test
+    public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
+
+        mockMvc.perform(
+                        put("/Console/1")
+                                .content(gameStoreJson)
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andExpect(status().isNoContent());
+    }
+
+
+    @Test
+    public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
+        mockMvc.perform(delete("/Console/2")).andExpect(status().isNoContent());
+    }
 
 }

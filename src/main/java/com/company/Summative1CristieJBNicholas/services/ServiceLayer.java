@@ -20,6 +20,8 @@ public class ServiceLayer {
     public List<Invoice> findAll() {
         return repo.findAll();
     }
+
+    // use this method to generate the invoice due by end of day; calculations / save to DB
     public Invoice createInvoice(Invoice invoice) {
         return repo.save(invoice);
     }
@@ -33,7 +35,6 @@ public class ServiceLayer {
         if (invoice.isPresent()) return invoice;
         return null;
     }
-
 
 }
 

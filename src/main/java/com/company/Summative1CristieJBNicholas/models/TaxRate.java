@@ -13,6 +13,7 @@ import java.util.Objects;
 @Table(name = "taxRate")
 public class TaxRate {
 
+    @Id
     private String state;
 
     private Double rate;
