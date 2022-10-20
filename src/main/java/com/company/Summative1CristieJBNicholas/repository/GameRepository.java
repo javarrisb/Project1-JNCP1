@@ -13,4 +13,6 @@ public interface GameRepository extends JpaRepository<Games, Integer> {
     List<Games> findAllGamesByEsrbRating(String esrbRating);
     List<Games> findAllGamesByTitle(String title);
 
+
+    void findByGame(String minecraft);
 }
