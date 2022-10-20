@@ -106,7 +106,7 @@ public class TShirtControllerTest {
     }
 
     @Test
-    public void shouldReturnTShirtOnValidGetRequest() throws Exception {
+    public void shouldReturnTShirtColorOnValidGetRequest() throws Exception {
 
         doReturn(allTShirts).when(repo).findByColor("Blue");
 
@@ -120,6 +120,20 @@ public class TShirtControllerTest {
                 );
     }
 
+    @Test
+    public void shouldReturnTShirtSizeOnValidGetRequest() throws Exception {
+
+        doReturn(allTShirts).when(repo).findBySize("Medium");
+
+        mockMvc.perform(
+                        get("/TShirt/size/Medium")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(allTShirtsJson)
+                );
+    }
     @Test
     public void shouldReturnAllTShirts() throws Exception {
         doReturn(allTShirts).when(repo).findAll();
