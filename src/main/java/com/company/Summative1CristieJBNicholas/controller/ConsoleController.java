@@ -60,7 +60,7 @@ public class ConsoleController {
     @PutMapping(value = "/Console/{consoleId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateConsole(@RequestBody Console console, @PathVariable Integer consoleId) {
-       console.setConsoleId(consoleId);
+        console.setConsoleId(consoleId);
         repo.save(console);
 
     }

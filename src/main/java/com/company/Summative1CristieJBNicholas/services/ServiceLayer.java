@@ -14,16 +14,19 @@ import java.util.Optional;
 @Service
 public class ServiceLayer {
     public InvoiceRepository repo;
+
     public void repo(Invoice inputInvoice) {
     }
+
     @Autowired
     public ServiceLayer(InvoiceRepository repo) {
         this.repo = repo;
     }
- 
+
     public Invoice createInvoice(Invoice invoice) {
         return repo.save(invoice);
     }
+
     public List<Invoice> findAll() {
         return repo.findAll();
     }
@@ -37,7 +40,7 @@ public class ServiceLayer {
         if (invoice.isPresent()) return invoice;
         return null;
     }
-
+}
 
 
 //     @Transactional
@@ -63,7 +66,7 @@ public class ServiceLayer {
 //            trackRepository.save(track);
 //        }
  
-}
+//}
 
 
 
