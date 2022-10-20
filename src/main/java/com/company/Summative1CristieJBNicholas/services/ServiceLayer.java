@@ -1,3 +1,4 @@
+
 package com.company.Summative1CristieJBNicholas.services;
 
 import org.springframework.context.annotation.ComponentScan;
@@ -38,8 +39,6 @@ public class ServiceLayer {
         return null;
     }
 
-
-
 //     @Transactional
 //    public AlbumViewModel saveAlbum(AlbumViewModel viewModel) {
 //        // write album information to the database
@@ -63,7 +62,7 @@ public class ServiceLayer {
 //            trackRepository.save(track);
 //        }
  
-}
+//}
 
 
 
