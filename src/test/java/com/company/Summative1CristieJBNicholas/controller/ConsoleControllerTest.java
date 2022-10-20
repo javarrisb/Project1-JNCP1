@@ -122,7 +122,6 @@ public class ConsoleControllerTest {
                 );
     }
 
-
     @Test
     public void shouldReturnAllConsoles() throws Exception {
         doReturn(allConsoles).when(repo).findAll();
@@ -134,7 +133,6 @@ public class ConsoleControllerTest {
                 );
     }
 
-
     @Test
     public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
         mockMvc.perform(
@@ -145,10 +143,8 @@ public class ConsoleControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-
     @Test
     public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
         mockMvc.perform(delete("/Console/2")).andExpect(status().isNoContent());
     }
-
 }
