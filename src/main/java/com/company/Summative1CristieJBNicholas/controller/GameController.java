@@ -69,6 +69,9 @@ public class GameController {
     @DeleteMapping(value="/games/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable Integer id){
+        if (id < 1) {
+            throw new IllegalArgumentException("Cannot delete a Game unless Game ID is at least 1");
+        }
         repo.deleteById(id);
     }
 
