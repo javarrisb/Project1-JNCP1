@@ -120,6 +120,36 @@ public class GameControllerTest {
                 );
     }
 
+    @Test
+    public void shouldReturnStudioOnValidGetRequest() throws Exception {
+
+        doReturn(allGames).when(repo).findByStudio("Mojang");
+
+        mockMvc.perform(
+                        get("/games/studio/Mojang")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(allGamesJson)
+                );
+    }
+
+    @Test
+    public void shouldReturnEsrbRatingOnValidGetRequest() throws Exception {
+
+        doReturn(allGames).when(repo).findByEsrbRating("NR");
+
+        mockMvc.perform(
+                        get("/games/esrbRating/NR")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(allGamesJson)
+                );
+    }
+
 
     @Test
     public void shouldReturnAllGames() throws Exception {
