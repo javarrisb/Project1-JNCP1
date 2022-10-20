@@ -50,13 +50,13 @@ public class TShirtController {
     // find TShirt by Color
     @GetMapping("/TShirt/color/{color}")
     public List<TShirt> getTShirtByColor(@PathVariable String color) {
-        return repo.findAllTShirtByColor(color);
+        return repo.findByColor(color);
     }
 
     // find TShirt by Size
     @GetMapping("/TShirt/size/{size}")
     public List<TShirt> getTShirtBySize(@PathVariable String size) {
-        return repo.findAllTShirtBySize(size);
+        return repo.findBySize(size);
     }
 
     // update an existing TShirt record

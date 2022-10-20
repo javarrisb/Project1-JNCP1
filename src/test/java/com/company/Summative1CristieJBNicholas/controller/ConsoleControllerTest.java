@@ -108,14 +108,6 @@ public class ConsoleControllerTest {
     }
 
     @Test
-    public void shouldBeStatusOkForNonExistentConsoleId() throws Exception {
-        ResultActions result = null;
-        doReturn(Optional.empty()).when(repo).findById(1234);
-        mockMvc.perform(
-                get("/Console/1234"));
-    }
-
-    @Test
     public void shouldReturnConsoleOnValidGetRequest() throws Exception {
 
         doReturn(allConsoles).when(repo).findByManufacturer("Sony");
@@ -130,7 +122,6 @@ public class ConsoleControllerTest {
                 );
     }
 
-
     @Test
     public void shouldReturnAllConsoles() throws Exception {
         doReturn(allConsoles).when(repo).findAll();
@@ -142,10 +133,8 @@ public class ConsoleControllerTest {
                 );
     }
 
-
     @Test
     public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
-
         mockMvc.perform(
                         put("/Console/1")
                                 .content(gameStoreJson)
@@ -154,10 +143,8 @@ public class ConsoleControllerTest {
                 .andExpect(status().isNoContent());
     }
 
-
     @Test
     public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
         mockMvc.perform(delete("/Console/2")).andExpect(status().isNoContent());
     }
-
 }
