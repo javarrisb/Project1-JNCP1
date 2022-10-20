@@ -42,7 +42,6 @@ public class ServiceLayer {
     }
 }
 
-
 //     @Transactional
 //    public AlbumViewModel saveAlbum(AlbumViewModel viewModel) {
 //        // write album information to the database
