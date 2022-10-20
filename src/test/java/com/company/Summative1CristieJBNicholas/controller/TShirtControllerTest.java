@@ -105,15 +105,6 @@ public class TShirtControllerTest {
                 );
     }
 
-    // works but does not test to see if status is ok *****
-//    @Test
-//    public void shouldBeStatusOkForNonExistentTShirtId() throws Exception {
-//        ResultActions result = null;
-//        doReturn(Optional.empty()).when(repo).findById(1234);
-//        mockMvc.perform(
-//                get("/TShirt/1234"));
-//    }
-
     @Test
     public void shouldReturnTShirtOnValidGetRequest() throws Exception {
 

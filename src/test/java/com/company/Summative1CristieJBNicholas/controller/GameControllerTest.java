@@ -105,45 +105,34 @@ public class GameControllerTest {
                 );
     }
 
-    // works but does not test to see if status is ok *****
-//    @Test
-//    public void shouldBeStatusOkForNonExistentGameId() throws Exception {
-//        ResultActions result = null;
-//        doReturn(Optional.empty()).when(repo).findById(1234);
-//        mockMvc.perform(
-//                get("/Console/1234"));
-//
-//    }
+    // broken
+    @Test
+    public void shouldReturnTitleOnValidGetRequest() throws Exception {
+
+        doReturn(allGames).when(repo).findByTitle("Minecraft");
+
+        mockMvc.perform(
+                        get("/games/title/Minecraft")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(allGamesJson)
+                );
+    }
 
 
     // broken
-//    @Test
-//    public void shouldReturnGameOnValidGetRequest() throws Exception {
-//
-//        doReturn(allGames).when(repo).findByGame("Minecraft");
-//
-//        mockMvc.perform(
-//                        get("/games/title/Minecraft")
-//                                .contentType(MediaType.APPLICATION_JSON)
-//                )
-//                .andDo(print())
-//                .andExpect(status().isOk())
-//                .andExpect(content().json(allGamesJson)
-//                );
-//    }
+    @Test
+    public void shouldReturnAllGames() throws Exception {
+        doReturn(allGames).when(repo).findAll();
 
-
-    // broken
-//    @Test
-//    public void shouldReturnAllGames() throws Exception {
-//        doReturn(allGames).when(repo).findAll();
-//
-//        mockMvc.perform(
-//                        get("/games"))
-//                .andExpect(status().isOk())
-//                .andExpect(content().json(allGamesJson)
-//                );
-//    }
+        mockMvc.perform(
+                        get("/games/game"))
+                .andExpect(status().isOk())
+                .andExpect(content().json(allGamesJson)
+                );
+    }
 
 
     @Test

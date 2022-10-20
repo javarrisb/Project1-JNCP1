@@ -107,15 +107,6 @@ public class ConsoleControllerTest {
                 );
     }
 
-    // works but does not test to see if status is ok *****
-//    @Test
-//    public void shouldBeStatusOkForNonExistentConsoleId() throws Exception {
-//        ResultActions result = null;
-//        doReturn(Optional.empty()).when(repo).findById(1234);
-//        mockMvc.perform(
-//                get("/Console/1234"));
-//    }
-
     @Test
     public void shouldReturnConsoleOnValidGetRequest() throws Exception {
 

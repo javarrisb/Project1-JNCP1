@@ -2,6 +2,7 @@ package com.company.Summative1CristieJBNicholas.controller;
 
 
 import com.company.Summative1CristieJBNicholas.exception.ProductNotFoundException;
+import com.company.Summative1CristieJBNicholas.models.Console;
 import com.company.Summative1CristieJBNicholas.models.Games;
 
 import com.company.Summative1CristieJBNicholas.repository.GameRepository;
@@ -18,6 +19,7 @@ public class GameController {
     @Autowired
     GameRepository repo;
 
+    // get all games
     @GetMapping(value="/games/game")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getAllGames() {
@@ -38,20 +40,21 @@ public class GameController {
             throw new ProductNotFoundException("No such console. id:  " + id);
         }
     }
+
     @GetMapping(value="/games/title/{title}")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getGamesbyTitle(@PathVariable String title)
-    {return repo.findAllGamesByTitle(title);}
+    {return repo.findByTitle(title);}
 
     @GetMapping(value="/games/studio/{studio}")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getGamesByStudio(@PathVariable String studio){
-        return repo.findAllGamesByStudio(studio);}
+        return repo.findByStudio(studio);}
 
     @GetMapping(value="/games/esrbRating/{esrbRating}")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getGamesByEsrbRating(@PathVariable String esrbRating){
-        return repo.findAllGamesByEsrbRating(esrbRating);
+        return repo.findByEsrbRating(esrbRating);
     }
 
     @PostMapping(value="/games")
