@@ -188,11 +188,10 @@ public class ServiceLayer{
         return formatDouble(priceBeforeTax * taxRate);
     }
 
-    /** TODO: check on processing fee*/
-    public double applyProcessingFee(Invoice invoice){
-        double processingFee = processingFeeRepo.findByProductType(invoice.getItem_type()).getProcessingFee();
-        if (invoice.getQuantity() >1 ){
-            processingFee += 10.49;
+     public double applyProcessingFee(Invoice invoice){
+        double processingFee = processingFeeRepo.findByProductType(invoice.getItem_type()).getFee();
+        if (invoice.getQuantity() >=11 ){
+            processingFee += 15.49;
         }
         return  formatDouble(processingFee);
     }
