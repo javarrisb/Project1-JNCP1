@@ -14,12 +14,11 @@ public class CustomResponse {
     @JsonSerialize
     LocalDateTime timestamp;
 
-
     public CustomResponse(String errorMsg, String errorCode) {
         this.errorMsg = errorMsg;
         this.errorCode = errorCode;
     }
-
+//Keep on truckin'
     public String getErrorMsg() {
         return errorMsg;
     }
