@@ -3,7 +3,7 @@
 function GamesCard({ games, notify }) {
 
     function handleDelete() {
-        fetch((`http://localhost:8080/games/${games.id}`), {method: "Delete"})
+        fetch((`http://localhost:8080/games`), {method: "Delete"})
         .then(() =>notify({ action: "delete", games: games }))
         .catch(error =>notify({ action: "delete", error: error}))
     }
