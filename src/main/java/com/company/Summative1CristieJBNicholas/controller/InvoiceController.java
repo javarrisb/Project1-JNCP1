@@ -25,6 +25,7 @@ public class InvoiceController {
     @Autowired
     InvoiceRepository invoiceRepository;
 //    private static int idCounter = 1;
+
     // Create, Read and Read All operations
     @GetMapping()
     @ResponseStatus(value = HttpStatus.OK)

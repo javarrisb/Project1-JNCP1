@@ -1,7 +1,7 @@
 package com.company.Summative1CristieJBNicholas.models;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotNull;
@@ -110,6 +110,4 @@ public class ProcessingFee {
                 ", fee=" + fee +
                 '}';
     }
-
-
 }

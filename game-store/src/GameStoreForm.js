@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 
+// function GameStoreForm() {
 function GameStoreForm({ gameStoreRecord: initialGameStoreRecord, notify }) {
 
     const [gameStoreRecord, setGameStoreRecord] = useState(initialGameStoreRecord);
