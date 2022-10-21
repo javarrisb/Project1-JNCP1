@@ -80,7 +80,7 @@ public class GameController {
 //        return serviceLayer.getGamesByEsrbRating(String, esrbRating);
 //    }
 
-    @PostMapping(value="/games/add")
+    @PostMapping(value="/games")
     @ResponseStatus(HttpStatus.CREATED)
 //    "create game"
     public Games addGame(@RequestBody Games game) {
@@ -89,7 +89,7 @@ public class GameController {
     }
 
 
-    @PutMapping(value="/games/update{id}")
+    @PutMapping(value="/games/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateGame(@RequestBody Games game, @PathVariable Integer id) throws QueryNotFoundException {
         if(game.getGame_Id() == null){
@@ -107,7 +107,7 @@ public class GameController {
 //        repo.save(game);
     }
 
-    @DeleteMapping(value="/games/delete{id}")
+    @DeleteMapping(value="/games/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable Integer id) throws QueryNotFoundException {
         if(serviceLayer.getSingleGameById(id).orElse(null) == null){

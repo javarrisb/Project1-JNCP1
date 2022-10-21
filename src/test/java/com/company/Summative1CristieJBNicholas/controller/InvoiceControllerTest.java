@@ -5,6 +5,8 @@ import com.company.Summative1CristieJBNicholas.models.*;
 import com.company.Summative1CristieJBNicholas.repository.InvoiceRepository;
 import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import com.company.Summative1CristieJBNicholas.services.TaxServiceLayer;
+import com.fasterxml.jackson.core.JsonParseException;
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -37,6 +39,8 @@ public class InvoiceControllerTest {
     @MockBean
     private ServiceLayer serviceLayer;
     @MockBean
+    InvoiceRepository invoiceRepository;
+    @MockBean
     TaxServiceLayer taxServiceLayer;
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -51,14 +55,14 @@ public class InvoiceControllerTest {
     String allInvoicesJson;
 
     @Before
-    public void setup() throws QueryNotFoundException {
+    public void setup() throws QueryNotFoundException, JsonProcessingException {
        serviceLayer.clearDatabase();
        setUpInvoiceMocks();
     }
 //Integer id, String name, String street, String city, String state, String zipcode,
 //                   Integer item_id, String item_type, double unit_price, int quantity, double subtotal,
 //                   double processing_fee, double tax, double total)
-    private void setUpInvoiceMocks() throws QueryNotFoundException {
+    private void setUpInvoiceMocks() throws QueryNotFoundException, JsonProcessingException  {
         invoice1 = new Invoice(1, "William Shatner", "DownByTheRiver St.", "Roswell", "NM",
                 "99999", 123, "console", 19.99, 2, 39.98,
                 0.00, 0.05,48.98 );
@@ -70,15 +74,17 @@ public class InvoiceControllerTest {
                 "NM", "99999", 123, "console", 19.99, 2, 39.98);
 
         allInvoices = Arrays.asList(invoice1, invoice2);
+        allInvoicesJson = mapper.writeValueAsString(allInvoices);
 
          TaxRate salesTaxRate = new  TaxRate("NM",0.03);
         when(serviceLayer.findAllInvoices()).thenReturn(allInvoices);
         when(serviceLayer.findById(1)).thenReturn(Optional.of(invoice1));
         when(serviceLayer.createInvoice(customerInvoice)).thenReturn(invoice1);
 
+        when (taxServiceLayer.findSalesTaxRateByState("NM")) .thenReturn(salesTaxRate);
 
-        when(TaxServiceLayer.findSalesTaxRateByState("NM")).thenReturn(salesTaxRate);
-        when(TaxServiceLayer.findSalesTaxRateByState("Not a state code!")).thenReturn(null);
+//        when(TaxServiceLayer.findSalesTaxRateByState("NM")).thenReturn(salesTaxRate);
+//        when(TaxServiceLayer.findSalesTaxRateByState("Not a state code!")).thenReturn(null);
         when(serviceLayer.applyProcessingFee(customerInvoice)).thenReturn(1.49);
         when(serviceLayer.getItemQuantity(customerInvoice)).thenReturn(40);
     }
@@ -90,7 +96,7 @@ public class InvoiceControllerTest {
         outputJson = mapper.writeValueAsString(invoice1);
         mockMvc.perform(
                         post("/invoice")
-                                .content(String.valueOf(customerInvoice))
+                                .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isCreated())
@@ -101,7 +107,7 @@ public class InvoiceControllerTest {
     public void shouldReturnAllInvoices() throws Exception {
         doReturn(allInvoices).when(serviceLayer).findAllInvoices();
         mockMvc.perform(
-                get("/invoices"))
+                get("/invoice"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(allInvoicesJson));
 //        mockMvc.perform(get("/invoices"))
@@ -116,14 +122,15 @@ public class InvoiceControllerTest {
 
     @Test
     public void shouldReturnInvoiceById() throws Exception {
-        String input = mapper.writeValueAsString("/invoice/5");
 
+        inputJson = mapper.writeValueAsString(customerInvoice);
+        outputJson = mapper.writeValueAsString(invoice1);
         mockMvc.perform(
-                        get("/invoice/5")
-                )
+                        get("/invoice/ff")
+                .content(inputJson)
+                .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().json(input));
+                .andExpect(status().isNotAcceptable());
     }
 
 }
