@@ -52,7 +52,7 @@ public class ConsoleController {
     // find Console by Manufacturer
     @GetMapping("/Console/manufacturer/{manufacturer}")
     public List<Console> getConsolesByManufacturer(@PathVariable String manufacturer) {
-        return repo.findAllConsolesByManufacturer(manufacturer);
+        return repo.findByManufacturer(manufacturer);
     }
 
 
