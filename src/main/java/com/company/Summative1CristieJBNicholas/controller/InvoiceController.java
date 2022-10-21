@@ -21,7 +21,7 @@ public class InvoiceController {
 
     private static int idCounter = 1;
 
-    private static List<Invoice> invoiceList = new ArrayList<>(Arrays.asList(
+ //   private static List<Invoice> invoiceList = new ArrayList<>(Arrays.asList(
 
 //            new Invoice(idCounter++, "Billy Bob", "InADitch street", "San Antonio", "TX",
 //                    "78211", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40),
