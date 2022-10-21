@@ -5,6 +5,7 @@ import com.company.Summative1CristieJBNicholas.models.*;
 //import com.company.Summative1CristieJBNicholas.models.TShirt;
 import com.company.Summative1CristieJBNicholas.repository.*;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import com.company.Summative1CristieJBNicholas.models.Invoice;
@@ -92,7 +93,7 @@ public class ServiceLayer{
     }
 
     public List<Games> getGamesByEsrbRating(String esrbRating) {
-        return gameRepo.findByEsrbRating(esrbRating);
+        return gameRepo.findByEsrbRating(esrbRating, esrbRating);
     }
 
     public List<Games> getGamesByStudioAndEsrbRating(String studio, String esrbRating) {
@@ -100,7 +101,8 @@ public class ServiceLayer{
      /**   CHECK on this/** */
     }
 
-    public Optional<Games> getGameByTitle(String title) {
+//     return Optional.of( );  ???
+    public List<Games> findByTitle(String title) {
         return gameRepo.findByTitle(title);
     }
 
@@ -147,39 +149,37 @@ public class ServiceLayer{
 
 
 
-// Invoice CRUD -- Do not need to update / delete
+// Invoice--------- CRUD but We Do not need to update/delete!! -------------
 
-    public List<Invoice> getAllInvoices() {
+    public List<Invoice> findAllInvoices() {
         return invoiceRepo.findAll();
     }
 
     public Optional<Invoice> getInvoiceById(int id) throws QueryNotFoundException {
-        if (invoiceRepo.findById(id).orElse(null) == null) {
+        if (InvoiceRepository.findById(id).orElse(null) == null) {
             throw new QueryNotFoundException("Invoice with that ID does not exist.");
         }
-        return invoiceRepo.findById(id);
+        return InvoiceRepository.findById(id);
     }
 
-    public Invoice addInvoice(Invoice invoice) {
-        Invoice updatedInvoice = invoice;
+    public Invoice createInvoice(Invoice invoice) {
         double salesTax = applyTaxRate(invoice);
         double processingFee = applyProcessingFee(invoice);
         double subtotal = calculateSubtotal(invoice);
         double total = calculateTotal(subtotal, processingFee, salesTax);
 
-        updatedInvoice.setTax(salesTax);
-        updatedInvoice.setProcessing_fee(processingFee);
-        updatedInvoice.setSubtotal(subtotal);
-//        check on Subtotal in INVOICE
-        updatedInvoice.setTotal(total);
+        invoice.setTax(salesTax);
+        invoice.setProcessing_fee(processingFee);
+        invoice.setSubtotal(subtotal);
+/**    TODO:    check on Subtotal in INVOICE--edit: it is needed! */
+        invoice.setTotal(total);
 
-        decreaseItemQuantity(updatedInvoice);
-            return invoiceRepo.save(updatedInvoice);
+        decreaseItemQuantity(invoice);
+            return invoiceRepo.save(invoice);
     }
 
-
-    public double formatDouble(double d) {
-        return Double.parseDouble(String.format("%,.2f", d));
+    public double formatDouble(double dbl) {
+        return Double.parseDouble(String.format("%,.2f", dbl));
     }
 
     public double applyTaxRate(Invoice invoice) {
@@ -188,10 +188,11 @@ public class ServiceLayer{
         return formatDouble(priceBeforeTax * taxRate);
     }
 
+    /** TODO: check on processing fee*/
     public double applyProcessingFee(Invoice invoice){
         double processingFee = processingFeeRepo.findByProductType(invoice.getItem_type()).getProcessingFee();
-        if (invoice.getQuantity() >10 ){
-            processingFee += 15.49;
+        if (invoice.getQuantity() >1 ){
+            processingFee += 10.49;
         }
         return  formatDouble(processingFee);
     }
@@ -255,9 +256,8 @@ public class ServiceLayer{
                 break;
         }
     }
-
-//    public void findAll() {
-//    }
+    /** TODO: do we need Items decrease from our inventory???????
+     *TODO: Do we need PROCESSING FEE SERVICE LAYER????*/
 }
 
 

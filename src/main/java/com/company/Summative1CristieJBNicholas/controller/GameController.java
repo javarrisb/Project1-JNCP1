@@ -51,7 +51,7 @@ public class GameController {
     @GetMapping(value="/games/esrbRating/{esrbRating}")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getGamesByEsrbRating(@PathVariable String esrbRating){
-        return repo.findByEsrbRating(esrbRating);
+        return repo.findByEsrbRating(esrbRating, esrbRating);
     }
 
     @PostMapping(value="/games")
