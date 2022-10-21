@@ -12,7 +12,7 @@ public class Games {
     @Id
     @Column(name = "game_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer game_Id;
 
     private String title;
     @Column(name="esrb_rating")
@@ -26,8 +26,8 @@ public class Games {
 
     private Integer quantity;
 
-    public Games(Integer id, String title, String esrbRating, String description, Double price, String studio, Integer quantity) {
-        this.id = id;
+    public Games(Integer game_Id, String title, String esrbRating, String description, Double price, String studio, Integer quantity) {
+        this.game_Id = game_Id;
         this.title = title;
         this.esrbRating = esrbRating;
         this.description = description;
@@ -39,12 +39,12 @@ public class Games {
     public Games() {
     }
 
-    public Integer getId() {
-        return id;
+    public Integer getGame_Id() {
+        return game_Id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setGame_Id(Integer game_Id) {
+        this.game_Id = game_Id;
     }
 
     public String getTitle() {
@@ -100,18 +100,21 @@ public class Games {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Games games = (Games) o;
-        return Objects.equals(getId(), games.getId()) && Objects.equals(getTitle(), games.getTitle()) && Objects.equals(getEsrbRating(), games.getEsrbRating()) && Objects.equals(getDescription(), games.getDescription()) && Objects.equals(getPrice(), games.getPrice()) && Objects.equals(getStudio(), games.getStudio()) && Objects.equals(getQuantity(), games.getQuantity());
+        return Objects.equals(getGame_Id(), games.getGame_Id()) && Objects.equals(getTitle(), games.getTitle()) &&
+                Objects.equals(getEsrbRating(), games.getEsrbRating()) && Objects.equals(getDescription(),
+                games.getDescription()) && Objects.equals(getPrice(), games.getPrice()) && Objects.equals(getStudio(),
+                games.getStudio()) && Objects.equals(getQuantity(), games.getQuantity());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId(), getTitle(), getEsrbRating(), getDescription(), getPrice(), getStudio(), getQuantity());
+        return Objects.hash(getGame_Id(), getTitle(), getEsrbRating(), getDescription(), getPrice(), getStudio(), getQuantity());
     }
 
     @Override
     public String toString() {
         return "Games{" +
-                "id=" + id +
+                "id=" + game_Id +
                 ", title='" + title + '\'' +
                 ", esrbRating='" + esrbRating + '\'' +
                 ", description='" + description + '\'' +
