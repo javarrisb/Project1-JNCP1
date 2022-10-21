@@ -21,13 +21,15 @@ public class InvoiceController {
 
     @Autowired
      ServiceLayer serviceLayer;
+    @Autowired
+    TaxServiceLayer taxServiceLayer;
 
     @Autowired
     InvoiceRepository invoiceRepository;
 //    private static int idCounter = 1;
 
     // Create, Read and Read All operations
-    @GetMapping()
+    @GetMapping
     @ResponseStatus(value = HttpStatus.OK)
     public List<Invoice> findAllInvoices() {
         return serviceLayer.findAllInvoices();
@@ -36,12 +38,12 @@ public class InvoiceController {
     /**
      * changed to service layer
      */
-    @PostMapping(value = "/invoice")
+    @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
     public Invoice createANewInvoice(@RequestBody @Valid Invoice invoice) throws QueryNotFoundException {
 //        invoice.setId(idCounter++);
 //        createANewInvoice().add(invoice);
-        if (TaxServiceLayer.findSalesTaxRateByState(invoice.getState()) == null) {
+        if (taxServiceLayer.findSalesTaxRateByState(invoice.getState()) == null) {
             throw new QueryNotFoundException(invoice.getState() + " is not a valid code.");
         }
 //        not sure about quantities in stock or is it required, any issues if we dont have it?
@@ -55,7 +57,7 @@ public class InvoiceController {
     }
 
     //read an invoice
-    @GetMapping(value = "/invoice/{id}")
+    @GetMapping(value = "/{id}")
 //    @ResponseStatus(HttpStatus.OK)
     public Invoice findInvoiceById(@PathVariable Integer id) throws QueryNotFoundException {
         Optional<Invoice> foundInvoice = serviceLayer.findById(id);
