@@ -3,7 +3,7 @@
 function TShirtCard({ TShirts, notify }) {
 
     function handleDelete() {
-        fetch((`http://localhost:8080/TShirt/${TShirts.id}`), {method: "Delete"})
+        fetch((`http://localhost:8080/TShirt`), {method: "Delete"})
         .then(() =>notify({ action: "delete", TShirts: TShirts }))
         .catch(error =>notify({ action: "delete", error: error}))
     }
