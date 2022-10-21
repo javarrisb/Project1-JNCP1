@@ -53,8 +53,6 @@ public class Invoice implements Serializable {
     @Column(name="total")
     @Digits(integer = 5, fraction = 2)
     private double total;
-
-
     public Invoice(){
 
     }
