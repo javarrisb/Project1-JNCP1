@@ -119,7 +119,7 @@ public class InvoiceControllerTest {
 //            .andExpect(jsonPath("$[0].id").isNotEmpty());
 }
 
-
+/** Needs fixing **/
     @Test
     public void shouldReturnInvoiceById() throws Exception {
 
