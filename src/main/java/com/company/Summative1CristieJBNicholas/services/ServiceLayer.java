@@ -5,7 +5,6 @@ import com.company.Summative1CristieJBNicholas.models.*;
 //import com.company.Summative1CristieJBNicholas.models.TShirt;
 import com.company.Summative1CristieJBNicholas.repository.*;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 import com.company.Summative1CristieJBNicholas.models.Invoice;
@@ -60,7 +59,7 @@ public class ServiceLayer{
     }
     /** find by color and size or separately?? Both??*/
     public List<TShirt> getTshirtByColorAndSize(String color, String size){
-        return tshirtRepo.findByColor(color);
+        return tshirtRepo.findByColorAndSize(color, size);
     }
 
 //Tshirt
@@ -87,26 +86,23 @@ public class ServiceLayer{
     public List<Games> getAllGames() {
         return gameRepo.findAll();
     }
-
     public List<Games> getGamesByStudio(String studio) {
         return gameRepo.findByStudio(studio);
     }
-
-    public List<Games> getGamesByEsrbRating(String esrbRating) {
+    public List<Games> getGamesByEsrbRating(String esrbRating, String rating) {
         return gameRepo.findByEsrbRating(esrbRating, esrbRating);
     }
-
     public List<Games> getGamesByStudioAndEsrbRating(String studio, String esrbRating) {
         return gameRepo.findByEsrbRating(studio, esrbRating);
      /**   CHECK on this/** */
     }
-
+//Trying to merge again, weeeeeeeeeeeee
 //     return Optional.of( );  ???
-    public List<Games> findByTitle(String title) {
+    public Optional<Games> findByTitle(String title) {
         return gameRepo.findByTitle(title);
     }
 
-    public Optional<Games> getSingleGame(int id) {
+    public Optional<Games> getSingleGameById(int id) {
         return gameRepo.findById(id);
     }
 
@@ -155,11 +151,11 @@ public class ServiceLayer{
         return invoiceRepo.findAll();
     }
 
-    public Optional<Invoice> getInvoiceById(int id) throws QueryNotFoundException {
-        if (InvoiceRepository.findById(id).orElse(null) == null) {
+    public Optional<Invoice> findById(int id) throws QueryNotFoundException {
+        if (invoiceRepo.findById(id).orElse(null) == null) {
             throw new QueryNotFoundException("Invoice with that ID does not exist.");
         }
-        return InvoiceRepository.findById(id);
+        return invoiceRepo.findById(id);
     }
 
     public Invoice createInvoice(Invoice invoice) {
@@ -188,11 +184,10 @@ public class ServiceLayer{
         return formatDouble(priceBeforeTax * taxRate);
     }
 
-    /** TODO: check on processing fee*/
-    public double applyProcessingFee(Invoice invoice){
-        double processingFee = processingFeeRepo.findByProductType(invoice.getItem_type()).getProcessingFee();
-        if (invoice.getQuantity() >1 ){
-            processingFee += 10.49;
+     public double applyProcessingFee(Invoice invoice){
+        double processingFee = processingFeeRepo.findByProductType(invoice.getItem_type()).getFee();
+        if (invoice.getQuantity() >=11 ){
+            processingFee += 15.49;
         }
         return  formatDouble(processingFee);
     }
@@ -218,7 +213,7 @@ public class ServiceLayer{
 
         switch (invoice.getItem_type()) {
             case "Games" :
-                return getSingleGame(itemId).get().getQuantity();
+                return getSingleGameById(itemId).get().getQuantity();
             case "T-shirts" :
                 return getSingleTshirt(itemId).get().getQuantity();
             case "Consoles" :
@@ -234,7 +229,7 @@ public class ServiceLayer{
 
         switch (invoice.getItem_type()) {
             case "Games":
-                Games game = getSingleGame(invoice.getItem_id()).get();
+                Games game = getSingleGameById(invoice.getItem_id()).get();
                 availableAmount = game.getQuantity();
                 updatedAmount = checkQuantity(requestedAmount, availableAmount);
                 game.setQuantity(updatedAmount);
@@ -256,8 +251,6 @@ public class ServiceLayer{
                 break;
         }
     }
-    /** TODO: do we need Items decrease from our inventory???????
-     *TODO: Do we need PROCESSING FEE SERVICE LAYER????*/
 }
 
 

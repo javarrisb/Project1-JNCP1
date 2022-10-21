@@ -1,9 +1,10 @@
 package com.company.Summative1CristieJBNicholas.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-
+import javax.validation.constraints.Digits;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
 
@@ -25,28 +26,33 @@ public class Invoice implements Serializable {
     @Column(name = "city")
     private String city;
     @Column(name = "state")
+    @Size(max = 2)
     private String state;
     @Column(name = "zipcode")
+    @Size(min = 5, max = 5)
     private String zipcode;
     @Column(name="item_id")
     private Integer item_id;
     @Column(name="item_type")
     private String item_type;
     @Column(name="unit_price")
+    @Digits(integer = 5, fraction = 2)
     private double unit_price;
     @Column(name="quantity")
     private int quantity;
 
     @Column(name = "subtotal")
+    @Digits(integer = 5, fraction = 2)
     private double subtotal;
     @Column(name="processing_fee")
+    @Digits(integer = 5, fraction = 2)
     private double processing_fee;
     @Column(name="tax")
+    @Digits(integer = 5, fraction = 2)
     private double tax;
     @Column(name="total")
+    @Digits(integer = 5, fraction = 2)
     private double total;
-
-
     public Invoice(){
 
     }
@@ -79,6 +85,21 @@ public class Invoice implements Serializable {
         this.total = total;
     }
 
+    public Invoice(Integer id, String name, String street, String city, String state, String zipcode, Integer item_id, String item_type, double unit_price, int quantity, double subtotal) {
+        this.id = id;
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.item_id = item_id;
+        this.item_type = item_type;
+        this.unit_price = unit_price;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+    }
+//    public Invoice(int i, String william_shatner, String s, String roswell, String nm, int i1, int i2, String console, double v, int i3, double v1) {
+//    }
 
 
     public Integer getId() {

@@ -59,7 +59,7 @@ public class GameControllerTest {
 
         // output
         Games games = new Games();
-        games.setId(1);
+        games.setGame_Id(1);
         games.setTitle("Minecraft");
         games.setEsrbRating("Ten+");
         games.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
@@ -74,7 +74,7 @@ public class GameControllerTest {
     @Test
     public void shouldCreateNewGameOnPostRequest() throws Exception {
         Games inputGames = new Games();
-        inputGames.setId(1);
+        inputGames.setGame_Id(1);
         inputGames.setTitle("Minecraft");
         inputGames.setEsrbRating("Ten+");
         inputGames.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
