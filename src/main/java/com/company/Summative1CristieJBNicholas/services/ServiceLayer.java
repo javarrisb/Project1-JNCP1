@@ -1,5 +1,6 @@
 package com.company.Summative1CristieJBNicholas.services;
 
+import com.company.Summative1CristieJBNicholas.exception.QueryNotFoundException;
 import com.company.Summative1CristieJBNicholas.models.*;
 //import com.company.Summative1CristieJBNicholas.models.TShirt;
 import com.company.Summative1CristieJBNicholas.repository.*;
@@ -9,10 +10,7 @@ import org.springframework.stereotype.Service;
 import com.company.Summative1CristieJBNicholas.models.Invoice;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.transaction.NoTransactionException;
-
 import javax.transaction.Transactional;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
 //import java.util.stream.Collectors;
