@@ -23,12 +23,12 @@ public class InvoiceController {
 
     private static List<Invoice> invoiceList = new ArrayList<>(Arrays.asList(
 
-            new Invoice(idCounter++, "Billy Bob", "InADitch street", "San Antonio", "TX",
-                    "78211", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40),
-
-            new Invoice(idCounter++, "Billy Joe", "DownByTheRiver street", "San Antonio", "TX",
-                    "78201", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40)
-    ));
+//            new Invoice(idCounter++, "Billy Bob", "InADitch street", "San Antonio", "TX",
+//                    "78211", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40),
+//
+//            new Invoice(idCounter++, "Billy Joe", "DownByTheRiver street", "San Antonio", "TX",
+//                    "78201", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40)
+//    ));
 
     // Create, Read and Read All operations
     @GetMapping()
