@@ -52,7 +52,7 @@ public class ConsoleController {
     // find Console by Manufacturer
     @GetMapping("/Console/manufacturer/{manufacturer}")
     public List<Console> getConsolesByManufacturer(@PathVariable String manufacturer) {
-        return repo.findByManufacturer(manufacturer);
+        return repo.findAllConsolesByManufacturer(manufacturer);
     }
 
 
@@ -60,7 +60,7 @@ public class ConsoleController {
     @PutMapping(value = "/Console/{consoleId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateConsole(@RequestBody Console console, @PathVariable Integer consoleId) {
-       console.setConsoleId(consoleId);
+        console.setConsoleId(consoleId);
         repo.save(console);
 
     }

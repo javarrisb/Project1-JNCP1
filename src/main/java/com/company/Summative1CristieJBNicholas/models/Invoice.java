@@ -36,6 +36,9 @@ public class Invoice implements Serializable {
     private double unit_price;
     @Column(name="quantity")
     private int quantity;
+
+    @Column(name = "subtotal")
+    private double subtotal;
     @Column(name="processing_fee")
     private double processing_fee;
     @Column(name="tax")
@@ -58,8 +61,8 @@ public class Invoice implements Serializable {
 //    }
 
     public Invoice(Integer id, String name, String street, String city, String state, String zipcode,
-                   Integer item_id, String item_type, double unit_price, int quantity, double processing_fee,
-                   double tax, double total) {
+                   Integer item_id, String item_type, double unit_price, int quantity, double subtotal,
+                   double processing_fee, double tax, double total) {
         this.id = id;
         this.name = name;
         this.street = street;
@@ -70,6 +73,7 @@ public class Invoice implements Serializable {
         this.item_type = item_type;
         this.unit_price = unit_price;
         this.quantity = quantity;
+        this.subtotal = subtotal;
         this.processing_fee = processing_fee;
         this.tax = tax;
         this.total = total;
@@ -157,6 +161,12 @@ public class Invoice implements Serializable {
         this.quantity = quantity;
     }
 
+    public void setSubtotal(double subtotal){
+        this.subtotal = subtotal;
+    }
+    public double getSubtotal(){
+        return subtotal;
+    }
     public double getProcessing_fee() {
         return processing_fee;
     }

@@ -8,10 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.company.Summative1CristieJBNicholas.exception.NotFoundException;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
 
 
@@ -26,35 +23,36 @@ public class InvoiceController {
 
     private static List<Invoice> invoiceList = new ArrayList<>(Arrays.asList(
 
-            new Invoice(idCounter++, "Billy Bob", "InADitch street", "San Antonio", "TX",
-                    "78211", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40),
-
-            new Invoice(idCounter++, "Billy Joe", "DownByTheRiver street", "San Antonio", "TX",
-                    "78201", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40)
-    ));
+//            new Invoice(idCounter++, "Billy Bob", "InADitch street", "San Antonio", "TX",
+//                    "78211", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40),
+//
+//            new Invoice(idCounter++, "Billy Joe", "DownByTheRiver street", "San Antonio", "TX",
+//                    "78201", 10, "shirt", 10.00, 1, 4.00, 8.75, 14.40)
+//    ));
 
     // Create, Read and Read All operations
-    @GetMapping(value = "/invoices")
+    @GetMapping()
     @ResponseStatus(value = HttpStatus.OK)
+    public List<Invoice> findAllInvoices(){
+        return serviceLayer.findAll();
+    }
+    /**changed to service layer */
 //    public List<Invoice> findAllInvoices(@RequestParam(required = false) String name, @RequestParam(required = false) String zipcode) {
 //        List<Invoice> returnList = invoiceList;
-    /**changed to service layer */
-    public List<Invoice> findAllInvoices(@RequestParam(required = false) String name, @RequestParam(required = false) String zipcode) {
-        List<Invoice> returnList = invoiceList;
-
-        if (name != null) {
-            returnList = invoiceList.stream()
-                    .filter(i -> i.getName().contains(name))
-                    .collect(Collectors.toList());
-        }
-        if (zipcode != null) {
-           returnList = returnList.stream()
-                .filter(i -> i.getZipcode().equals(zipcode))
-                .collect(Collectors.toList());
-    }
-//        return returnList;
-        return serviceLayer.findAll();
-}
+//
+//        if (name != null) {
+//            returnList = invoiceList.stream()
+//                    .filter(i -> i.getName().contains(name))
+//                    .collect(Collectors.toList());
+//        }
+//        if (zipcode != null) {
+//           returnList = returnList.stream()
+//                .filter(i -> i.getZipcode().equals(zipcode))
+//                .collect(Collectors.toList());
+//    }
+////        return returnList;
+//        return serviceLayer.findAll();
+//}
 
 
     @PostMapping(value = "/invoice")
@@ -63,17 +61,17 @@ public class InvoiceController {
         invoice.setId(idCounter++);
         invoiceList.add(invoice);
 
-        return invoice;
+        return serviceLayer.createInvoice(invoice);
     }
 
 //read an invoice
     @GetMapping(value = "/invoice/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Invoice> findInvoiceById (@PathVariable int id) {
+    public Optional<Invoice> findInvoiceById (@PathVariable Integer id) {
         Invoice foundInvoice = null;
 
         for(Invoice invoice : invoiceList) {
-            if(invoice.getId() == id) {
+            if(Objects.equals(invoice.getId(), id)) {
                 foundInvoice = invoice;
                 break;
             }
