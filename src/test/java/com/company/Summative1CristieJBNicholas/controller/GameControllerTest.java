@@ -137,8 +137,10 @@ public class GameControllerTest {
 
     @Test
     public void shouldReturnEsrbRatingOnValidGetRequest() throws Exception {
+//should I have this as local variable and initialized as null??
+        String esrbRating = null;
 
-        doReturn(allGames).when(repo).findByEsrbRating("NR");
+        doReturn(allGames).when(repo).findByEsrbRating("NR", esrbRating);
 
         mockMvc.perform(
                         get("/games/esrbRating/NR")
