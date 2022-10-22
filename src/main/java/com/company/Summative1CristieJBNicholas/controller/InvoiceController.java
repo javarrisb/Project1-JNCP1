@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 
 @RestController
-@RequestMapping(value = "/invoice")
+//@RequestMapping(value = "/invoice")
 public class InvoiceController {
 
     @Autowired
@@ -29,7 +29,7 @@ public class InvoiceController {
 //    private static int idCounter = 1;
 
     // Create, Read and Read All operations
-    @GetMapping
+    @GetMapping(value = "/invoices")
     @ResponseStatus(value = HttpStatus.OK)
     public List<Invoice> findAllInvoices() {
         return serviceLayer.findAllInvoices();
@@ -38,7 +38,7 @@ public class InvoiceController {
     /**
      * changed to service layer
      */
-    @PostMapping
+    @PostMapping(value = "/invoice")
     @ResponseStatus(value = HttpStatus.CREATED)
     public Invoice createANewInvoice(@RequestBody @Valid Invoice invoice) throws QueryNotFoundException {
 //        invoice.setId(idCounter++);
@@ -57,7 +57,7 @@ public class InvoiceController {
     }
 
     //read an invoice
-    @GetMapping(value = "/{id}")
+    @GetMapping(value = "/invoice/{id}")
 //    @ResponseStatus(HttpStatus.OK)
     public Invoice findInvoiceById(@PathVariable Integer id) throws QueryNotFoundException {
         Optional<Invoice> foundInvoice = serviceLayer.findById(id);

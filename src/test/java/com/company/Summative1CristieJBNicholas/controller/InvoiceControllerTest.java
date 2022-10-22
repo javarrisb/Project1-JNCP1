@@ -70,7 +70,7 @@ public class InvoiceControllerTest {
                 "99999", 123, "console", 19.99, 2, 39.98,
                 0.05, 0.05,48.98 );
 
-        invoice2 = new Invoice(2, "Billy Bob", "InAVan St.", "Roswell", "NM",
+        invoice2 = new Invoice(3, "Billy Bob", "InAVan St.", "Roswell", "NM",
                 "98939", 123, "console", 19.99, 2, 39.98,
                 0.00, 0.05,48.98 );
 
@@ -113,7 +113,7 @@ public class InvoiceControllerTest {
     public void shouldReturnAllInvoices() throws Exception {
         doReturn(allInvoices).when(serviceLayer).findAllInvoices();
         mockMvc.perform(
-                get("/invoice"))
+                get("/invoices"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(allInvoicesJson));
 //        mockMvc.perform(get("/invoices"))
