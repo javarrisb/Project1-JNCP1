@@ -11,7 +11,7 @@ import java.util.Optional;
 public interface GameRepository extends JpaRepository<Games, Integer> {
 
     List<Games> findByStudio(String studio);
-    List<Games> findByEsrbRating(String esrbRating, String rating);
+    List<Games> findByEsrbRating(String esrbRating);
     Optional<Games> findByTitle(String title);
 
 //    List<Games> getAllGames(String title);

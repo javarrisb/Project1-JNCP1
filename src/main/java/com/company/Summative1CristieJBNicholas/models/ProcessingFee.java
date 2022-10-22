@@ -10,7 +10,7 @@ import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
-@Table(name = "processing_fee", indexes = {@Index(name = "product_type_fee" , columnList = "product_type")})
+@Table(name = "processing_fee", indexes = {@Index(name = "ix_product_type_fee" , columnList = "product_type")})
 public class ProcessingFee {
     @Id
     @NotNull

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.validation.constraints.Digits;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
@@ -21,38 +22,52 @@ public class Invoice implements Serializable {
     @NotEmpty(message = "You must supply a name for the invoice please.")
     @Column(name = "name")
     private String name;
+    @NotNull
     @Column(name = "street")
     private String street;
+    @NotNull
     @Column(name = "city")
     private String city;
+    @NotNull
     @Column(name = "state")
     @Size(max = 2)
     private String state;
+    @NotNull
     @Column(name = "zipcode")
     @Size(min = 5, max = 5)
     private String zipcode;
-    @Column(name="item_id")
-    private Integer item_id;
+    @NotNull
     @Column(name="item_type")
     private String item_type;
+    @NotNull
+    @Column(name="item_id")
+    private Integer item_id;
+    @NotNull
     @Column(name="unit_price")
     @Digits(integer = 5, fraction = 2)
-    private double unit_price;
+    private Double unit_price;
+    @NotNull
     @Column(name="quantity")
     private int quantity;
 
     @Column(name = "subtotal")
+    @NotNull
     @Digits(integer = 5, fraction = 2)
     private double subtotal;
-    @Column(name="processing_fee")
-    @Digits(integer = 5, fraction = 2)
-    private double processing_fee;
     @Column(name="tax")
+    @NotNull
     @Digits(integer = 5, fraction = 2)
     private double tax;
+    @Column(name="processing_fee")
+    @NotNull
+    @Digits(integer = 5, fraction = 2)
+    private double processing_fee;
+
     @Column(name="total")
+    @NotNull
     @Digits(integer = 5, fraction = 2)
     private double total;
+
     public Invoice(){
 
     }
