@@ -73,6 +73,7 @@ public class GameControllerTest {
         games.setPrice(19.99);
         games.setStudio("Mojang");
         games.setQuantity(100);
+
         outGameJson = mapper.writeValueAsString(games);
         allGames.add(games);
         allGamesJson = mapper.writeValueAsString(allGames);

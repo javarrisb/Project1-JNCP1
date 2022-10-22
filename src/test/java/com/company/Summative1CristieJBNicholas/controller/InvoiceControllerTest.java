@@ -17,6 +17,7 @@ import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.ResultActions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,8 +51,10 @@ public class InvoiceControllerTest {
     Invoice invoice2;
 
     String inputJson;
+    String inputJson2;
     String outputJson;
-    List<Invoice> allInvoices;
+    String outputJson2;
+    List<Invoice> allInvoices = new ArrayList<>();;
     String allInvoicesJson;
 
     @Before
@@ -65,10 +68,13 @@ public class InvoiceControllerTest {
     private void setUpInvoiceMocks() throws QueryNotFoundException, JsonProcessingException  {
         invoice1 = new Invoice(1, "William Shatner", "DownByTheRiver St.", "Roswell", "NM",
                 "99999", 123, "console", 19.99, 2, 39.98,
-                0.00, 0.05,48.98 );
-        invoice2 = new Invoice(1, "Billy Bob", "InAVan St.", "Roswell", "NM",
+                0.05, 0.05,48.98 );
+
+        invoice2 = new Invoice(2, "Billy Bob", "InAVan St.", "Roswell", "NM",
                 "98939", 123, "console", 19.99, 2, 39.98,
                 0.00, 0.05,48.98 );
+
+        outputJson2 = mapper.writeValueAsString(invoice1);
 
         customerInvoice = new Invoice(1,"William Shatner", "DownByTheRiver St.", "Roswell",
                 "NM", "99999", 123, "console", 19.99, 2, 39.98);
@@ -119,18 +125,14 @@ public class InvoiceControllerTest {
 //            .andExpect(jsonPath("$[0].id").isNotEmpty());
 }
 
-/** Needs fixing **/
     @Test
-    public void shouldReturnInvoiceById() throws Exception {
-
-        inputJson = mapper.writeValueAsString(customerInvoice);
-        outputJson = mapper.writeValueAsString(invoice1);
-        mockMvc.perform(
-                        get("/invoice/ff")
-                .content(inputJson)
-                .contentType(MediaType.APPLICATION_JSON))
-                .andDo(print())
-                .andExpect(status().isNotAcceptable());
+    public void shouldReturnInvoiceById() throws Exception, QueryNotFoundException {
+       doReturn(Optional.of(customerInvoice)).when(invoiceRepository).findById(1);
+//        inputJson = mapper.writeValueAsString(customerInvoice);
+//        outputJson = mapper.writeValueAsString(invoice1);
+        ResultActions result = mockMvc.perform(
+                        get("/invoice/1"))
+                                .andExpect(status().isOk())
+                            .andExpect(content().json(outputJson2));
     }
-
 }
