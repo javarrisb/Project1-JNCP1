@@ -2,6 +2,10 @@ package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.Console;
 import com.company.Summative1CristieJBNicholas.repository.ConsoleRepository;
+import com.company.Summative1CristieJBNicholas.repository.GameRepository;
+import com.company.Summative1CristieJBNicholas.services.ProcessingFeeServiceLayer;
+import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
+import com.company.Summative1CristieJBNicholas.services.TaxServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,10 +14,20 @@ import org.springframework.web.bind.annotation.RestController;
 public class ConsoleDataLoaderController {
     @Autowired
     ConsoleRepository repo;
+    @Autowired
+    ProcessingFeeServiceLayer processingFeeServiceLayer;
+    @Autowired
+    TaxServiceLayer taxServiceLayer;
+    @Autowired
+    ServiceLayer serviceLayer;
+
 
     @GetMapping("/load-console-data")
+      public void loadData() {
+        serviceLayer.clearDatabase();
+        taxServiceLayer.loadTaxRate();
+        processingFeeServiceLayer.loadFee();
 
-    public void loadData() {
         Console console = new Console();
         console.setModel("Playstation 5");
         console.setManufacturer("Sony");

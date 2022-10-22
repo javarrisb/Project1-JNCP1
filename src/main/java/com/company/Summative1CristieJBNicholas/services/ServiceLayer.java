@@ -68,7 +68,7 @@ public class ServiceLayer{
     }
     public Optional<TShirt> getSingleTshirt(int id) {
         Optional<TShirt> tshirt = tshirtRepo.findById(id);
-        return tshirt.isPresent()? Optional.of(tshirt.get()) : null;
+        return tshirt.map(Optional::of).orElse(null);
     }
     public TShirt addTshirt(TShirt tshirt) {
         return tshirtRepo.save(tshirt);
@@ -89,11 +89,11 @@ public class ServiceLayer{
     public List<Games> getGamesByStudio(String studio) {
         return gameRepo.findByStudio(studio);
     }
-    public List<Games> getGamesByEsrbRating(String esrbRating, String rating) {
-        return gameRepo.findByEsrbRating(esrbRating, esrbRating);
-    }
-    public List<Games> getGamesByStudioAndEsrbRating(String studio, String esrbRating) {
-        return gameRepo.findByEsrbRating(studio, esrbRating);
+//    public List<Games> getGamesByEsrbRating(String esrbRating, String rating) {
+//        return gameRepo.findByEsrbRating(esrbRating, esrbRating);
+//    }
+    public List<Games> getGamesByStudioAndEsrbRating(String esrbRating, String rating) {
+        return gameRepo.findByEsrbRating(  esrbRating);
      /**   CHECK on this/** */
     }
 //Trying to merge again, weeeeeeeeeeeee
