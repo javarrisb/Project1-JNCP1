@@ -38,7 +38,7 @@ public class InvoiceController {
     /**
      * changed to service layer
      */
-    @PostMapping(value = "/invoice")
+    @PostMapping(value = "/invoice/add")
     @ResponseStatus(value = HttpStatus.CREATED)
     public Invoice createANewInvoice(@RequestBody @Valid Invoice invoice) throws QueryNotFoundException {
 //        invoice.setId(idCounter++);

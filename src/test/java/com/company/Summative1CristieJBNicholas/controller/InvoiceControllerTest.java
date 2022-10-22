@@ -101,7 +101,7 @@ public class InvoiceControllerTest {
         inputJson = mapper.writeValueAsString(customerInvoice);
         outputJson = mapper.writeValueAsString(invoice1);
         mockMvc.perform(
-                        post("/invoice")
+                        post("/invoice/add")
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )

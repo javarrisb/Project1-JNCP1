@@ -167,7 +167,6 @@ public class ServiceLayer{
         invoice.setTax(salesTax);
         invoice.setProcessing_fee(processingFee);
         invoice.setSubtotal(subtotal);
-/**    TODO:    check on Subtotal in INVOICE--edit: it is needed! */
         invoice.setTotal(total);
 
         decreaseItemQuantity(invoice);
