@@ -7,7 +7,9 @@ import com.company.Summative1CristieJBNicholas.services.ProcessingFeeServiceLaye
 import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import com.company.Summative1CristieJBNicholas.services.TaxServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -23,6 +25,7 @@ public class ConsoleDataLoaderController {
 
 
     @GetMapping("/load-console-data")
+    @ResponseStatus(HttpStatus.CREATED)
       public void loadData() {
         serviceLayer.clearDatabase();
         taxServiceLayer.loadTaxRate();

@@ -77,7 +77,8 @@ public class InvoiceControllerTest {
         outputJson2 = mapper.writeValueAsString(invoice1);
 
         customerInvoice = new Invoice(1,"William Shatner", "DownByTheRiver St.", "Roswell",
-                "NM", "99999", 123, "console", 19.99, 2, 39.98);
+                "NM", "99999", 123, "console", 19.99, 2, 39.98,
+                0.00, 0.05,48.98 );
 
         allInvoices = Arrays.asList(invoice1, invoice2);
         allInvoicesJson = mapper.writeValueAsString(allInvoices);
