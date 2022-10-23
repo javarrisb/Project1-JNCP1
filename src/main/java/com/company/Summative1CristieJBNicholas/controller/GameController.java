@@ -20,8 +20,10 @@ public class GameController {
 
 //    @Autowired
 //    GameRepository repo;
+
     @Autowired
     ServiceLayer serviceLayer;
+
 
     @GetMapping(value="/games/game")
     @ResponseStatus(HttpStatus.OK)
