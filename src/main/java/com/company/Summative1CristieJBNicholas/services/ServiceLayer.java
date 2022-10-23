@@ -144,7 +144,7 @@ public class ServiceLayer{
 // Invoice--------- CRUD but We Do not need to update/delete!! -------------
 
     public List<Invoice> findAllInvoices() {
-        return invoiceRepo.findAll ();
+        return invoiceRepo.findAll();
     }
 
     public Optional<Invoice> findById(int id) throws QueryNotFoundException {
@@ -155,7 +155,7 @@ public class ServiceLayer{
     }
 
     public Invoice createInvoice(Invoice invoice) {
-        /** added this below, was missing*/
+
         Invoice updatedInvoice = invoice;
         double salesTax = applyTaxRate(invoice);
         double processingFee = applyProcessingFee(invoice);
