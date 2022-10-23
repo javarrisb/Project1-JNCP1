@@ -9,10 +9,10 @@ import org.springframework.stereotype.Service;
 public class TaxServiceLayer {
 
     @Autowired
-    static
+
     TaxRateRepository taxRateRepo;
 
-    public static TaxRate findSalesTaxRateByState(String state){
+    public  TaxRate findSalesTaxRateByState(String state){
         return taxRateRepo.findByState(state);
     }
 

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.validation.constraints.Digits;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
 import java.util.Objects;
@@ -16,43 +17,57 @@ public class Invoice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoice_id")//PK
-    private Integer  id;
-
+    private Integer  invoice_id;
+/**made into invoice_id */
     @NotEmpty(message = "You must supply a name for the invoice please.")
     @Column(name = "name")
     private String name;
+    @NotNull
     @Column(name = "street")
     private String street;
+    @NotNull
     @Column(name = "city")
     private String city;
+    @NotNull
     @Column(name = "state")
     @Size(max = 2)
     private String state;
+    @NotNull
     @Column(name = "zipcode")
     @Size(min = 5, max = 5)
     private String zipcode;
-    @Column(name="item_id")
-    private Integer item_id;
+    @NotNull
     @Column(name="item_type")
     private String item_type;
+    @NotNull
+    @Column(name="item_id")
+    private Integer item_id;
+    @NotNull
     @Column(name="unit_price")
     @Digits(integer = 5, fraction = 2)
-    private double unit_price;
+    private Double unit_price;
+    @NotNull
     @Column(name="quantity")
     private int quantity;
 
     @Column(name = "subtotal")
+    @NotNull
     @Digits(integer = 5, fraction = 2)
     private double subtotal;
-    @Column(name="processing_fee")
-    @Digits(integer = 5, fraction = 2)
-    private double processing_fee;
     @Column(name="tax")
+    @NotNull
     @Digits(integer = 5, fraction = 2)
     private double tax;
+    @Column(name="processing_fee")
+    @NotNull
+    @Digits(integer = 5, fraction = 2)
+    private double processing_fee;
+
     @Column(name="total")
+    @NotNull
     @Digits(integer = 5, fraction = 2)
     private double total;
+
     public Invoice(){
 
     }
@@ -66,10 +81,10 @@ public class Invoice implements Serializable {
 //        this.zipcode = zipcode;
 //    }
 
-    public Invoice(Integer id, String name, String street, String city, String state, String zipcode,
+    public Invoice(Integer invoice_id, String name, String street, String city, String state, String zipcode,
                    Integer item_id, String item_type, double unit_price, int quantity, double subtotal,
                    double processing_fee, double tax, double total) {
-        this.id = id;
+        this.invoice_id = invoice_id;
         this.name = name;
         this.street = street;
         this.city = city;
@@ -85,8 +100,9 @@ public class Invoice implements Serializable {
         this.total = total;
     }
 
-    public Invoice(Integer id, String name, String street, String city, String state, String zipcode, Integer item_id, String item_type, double unit_price, int quantity, double subtotal) {
-        this.id = id;
+    public Invoice(Integer invoice_id, String name, String street, String city, String state, String zipcode,
+                   Integer item_id, String item_type, double unit_price, int quantity, double subtotal) {
+        this.invoice_id = invoice_id;
         this.name = name;
         this.street = street;
         this.city = city;
@@ -102,12 +118,16 @@ public class Invoice implements Serializable {
 //    }
 
 
-    public Integer getId() {
-        return id;
+    public Integer getInvoice_id() {
+        return invoice_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setInvoice_id(Integer invoice_id) {
+        this.invoice_id = invoice_id;
+    }
+
+    public void setUnit_price(Double unit_price) {
+        this.unit_price = unit_price;
     }
 
     public String getName() {
@@ -217,18 +237,18 @@ public class Invoice implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Invoice invoice = (Invoice) o;
-        return Double.compare(invoice.unit_price, unit_price) == 0 && quantity == invoice.quantity && Double.compare(invoice.processing_fee, processing_fee) == 0 && Double.compare(invoice.tax, tax) == 0 && Double.compare(invoice.total, total) == 0 && Objects.equals(id, invoice.id) && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipcode, invoice.zipcode) && Objects.equals(item_id, invoice.item_id) && Objects.equals(item_type, invoice.item_type);
+        return Double.compare(invoice.unit_price, unit_price) == 0 && quantity == invoice.quantity && Double.compare(invoice.processing_fee, processing_fee) == 0 && Double.compare(invoice.tax, tax) == 0 && Double.compare(invoice.total, total) == 0 && Objects.equals(invoice_id, invoice.invoice_id) && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipcode, invoice.zipcode) && Objects.equals(item_id, invoice.item_id) && Objects.equals(item_type, invoice.item_type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, street, city, state, zipcode, item_id, item_type, unit_price, quantity, processing_fee, tax, total);
+        return Objects.hash(invoice_id, name, street, city, state, zipcode, item_id, item_type, unit_price, quantity, processing_fee, tax, total);
     }
 
     @Override
     public String toString() {
         return "Invoice{" +
-                "id=" + id +
+                "invoice_id=" + invoice_id +
                 ", name='" + name + '\'' +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
@@ -264,3 +284,16 @@ public class Invoice implements Serializable {
 //  Read All
 //  By Customer Name
 
+//        select invoice0_.`invoice_id` as invoice_1_2_,
+//        invoice0_.`city` as city2_2_,
+//        invoice0_.`item_id` as item_id3_2_,
+//        invoice0_.`item_type` as item_typ4_2_,
+//        invoice0_.`name` as name5_2_, invoice0_.`processing_fee` as processi6_2_,
+//        invoice0_.`quantity` as quantity7_2_,
+//        invoice0_.`state` as state8_2_,
+//        invoice0_.`street` as street9_2_,
+//        invoice0_.`subtotal` as subtota10_2_,
+//        invoice0_.`tax` as tax11_2_,
+//        invoice0_.`total` as total12_2_,
+//        invoice0_.`unit_price` as unit_pr13_2_,
+//        invoice0_.`zipcode` as zipcode14_2_ from `invoice` invoice0_

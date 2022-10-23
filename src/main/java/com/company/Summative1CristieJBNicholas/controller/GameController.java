@@ -25,7 +25,8 @@ public class GameController {
     ServiceLayer serviceLayer;
 
 
-    @GetMapping(value="/games/game")
+//    @GetMapping(value="/games/game")
+    @GetMapping(value="/games/allgames")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getAllGames(@RequestParam(required = false) String studio, @RequestParam(required = false) String esrbRating) {
         if(studio != null && esrbRating != null){
@@ -39,7 +40,7 @@ public class GameController {
     }
 
     // get games by ID
-    @GetMapping("/games/{id}")
+    @GetMapping("/games/get/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Games> getSingleGameById(@PathVariable Integer id, @RequestParam(required = false)String title) throws QueryNotFoundException {
         if (title != null) {
@@ -91,7 +92,7 @@ public class GameController {
     }
 
 
-    @PutMapping(value="/games/update{id}")
+    @PutMapping(value="/games/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateGame(@RequestBody Games game, @PathVariable Integer id) throws QueryNotFoundException {
         if(game.getGame_Id() == null){
@@ -109,7 +110,7 @@ public class GameController {
 //        repo.save(game);
     }
 
-    @DeleteMapping(value="/games/delete{id}")
+    @DeleteMapping(value="/games/delete/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable Integer id) throws QueryNotFoundException {
         if(serviceLayer.getSingleGameById(id).orElse(null) == null){
