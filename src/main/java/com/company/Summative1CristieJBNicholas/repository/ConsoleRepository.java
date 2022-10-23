@@ -1,5 +1,3 @@
-
-
 package com.company.Summative1CristieJBNicholas.repository;
 
 import com.company.Summative1CristieJBNicholas.models.Console;
@@ -13,6 +11,4 @@ import org.springframework.stereotype.Repository;
 public interface ConsoleRepository extends JpaRepository<Console, Integer> {
 
     List<Console> findByManufacturer(String manufacturer);
-
-    List<Console> findAllConsolesByManufacturer(String manufacturer);
 }

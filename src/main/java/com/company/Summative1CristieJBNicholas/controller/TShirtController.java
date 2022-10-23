@@ -18,7 +18,7 @@ public class TShirtController {
     TShirtRepository repo;
 
     // create a new tShirt
-    @PostMapping("/TShirt/add")
+    @PostMapping("/TShirt")
     @ResponseStatus(HttpStatus.CREATED)
 
     public TShirt addTShirt(@RequestBody TShirt tShirt) {
@@ -26,7 +26,7 @@ public class TShirtController {
     }
 
     // find all TShirts; from rsvp-service classwork
-    @RequestMapping(value = "/TShirt/getall", method = RequestMethod.GET)
+    @RequestMapping(value = "/TShirt", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<TShirt> getAllTShirts() {
         System.out.println("Getting All T-Shirts");
@@ -60,14 +60,15 @@ public class TShirtController {
     }
 
     // update an existing TShirt record
-    @PutMapping("/TShirt/update/{tShirtId}")
+
+    @PutMapping("/TShirt")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateTShirt(@RequestBody TShirt tShirt, @PathVariable Integer tShirtId) {
         repo.save(tShirt);
     }
 
     // delete an existing TShirt record
-    @DeleteMapping("/TShirt/delete/{tShirtId}")
+    @DeleteMapping("/TShirt/{tShirtId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTShirt(@PathVariable Integer tShirtId) {
         if (tShirtId < 1) {
@@ -75,5 +76,4 @@ public class TShirtController {
         }
         repo.deleteById(tShirtId);
     }
-
 }

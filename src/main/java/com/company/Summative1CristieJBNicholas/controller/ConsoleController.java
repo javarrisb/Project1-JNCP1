@@ -21,14 +21,14 @@ public class ConsoleController {
     ConsoleRepository repo;
 
     // create a new Console
-    @PostMapping("/Console/add")
+    @PostMapping("/Console")
     @ResponseStatus(HttpStatus.CREATED)
     public Console addConsole(@RequestBody Console console) {
         return repo.save(console);
     }
 
     // find all Consoles; from rsvp-service classwork
-    @RequestMapping(value = "/Console/getall", method = RequestMethod.GET)
+    @RequestMapping(value = "/Console", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<Console> getAllConsoles() {
         System.out.println("Getting All Consoles");
@@ -36,7 +36,7 @@ public class ConsoleController {
     }
 
     // find Console by iD; throws 422 error if invalid ID is selected
-    @GetMapping("/Console/get/{consoleId}")
+    @GetMapping("/Console/{consoleId}")
     public Console getConsoleById(@PathVariable Integer consoleId) {
         if (consoleId < 1) {
             throw new IllegalArgumentException("Console ID must be at least 1");
@@ -56,7 +56,7 @@ public class ConsoleController {
     }
 
     // update an existing Console record
-    @PutMapping(value = "/Console/update/{consoleId}")
+    @PutMapping(value = "/Console/{consoleId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateConsole(@RequestBody Console console, @PathVariable Integer consoleId) {
         console.setConsoleId(consoleId);
@@ -64,7 +64,7 @@ public class ConsoleController {
     }
 
     // delete an existing Console record
-    @DeleteMapping("/Console/delete/{consoleId}")
+    @DeleteMapping("/Console/{consoleId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteConsole(@PathVariable Integer consoleId) {
         if (consoleId < 1) {

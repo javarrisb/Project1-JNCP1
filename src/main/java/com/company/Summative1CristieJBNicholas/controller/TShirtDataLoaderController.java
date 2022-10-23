@@ -1,7 +1,6 @@
 package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.TShirt;
-import com.company.Summative1CristieJBNicholas.repository.ConsoleRepository;
 import com.company.Summative1CristieJBNicholas.repository.TShirtRepository;
 import com.company.Summative1CristieJBNicholas.services.ProcessingFeeServiceLayer;
 import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
@@ -78,6 +77,5 @@ public class TShirtDataLoaderController {
         tShirt5.setPrice(10.99);
         tShirt5.setQuantity(20);
         repo.save(tShirt5);
-
     }
 }

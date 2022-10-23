@@ -4,7 +4,6 @@ package com.company.Summative1CristieJBNicholas.controller;
 import com.company.Summative1CristieJBNicholas.exception.QueryNotFoundException;
 import com.company.Summative1CristieJBNicholas.models.Games;
 
-
 import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -26,7 +25,7 @@ public class GameController {
 
 
 //    @GetMapping(value="/games/game")
-    @GetMapping(value="/games/allgames")
+    @GetMapping(value="/games")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getAllGames(@RequestParam(required = false) String studio, @RequestParam(required = false) String esrbRating) {
         if(studio != null && esrbRating != null){
@@ -69,7 +68,7 @@ public class GameController {
 
 
 
-    @PostMapping(value="/games/add")
+    @PostMapping(value="/games")
     @ResponseStatus(HttpStatus.CREATED)
 //    "create game"
     public Games addGame(@RequestBody Games game) {
@@ -95,7 +94,7 @@ public class GameController {
 
     }
 
-    @DeleteMapping(value="/games/delete/{id}")
+    @DeleteMapping(value="/games/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable Integer id) throws QueryNotFoundException {
         if(serviceLayer.getSingleGameById(id).orElse(null) == null){

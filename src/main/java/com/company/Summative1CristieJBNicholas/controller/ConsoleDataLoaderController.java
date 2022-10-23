@@ -2,13 +2,11 @@ package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.Console;
 import com.company.Summative1CristieJBNicholas.repository.ConsoleRepository;
-import com.company.Summative1CristieJBNicholas.repository.GameRepository;
 import com.company.Summative1CristieJBNicholas.services.ProcessingFeeServiceLayer;
 import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import com.company.Summative1CristieJBNicholas.services.TaxServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;

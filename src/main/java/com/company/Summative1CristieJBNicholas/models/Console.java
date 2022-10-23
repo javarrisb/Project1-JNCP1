@@ -1,6 +1,7 @@
 package com.company.Summative1CristieJBNicholas.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -13,19 +14,19 @@ public class Console {
     @Id
     @Column(name = "console_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-   private Integer consoleId;
+    private Integer consoleId;
 
-   private String model;
+    private String model;
 
-   private String manufacturer;
+    private String manufacturer;
     @Column(name = "memory_amount")
-   private String memoryAmount;
+    private String memoryAmount;
 
-   private String processor;
+    private String processor;
 
-   private Double price;
+    private Double price;
 
-   private Integer quantity;
+    private Integer quantity;
 
     public Console() {
 
@@ -123,5 +124,3 @@ public class Console {
                 '}';
     }
 }
-
-
