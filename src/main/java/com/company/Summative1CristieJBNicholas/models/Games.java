@@ -39,6 +39,8 @@ public class Games {
     public Games() {
     }
 
+
+
     public Integer getGame_Id() {
         return game_Id;
     }

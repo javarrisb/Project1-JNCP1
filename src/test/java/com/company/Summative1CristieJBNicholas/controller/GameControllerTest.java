@@ -85,26 +85,6 @@ public class GameControllerTest {
 
     @Test
     public void shouldCreateNewGameOnPostRequest() throws Exception {
-//       // orig
-//        Games inputGames = new Games();
-//        inputGames.setId(1);
-//        inputGames.setTitle("Minecraft");
-//        inputGames.setEsrbRating("Ten+");
-//        inputGames.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
-//        inputGames.setPrice(19.99);
-//        inputGames.setStudio("Mojang");
-//        inputGames.setQuantity(100);
-
-//        Games inputGames = new Games();
-////        inputGames.setGame_Id(1);
-//        inputGames.setTitle("Minecraft");
-//        inputGames.setEsrbRating("Ten+");
-//        inputGames.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
-//        inputGames.setPrice(19.99);
-//        inputGames.setStudio("Mojang");
-//        inputGames.setQuantity(100);
-
-
 
         String inputJson = mapper.writeValueAsString(gameStoreGames);
         doReturn(games).when(serviceLayer).addGame(gameStoreGames);
