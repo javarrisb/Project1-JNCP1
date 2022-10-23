@@ -4,7 +4,6 @@ package com.company.Summative1CristieJBNicholas.controller;
 import com.company.Summative1CristieJBNicholas.exception.QueryNotFoundException;
 import com.company.Summative1CristieJBNicholas.models.Games;
 
-import com.company.Summative1CristieJBNicholas.repository.GameRepository;
 import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -26,7 +25,7 @@ public class GameController {
 
 
 //    @GetMapping(value="/games/game")
-    @GetMapping(value="/games/allgames")
+    @GetMapping(value="/games")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getAllGames(@RequestParam(required = false) String studio, @RequestParam(required = false) String esrbRating) {
         if(studio != null && esrbRating != null){
@@ -40,7 +39,7 @@ public class GameController {
     }
 
     // get games by ID
-    @GetMapping("/games/get/{id}")
+    @GetMapping("/games/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Games> getSingleGameById(@PathVariable Integer id, @RequestParam(required = false)String title) throws QueryNotFoundException {
         if (title != null) {
@@ -83,7 +82,7 @@ public class GameController {
 //        return serviceLayer.getGamesByEsrbRating(String, esrbRating);
 //    }
 
-    @PostMapping(value="/games/add")
+    @PostMapping(value="/games")
     @ResponseStatus(HttpStatus.CREATED)
 //    "create game"
     public Games addGame(@RequestBody Games game) {
@@ -110,7 +109,7 @@ public class GameController {
 //        repo.save(game);
     }
 
-    @DeleteMapping(value="/games/delete/{id}")
+    @DeleteMapping(value="/games/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable Integer id) throws QueryNotFoundException {
         if(serviceLayer.getSingleGameById(id).orElse(null) == null){

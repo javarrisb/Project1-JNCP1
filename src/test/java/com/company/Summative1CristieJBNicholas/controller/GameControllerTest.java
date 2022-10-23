@@ -179,7 +179,7 @@ public class GameControllerTest {
         doReturn(allGames).when(serviceLayer).getAllGames();
 
         mockMvc.perform(
-                        get("/games/game"))
+                        get("/games"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(allGamesJson)
                 );
