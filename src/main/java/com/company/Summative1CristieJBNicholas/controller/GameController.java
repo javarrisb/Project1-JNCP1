@@ -41,14 +41,14 @@ public class GameController {
     // get games by ID
     @GetMapping("/games/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Games> getSingleGameById(@PathVariable Integer game_id, @RequestParam(required = false)String title) throws QueryNotFoundException {
+    public Optional<Games> getSingleGameById(@PathVariable Integer id, @RequestParam(required = false)String title) throws QueryNotFoundException {
         if (title != null) {
             return serviceLayer.findByTitle(title);
         }
-        if (serviceLayer.getSingleGameById(game_id).orElse(null) == null) {
+        if (serviceLayer.getSingleGameById(id).orElse(null) == null) {
             throw new QueryNotFoundException("The game with that title does not exist in our inventory.");
         }
-        return serviceLayer.getSingleGameById(game_id);
+        return serviceLayer.getSingleGameById(id);
     }
 
 
