@@ -71,15 +71,49 @@ public class Invoice implements Serializable {
     public Invoice(){
 
     }
+    public Invoice( Integer invoice_id, String name, String street, String city, String state, String zipcode,
+                   Integer item_id, double unit_price, int quantity, double subtotal) {
+        this.invoice_id = invoice_id;
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.item_id = item_id;
+        this.item_type = item_type;
+        this.unit_price = unit_price;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+        this.processing_fee = processing_fee;
+        this.tax = tax;
+        this.total = total;
+    }
+    public Invoice( Integer invoice_id,String name, String street, String city, String state, String zipcode,
+                    String item_type, int item_id, double unit_price, int quantity){
+            this.invoice_id = invoice_id;
+            this.name = name;
+            this.street = street;
+            this.city = city;
+            this.state = state;
+            this.zipcode = zipcode;
+            this.item_type = item_type;
+            this.item_id = item_id;
+            this.unit_price = unit_price;
+            this.quantity = quantity;
+        }
 
-//    public Invoice(int id, String name, String street, String city, String state, String zipcode) {
-//        this.id = id;
-//        this.name = name;
-//        this.street = street;
-//        this.city = city;
-//        this.state = state;
-//        this.zipcode = zipcode;
-//    }
+    public Invoice( String name, String street, String city, String state, String zipcode,
+                   String item_type, int item_id, double unit_price, int quantity) {
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.item_type = item_type;
+        this.item_id = item_id;
+        this.unit_price = unit_price;
+        this.quantity = quantity;
+    }
 
     public Invoice(Integer invoice_id, String name, String street, String city, String state, String zipcode,
                    Integer item_id, String item_type, double unit_price, int quantity, double subtotal,
@@ -114,10 +148,6 @@ public class Invoice implements Serializable {
         this.quantity = quantity;
         this.subtotal = subtotal;
     }
-//    public Invoice(int i, String william_shatner, String s, String roswell, String nm, int i1, int i2, String console, double v, int i3, double v1) {
-//    }
-
-
     public Integer getInvoice_id() {
         return invoice_id;
     }

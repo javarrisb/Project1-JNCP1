@@ -23,8 +23,8 @@ public class ConsoleDataLoaderController {
     ServiceLayer serviceLayer;
 
 
-    @PostMapping("/load-console-data")
-    @ResponseStatus(HttpStatus.CREATED)
+    @GetMapping("/load-console-data")
+//    @ResponseStatus(HttpStatus.CREATED)
       public void loadData() {
         serviceLayer.clearDatabase();
         taxServiceLayer.loadTaxRate();

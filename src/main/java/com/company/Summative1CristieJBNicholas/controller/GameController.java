@@ -7,7 +7,7 @@ import com.company.Summative1CristieJBNicholas.models.Games;
 import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.data.repository.support.QueryMethodParameterConversionException;
+
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -51,17 +51,7 @@ public class GameController {
         return serviceLayer.getSingleGameById(id);
     }
 
-        // from echo-range-service class work
-// old:       if (id < 1) {
-//            throw new IllegalArgumentException("Game ID must be at least 1");
-//        }
-//        Optional<Invoice> returnVal = serviceLayer.findById(id);
-//        if (returnVal.isPresent()){
-//            return returnVal.get();
-//        } else {
-//            throw new ProductNotFoundException("No such console. id:  " + id);
-//        }
-//
+
 
     @GetMapping(value="/games/title/{title}")
     @ResponseStatus(HttpStatus.OK)
@@ -76,11 +66,7 @@ public class GameController {
         return serviceLayer.getGamesByStudio(studio);
     }
 
-//    @GetMapping(value="/games/esrbRating/{esrbRating}")
-//    @ResponseStatus(HttpStatus.OK)
-//    public List<Games> getGamesByEsrbRating(@PathVariable String esrbRating){
-//        return serviceLayer.getGamesByEsrbRating(String, esrbRating);
-//    }
+
 
     @PostMapping(value="/games")
     @ResponseStatus(HttpStatus.CREATED)
@@ -105,8 +91,7 @@ public class GameController {
         }
         serviceLayer.updateGame(game);
 
-//  old:  public void updateGames(@RequestBody Games game) {
-//        repo.save(game);
+
     }
 
     @DeleteMapping(value="/games/{id}")
@@ -115,9 +100,6 @@ public class GameController {
         if(serviceLayer.getSingleGameById(id).orElse(null) == null){
             throw new QueryNotFoundException("That game title does not exist in our inventory.");
         }
-// old:       if (id < 1) {
-//            throw new IllegalArgumentException("Cannot delete a Game unless Game ID is at least 1");
-//        }
-//        repo.deleteById(id);
+
     }
 }
