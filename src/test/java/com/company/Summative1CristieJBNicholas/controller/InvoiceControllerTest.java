@@ -114,7 +114,7 @@ public class InvoiceControllerTest {
     public void shouldReturnAllInvoices() throws Exception {
         doReturn(allInvoices).when(serviceLayer).findAllInvoices();
         mockMvc.perform(
-                get("/invoices"))
+                get("/invoices/all"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(allInvoicesJson));
 //        mockMvc.perform(get("/invoices"))
