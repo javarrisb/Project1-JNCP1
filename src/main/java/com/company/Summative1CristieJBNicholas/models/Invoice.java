@@ -100,7 +100,8 @@ public class Invoice implements Serializable {
         this.total = total;
     }
 
-    public Invoice(Integer id, String name, String street, String city, String state, String zipcode, Integer item_id, String item_type, double unit_price, int quantity, double subtotal) {
+    public Invoice(Integer id, String name, String street, String city, String state, String zipcode,
+                   Integer item_id, String item_type, double unit_price, int quantity, double subtotal) {
         this.id = id;
         this.name = name;
         this.street = street;
@@ -279,3 +280,16 @@ public class Invoice implements Serializable {
 //  Read All
 //  By Customer Name
 
+//        select invoice0_.`invoice_id` as invoice_1_2_,
+//        invoice0_.`city` as city2_2_,
+//        invoice0_.`item_id` as item_id3_2_,
+//        invoice0_.`item_type` as item_typ4_2_,
+//        invoice0_.`name` as name5_2_, invoice0_.`processing_fee` as processi6_2_,
+//        invoice0_.`quantity` as quantity7_2_,
+//        invoice0_.`state` as state8_2_,
+//        invoice0_.`street` as street9_2_,
+//        invoice0_.`subtotal` as subtota10_2_,
+//        invoice0_.`tax` as tax11_2_,
+//        invoice0_.`total` as total12_2_,
+//        invoice0_.`unit_price` as unit_pr13_2_,
+//        invoice0_.`zipcode` as zipcode14_2_ from `invoice` invoice0_
