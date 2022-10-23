@@ -17,8 +17,8 @@ public class Invoice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoice_id")//PK
-    private Integer  id;
-
+    private Integer  invoice_id;
+/**made into invoice_id */
     @NotEmpty(message = "You must supply a name for the invoice please.")
     @Column(name = "name")
     private String name;
@@ -81,10 +81,10 @@ public class Invoice implements Serializable {
 //        this.zipcode = zipcode;
 //    }
 
-    public Invoice(Integer id, String name, String street, String city, String state, String zipcode,
+    public Invoice(Integer invoice_id, String name, String street, String city, String state, String zipcode,
                    Integer item_id, String item_type, double unit_price, int quantity, double subtotal,
                    double processing_fee, double tax, double total) {
-        this.id = id;
+        this.invoice_id = invoice_id;
         this.name = name;
         this.street = street;
         this.city = city;
@@ -100,9 +100,9 @@ public class Invoice implements Serializable {
         this.total = total;
     }
 
-    public Invoice(Integer id, String name, String street, String city, String state, String zipcode,
+    public Invoice(Integer invoice_id, String name, String street, String city, String state, String zipcode,
                    Integer item_id, String item_type, double unit_price, int quantity, double subtotal) {
-        this.id = id;
+        this.invoice_id = invoice_id;
         this.name = name;
         this.street = street;
         this.city = city;
@@ -118,12 +118,16 @@ public class Invoice implements Serializable {
 //    }
 
 
-    public Integer getId() {
-        return id;
+    public Integer getInvoice_id() {
+        return invoice_id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setInvoice_id(Integer invoice_id) {
+        this.invoice_id = invoice_id;
+    }
+
+    public void setUnit_price(Double unit_price) {
+        this.unit_price = unit_price;
     }
 
     public String getName() {
@@ -233,18 +237,18 @@ public class Invoice implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Invoice invoice = (Invoice) o;
-        return Double.compare(invoice.unit_price, unit_price) == 0 && quantity == invoice.quantity && Double.compare(invoice.processing_fee, processing_fee) == 0 && Double.compare(invoice.tax, tax) == 0 && Double.compare(invoice.total, total) == 0 && Objects.equals(id, invoice.id) && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipcode, invoice.zipcode) && Objects.equals(item_id, invoice.item_id) && Objects.equals(item_type, invoice.item_type);
+        return Double.compare(invoice.unit_price, unit_price) == 0 && quantity == invoice.quantity && Double.compare(invoice.processing_fee, processing_fee) == 0 && Double.compare(invoice.tax, tax) == 0 && Double.compare(invoice.total, total) == 0 && Objects.equals(invoice_id, invoice.invoice_id) && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipcode, invoice.zipcode) && Objects.equals(item_id, invoice.item_id) && Objects.equals(item_type, invoice.item_type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, street, city, state, zipcode, item_id, item_type, unit_price, quantity, processing_fee, tax, total);
+        return Objects.hash(invoice_id, name, street, city, state, zipcode, item_id, item_type, unit_price, quantity, processing_fee, tax, total);
     }
 
     @Override
     public String toString() {
         return "Invoice{" +
-                "id=" + id +
+                "invoice_id=" + invoice_id +
                 ", name='" + name + '\'' +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
