@@ -85,7 +85,6 @@ public class GameControllerTest {
 
     @Test
     public void shouldCreateNewGameOnPostRequest() throws Exception {
-
 //       // orig
 //        Games inputGames = new Games();
 //        inputGames.setId(1);
@@ -106,11 +105,12 @@ public class GameControllerTest {
 //        inputGames.setQuantity(100);
 
 
+
         String inputJson = mapper.writeValueAsString(gameStoreGames);
         doReturn(games).when(serviceLayer).addGame(gameStoreGames);
 
         mockMvc.perform(
-                        post("/games")
+                        post("/games/add")
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -179,7 +179,7 @@ public class GameControllerTest {
         doReturn(allGames).when(serviceLayer).getAllGames();
 
         mockMvc.perform(
-                        get("/games/game"))
+                        get("/games/allgames"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(allGamesJson)
                 );
@@ -199,6 +199,6 @@ public class GameControllerTest {
     @Test
     public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
         doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(2);   /** needed this*/
-            mockMvc.perform(delete("/games/2")).andExpect(status().isNoContent());
+            mockMvc.perform(delete("/games/delete/2")).andExpect(status().isNoContent());
     }
 }

@@ -40,7 +40,7 @@ public class GameController {
     }
 
     // get games by ID
-    @GetMapping("/games/get/{id}")
+    @GetMapping("/games/{id}")
     @ResponseStatus(HttpStatus.OK)
     public Optional<Games> getSingleGameById(@PathVariable Integer id, @RequestParam(required = false)String title) throws QueryNotFoundException {
         if (title != null) {
