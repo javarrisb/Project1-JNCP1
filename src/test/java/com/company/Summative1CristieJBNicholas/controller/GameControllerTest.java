@@ -28,7 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(GameController.class)
-
 public class GameControllerTest {
 
     @Autowired
@@ -53,7 +52,6 @@ public class GameControllerTest {
     @Before
     public void setUp() throws Exception {
         // input
-
         gameStoreGames = new Games();
         gameStoreGames.setTitle("Minecraft");
         gameStoreGames.setEsrbRating("Ten+");
@@ -63,14 +61,11 @@ public class GameControllerTest {
         gameStoreGames.setQuantity(100);
 
         inputGameJson = mapper.writeValueAsString(gameStoreGames);
-
         // output
 //        Games games = new Games();
 //        games.setId(1);
-
-         games = new Games();
+        games = new Games();
         games.setGame_Id(1);
-
         games.setTitle("Minecraft");
         games.setEsrbRating("Ten+");
         games.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
@@ -179,6 +174,7 @@ public class GameControllerTest {
     @Test
     public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
         doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(2);   /** needed this*/
-            mockMvc.perform(delete("/games/delete/2")).andExpect(status().isNoContent());
+            mockMvc.perform(delete("/games/delete/2"))
+                    .andExpect(status().isNoContent());
     }
 }
