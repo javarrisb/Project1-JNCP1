@@ -55,14 +55,12 @@ public class ConsoleController {
         return repo.findByManufacturer(manufacturer);
     }
 
-
     // update an existing Console record
     @PutMapping(value = "/Console/update/{consoleId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateConsole(@RequestBody Console console, @PathVariable Integer consoleId) {
         console.setConsoleId(consoleId);
         repo.save(console);
-
     }
 
     // delete an existing Console record

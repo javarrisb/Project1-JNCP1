@@ -20,9 +20,12 @@ public class GameController {
 
 //    @Autowired
 //    GameRepository repo;
+
     @Autowired
     ServiceLayer serviceLayer;
 
+
+//    @GetMapping(value="/games/game")
     @GetMapping(value="/games/allgames")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getAllGames(@RequestParam(required = false) String studio, @RequestParam(required = false) String esrbRating) {
