@@ -66,8 +66,6 @@ public class GameController {
         return serviceLayer.getGamesByStudio(studio);
     }
 
-
-
     @PostMapping(value="/games/add")
     @ResponseStatus(HttpStatus.CREATED)
 //    "create game"
@@ -75,8 +73,6 @@ public class GameController {
 //        return repo.save(game);
     return serviceLayer.addGame(game);
     }
-
-
     @PutMapping(value="/games/{game_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateGame(@RequestBody Games game, @PathVariable Integer game_id) throws QueryNotFoundException {

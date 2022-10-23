@@ -170,7 +170,6 @@ public class GameControllerTest {
                 )
                 .andExpect(status().isNoContent());
     }
-
     @Test
     public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
         doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(1);   /** needed this*/

@@ -154,7 +154,6 @@ public class TShirtControllerTest {
     @Test
     public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
         doReturn(Optional.of(tShirts)).when(serviceLayer).getSingleTshirt(1);
-
         mockMvc.perform(delete("/TShirt/update/{tShirtId}" ,1)
                 .content(tShirtJson)
                 .contentType(MediaType.APPLICATION_JSON))
