@@ -31,7 +31,7 @@ public class InvoiceController {
     // Create, Read and Read All operations
     @GetMapping(value = "/invoices/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<Invoice> findAllInvoices(@RequestParam(required = false)Integer invoice_id) {
+    public List<Invoice> findAllInvoices() {
              return serviceLayer.findAllInvoices();
       }
     /**
@@ -39,13 +39,13 @@ public class InvoiceController {
      */
     @PostMapping(value = "/invoice/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public Invoice createANewInvoice(@RequestBody @Valid Invoice invoice)  {
-//        if (taxServiceLayer.findSalesTaxRateByState(invoice.getState()) == null) {
-//            throw new QueryNotFoundException(invoice.getState() + " is not a valid code.");
-//        }
-//        if (invoice.getQuantity() <= 0) {
-//            throw new IllegalArgumentException("1 item must be purchased.");
-//        }
+    public Invoice createANewInvoice(@RequestBody @Valid Invoice invoice) throws QueryNotFoundException {
+        if (taxServiceLayer.findSalesTaxRateByState(invoice.getState()) == null) {
+            throw new QueryNotFoundException(invoice.getState() + " is not a valid code.");
+        }
+        if (invoice.getQuantity() <= 0) {
+            throw new IllegalArgumentException("1 item must be purchased.");
+        }
         return serviceLayer.createInvoice(invoice);
     }
 
