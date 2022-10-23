@@ -163,8 +163,9 @@ public class TShirtControllerTest {
 
         @Test
         public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
-            doReturn(Optional.of(tShirts)).when(serviceLayer).getSingleGameById(2);
-        mockMvc.perform(delete("/TShirt/1"))
-                .andExpect(status().isNoContent());
+            doReturn(tShirts).when(serviceLayer).getSingleGameById(1);
+            mockMvc.perform(delete("/TShirt/delete/{tShirtId}", 1))
+                    .andExpect(status().isNoContent());
         }
  }
+

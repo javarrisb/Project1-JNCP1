@@ -173,8 +173,8 @@ public class GameControllerTest {
 
     @Test
     public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
-        doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(2);   /** needed this*/
-            mockMvc.perform(delete("/games/delete/2"))
+        doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(1);   /** needed this*/
+            mockMvc.perform(delete("/games/{id}", 1))
                     .andExpect(status().isNoContent());
     }
 }

@@ -25,7 +25,7 @@ public class GameController {
 
 
 //    @GetMapping(value="/games/game")
-    @GetMapping(value="/games")
+    @GetMapping(value="/games/allgames")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getAllGames(@RequestParam(required = false) String studio, @RequestParam(required = false) String esrbRating) {
         if(studio != null && esrbRating != null){
@@ -41,14 +41,14 @@ public class GameController {
     // get games by ID
     @GetMapping("/games/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Games> getSingleGameById(@PathVariable Integer id, @RequestParam(required = false)String title) throws QueryNotFoundException {
+    public Optional<Games> getSingleGameById(@PathVariable Integer game_id, @RequestParam(required = false)String title) throws QueryNotFoundException {
         if (title != null) {
             return serviceLayer.findByTitle(title);
         }
-        if (serviceLayer.getSingleGameById(id).orElse(null) == null) {
+        if (serviceLayer.getSingleGameById(game_id).orElse(null) == null) {
             throw new QueryNotFoundException("The game with that title does not exist in our inventory.");
         }
-        return serviceLayer.getSingleGameById(id);
+        return serviceLayer.getSingleGameById(game_id);
     }
 
 
@@ -68,7 +68,7 @@ public class GameController {
 
 
 
-    @PostMapping(value="/games")
+    @PostMapping(value="/games/add")
     @ResponseStatus(HttpStatus.CREATED)
 //    "create game"
     public Games addGame(@RequestBody Games game) {
@@ -77,16 +77,16 @@ public class GameController {
     }
 
 
-    @PutMapping(value="/games/{id}")
+    @PutMapping(value="/games/{game_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateGame(@RequestBody Games game, @PathVariable Integer id) throws QueryNotFoundException {
+    public void updateGame(@RequestBody Games game, @PathVariable Integer game_id) throws QueryNotFoundException {
         if(game.getGame_Id() == null){
-            game.setGame_Id(id);
+            game.setGame_Id(game_id);
     }
-        if(id != game.getGame_Id()){
+        if(game_id != game.getGame_Id()){
             throw new DataIntegrityViolationException("Request body ID does not match Path Variable Id.");
         }
-        if(serviceLayer.getSingleGameById(id).orElse(null) == null){
+        if(serviceLayer.getSingleGameById(game_id).orElse(null) == null){
             throw new QueryNotFoundException("That game title does not exist in our inventory.");
         }
         serviceLayer.updateGame(game);
@@ -94,10 +94,10 @@ public class GameController {
 
     }
 
-    @DeleteMapping(value="/games/{id}")
+    @DeleteMapping(value="/games/{game_id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteGame(@PathVariable Integer id) throws QueryNotFoundException {
-        if(serviceLayer.getSingleGameById(id).orElse(null) == null){
+    public void deleteGame(@PathVariable Integer game_id) throws QueryNotFoundException {
+        if(serviceLayer.getSingleGameById(game_id).orElse(null) == null){
             throw new QueryNotFoundException("That game title does not exist in our inventory.");
         }
 
