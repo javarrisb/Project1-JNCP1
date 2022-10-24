@@ -55,8 +55,6 @@ public class LoadDataController {
         serviceLayer.addTshirt(new TShirt(4,"Large", "Blue", "GameStorePromo", 10.99, 20));
         serviceLayer.addTshirt(new TShirt(5,"X-Large", "Blue", "GameStorePromo", 10.99, 20));
         serviceLayer.addTshirt(new TShirt(6,"XX-Large", "Blue", "GameStorePromo", 10.99, 20));
-
     }
-
-    }
+}
 

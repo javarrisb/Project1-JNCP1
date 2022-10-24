@@ -130,25 +130,6 @@ public class GameControllerTest {
                 .andExpect(content().json(allGamesJson)
                 );
     }
-
-//    @Test
-////    public void shouldReturnEsrbRatingOnValidGetRequest() throws Exception {
-//////should I have this as local variable and initialized as null??
-////        String esrbRating = null;
-////
-////        doReturn(allGames).when(serviceLayer).findByEsrbRating("NR", esrbRating);
-////
-////        mockMvc.perform(
-////                        get("/games/esrbRating/NR")
-////                                .contentType(MediaType.APPLICATION_JSON)
-////                )
-////                .andDo(print())
-////                .andExpect(status().isOk())
-////                .andExpect(content().json(allGamesJson)
-////                );
-////    }
-
-
     @Test
     public void shouldReturnAllGames() throws Exception {
         doReturn(allGames).when(serviceLayer).getAllGames();
