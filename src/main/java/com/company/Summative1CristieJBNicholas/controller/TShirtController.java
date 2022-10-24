@@ -61,14 +61,14 @@ public class TShirtController {
 
     // update an existing TShirt record
 
-    @PutMapping("/TShirt")
+    @PutMapping("/TShirt/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void updateTShirt(@RequestBody TShirt tShirt, @PathVariable Integer tShirtId) {
         repo.save(tShirt);
     }
 
     // delete an existing TShirt record
-    @DeleteMapping("/TShirt/{tShirtId}")
+    @DeleteMapping("/TShirt/delete/{tShirtId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTShirt(@PathVariable Integer tShirtId) {
         if (tShirtId < 1) {

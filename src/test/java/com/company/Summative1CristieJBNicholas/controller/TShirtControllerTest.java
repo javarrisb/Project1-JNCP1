@@ -79,19 +79,11 @@ public class TShirtControllerTest {
 
     //from work done with RSVP-Service
     @Test
-    public void shouldCreateNewConsoleOnPostRequest() throws Exception {
-//        TShirt inputTShirt = new TShirt();
-//        inputTShirt.settShirtId(1);
-//        inputTShirt.setSize("X-Small");
-//        inputTShirt.setColor("Blue");
-//        inputTShirt.setDescription("GameStorePromo");
-//        inputTShirt.setPrice(10.99);
-//        inputTShirt.setQuantity(20);
-
-        String inputJson = mapper.writeValueAsString(tShirts);
-        doReturn(tShirts).when(serviceLayer).addTshirt(tShirts);
+    public void shouldCreateNewTshirtOnPostRequest() throws Exception {
+        String inputJson = mapper.writeValueAsString(gameStoreTShirt);
+        doReturn(tShirts).when(serviceLayer).addTshirt(gameStoreTShirt);
         mockMvc.perform(
-                        post("/TShirt/add")
+                        post("/TShirt")
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -153,8 +145,8 @@ public class TShirtControllerTest {
 
     @Test
     public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
-        doReturn(Optional.of(tShirts)).when(serviceLayer).getSingleTshirt(1);
-        mockMvc.perform(delete("/TShirt/update/{tShirtId}" ,1)
+        doReturn((tShirts)).when(serviceLayer).getSingleTshirt(1);
+        mockMvc.perform(delete("/TShirt/{id}" ,1)
                 .content(tShirtJson)
                 .contentType(MediaType.APPLICATION_JSON))
                         .andExpect(status().isNoContent());
