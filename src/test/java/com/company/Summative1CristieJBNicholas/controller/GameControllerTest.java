@@ -28,7 +28,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(GameController.class)
-
 public class GameControllerTest {
 
     @Autowired
@@ -53,7 +52,6 @@ public class GameControllerTest {
     @Before
     public void setUp() throws Exception {
         // input
-
         gameStoreGames = new Games();
         gameStoreGames.setTitle("Minecraft");
         gameStoreGames.setEsrbRating("Ten+");
@@ -63,11 +61,11 @@ public class GameControllerTest {
         gameStoreGames.setQuantity(100);
 
         inputGameJson = mapper.writeValueAsString(gameStoreGames);
-
         // output
+//        Games games = new Games();
+//        games.setId(1);
         games = new Games();
         games.setGame_Id(1);
-
         games.setTitle("Minecraft");
         games.setEsrbRating("Ten+");
         games.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
@@ -87,7 +85,7 @@ public class GameControllerTest {
         doReturn(games).when(serviceLayer).addGame(gameStoreGames);
 
         mockMvc.perform(
-                        post("/games")
+                        post("/games/add")
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -110,6 +108,7 @@ public class GameControllerTest {
         doReturn(Optional.of(games)).when(serviceLayer).findByTitle("Minecraft");
         mockMvc.perform(
                         get("/games/title/Minecraft")
+//                                .contentType(MediaType.APPLICATION_JSON)****** used only for puts and posts
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -124,6 +123,7 @@ public class GameControllerTest {
 
         mockMvc.perform(
                         get("/games/studio/Mojang")
+//                                .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -131,25 +131,30 @@ public class GameControllerTest {
                 );
     }
 
+//    @Test
+////    public void shouldReturnEsrbRatingOnValidGetRequest() throws Exception {
+//////should I have this as local variable and initialized as null??
+////        String esrbRating = null;
+////
+////        doReturn(allGames).when(serviceLayer).findByEsrbRating("NR", esrbRating);
+////
+////        mockMvc.perform(
+////                        get("/games/esrbRating/NR")
+////                                .contentType(MediaType.APPLICATION_JSON)
+////                )
+////                .andDo(print())
+////                .andExpect(status().isOk())
+////                .andExpect(content().json(allGamesJson)
+////                );
+////    }
 
-    @Test
-    public void shouldReturnEsrbRatingOnValidGetRequest() throws Exception {
-        doReturn(Optional.of(games)).when(serviceLayer).findByEsrbRating("Mature");
-        mockMvc.perform(
-                        get("/games/esrbRating/Mature")
-                )
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().json(outGameJson)
-                );
-    }
 
     @Test
     public void shouldReturnAllGames() throws Exception {
         doReturn(allGames).when(serviceLayer).getAllGames();
 
         mockMvc.perform(
-                        get("/games"))
+                        get("/games/allgames"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(allGamesJson)
                 );
@@ -169,6 +174,7 @@ public class GameControllerTest {
     @Test
     public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
         doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(2);   /** needed this*/
-            mockMvc.perform(delete("/games/2")).andExpect(status().isNoContent());
+        mockMvc.perform(delete("/games/delete/2"))
+                .andExpect(status().isNoContent());
     }
 }

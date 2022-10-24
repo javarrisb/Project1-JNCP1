@@ -2,10 +2,6 @@ package com.company.Summative1CristieJBNicholas.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
-import javax.validation.constraints.Min;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Positive;
 import java.util.Objects;
 
 @Entity
@@ -18,17 +14,14 @@ public class TShirt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tShirtId;
 
-    @NotEmpty(message = "Size not allowed to be empty.")
     private String size;
-    @NotEmpty(message = "Color not allowed to be empty.")
+
     private String color;
-    @NotEmpty(message = "Description not allowed to be empty.")
+
     private String description;
 
-    @NotNull
-    @Min(value = 1, message = "Check price carefully.")
     private Double price;
-    @Positive(message = "You have to enter at least 1.")
+
     private Integer quantity;
 
     public TShirt() {
@@ -44,11 +37,11 @@ public class TShirt {
         this.quantity = quantity;
     }
 
-    public Integer getShirtId() {
+    public Integer gettShirtId() {
         return tShirtId;
     }
 
-    public void setShirtId(Integer tShirtId) {
+    public void settShirtId(Integer tShirtId) {
         this.tShirtId = tShirtId;
     }
 

@@ -21,31 +21,31 @@ public class InvoiceController {
 
     @Autowired
     ServiceLayer serviceLayer;
-//    @Autowired
-//    TaxServiceLayer taxServiceLayer;
-////
-////    @Autowired
+    @Autowired
+    TaxServiceLayer taxServiceLayer;
 
+    @Autowired
+    InvoiceRepository invoiceRepository;
 //    private static int idCounter = 1;
 
     // Create, Read and Read All operations
     @GetMapping(value = "/invoices/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<Invoice> findInvoices(@RequestBody Integer invoiceId) {
-             return serviceLayer.findAllInvoices();
-      }
+    public List<Invoice> findAllInvoices() {
+        return serviceLayer.findAllInvoices();
+    }
     /**
      * changed to service layer
      */
     @PostMapping(value = "/invoice/add")
     @ResponseStatus(HttpStatus.CREATED)
-    public Invoice createANewInvoice(@RequestBody @Valid Invoice invoice)  {
-//        if (taxServiceLayer.findSalesTaxRateByState(invoice.getState()) == null) {
-//            throw new QueryNotFoundException(invoice.getState() + " is not a valid code.");
-//        }
-//        if (invoice.getQuantity() <= 0) {
-//            throw new IllegalArgumentException("1 item must be purchased.");
-//        }
+    public Invoice createANewInvoice(@RequestBody @Valid Invoice invoice) throws QueryNotFoundException {
+        if (taxServiceLayer.findSalesTaxRateByState(invoice.getState()) == null) {
+            throw new QueryNotFoundException(invoice.getState() + " is not a valid code.");
+        }
+        if (invoice.getQuantity() <= 0) {
+            throw new IllegalArgumentException("1 item must be purchased.");
+        }
         return serviceLayer.createInvoice(invoice);
     }
 
@@ -55,7 +55,7 @@ public class InvoiceController {
     public Optional <Invoice> findInvoiceById(@PathVariable Integer id) throws QueryNotFoundException {
         if(serviceLayer.findById(id).orElse(null) == null){
             throw new QueryNotFoundException("Invoice does not exist with that ID.");
-       }
+        }
         return serviceLayer.findById(id);
     }
 }

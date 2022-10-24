@@ -17,8 +17,8 @@ public class Invoice implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoice_id")//PK
-    private Integer invoiceId;
-
+    private Integer  invoice_id;
+    /**made into invoice_id */
     @NotEmpty(message = "You must supply a name for the invoice please.")
     @Column(name = "name")
     private String name;
@@ -37,63 +37,127 @@ public class Invoice implements Serializable {
     @Size(min = 5, max = 5)
     private String zipcode;
     @NotNull
-    @Column(name = "item_type")
-    private String itemType;
+    @Column(name="item_type")
+    private String item_type;
     @NotNull
-    @Column(name = "item_id")
-    private Integer itemId;
+    @Column(name="item_id")
+    private Integer item_id;
     @NotNull
-    @Column(name = "unit_price")
+    @Column(name="unit_price")
     @Digits(integer = 5, fraction = 2)
-    private Double unitPrice;
+    private Double unit_price;
     @NotNull
-    @Column(name = "quantity")
+    @Column(name="quantity")
     private int quantity;
 
     @Column(name = "subtotal")
     @NotNull
     @Digits(integer = 5, fraction = 2)
     private double subtotal;
-    @Column(name = "tax")
+    @Column(name="tax")
     @NotNull
     @Digits(integer = 5, fraction = 2)
     private double tax;
-    @Column(name = "processing_fee")
+    @Column(name="processing_fee")
     @NotNull
     @Digits(integer = 5, fraction = 2)
-    private double proceesingFee;
+    private double processing_fee;
 
-    @Column(name = "total")
+    @Column(name="total")
     @NotNull
     @Digits(integer = 5, fraction = 2)
     private double total;
 
-    public Invoice() {
-    }
+    public Invoice(){
 
-    public Invoice(Integer invoiceId, String name, String street, String city, String state, String zipcode, String itemType, Integer itemId, Double unitPrice, int quantity, double subtotal, double tax, double proceesingFee, double total) {
-        this.invoiceId = invoiceId;
+    }
+    public Invoice( Integer invoice_id, String name, String street, String city, String state, String zipcode,
+                    Integer item_id, double unit_price, int quantity, double subtotal) {
+        this.invoice_id = invoice_id;
         this.name = name;
         this.street = street;
         this.city = city;
         this.state = state;
         this.zipcode = zipcode;
-        this.itemType = itemType;
-        this.itemId = itemId;
-        this.unitPrice = unitPrice;
+        this.item_id = item_id;
+        this.item_type = item_type;
+        this.unit_price = unit_price;
         this.quantity = quantity;
         this.subtotal = subtotal;
+        this.processing_fee = processing_fee;
         this.tax = tax;
-        this.proceesingFee = proceesingFee;
+        this.total = total;
+    }
+    public Invoice( Integer invoice_id,String name, String street, String city, String state, String zipcode,
+                    String item_type, int item_id, double unit_price, int quantity){
+        this.invoice_id = invoice_id;
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.item_type = item_type;
+        this.item_id = item_id;
+        this.unit_price = unit_price;
+        this.quantity = quantity;
+    }
+
+    public Invoice( String name, String street, String city, String state, String zipcode,
+                    String item_type, int item_id, double unit_price, int quantity) {
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.item_type = item_type;
+        this.item_id = item_id;
+        this.unit_price = unit_price;
+        this.quantity = quantity;
+    }
+
+    public Invoice(Integer invoice_id, String name, String street, String city, String state, String zipcode,
+                   Integer item_id, String item_type, double unit_price, int quantity, double subtotal,
+                   double processing_fee, double tax, double total) {
+        this.invoice_id = invoice_id;
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.item_id = item_id;
+        this.item_type = item_type;
+        this.unit_price = unit_price;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+        this.processing_fee = processing_fee;
+        this.tax = tax;
         this.total = total;
     }
 
-    public Integer getInvoiceId() {
-        return invoiceId;
+    public Invoice(Integer invoice_id, String name, String street, String city, String state, String zipcode,
+                   Integer item_id, String item_type, double unit_price, int quantity, double subtotal) {
+        this.invoice_id = invoice_id;
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.item_id = item_id;
+        this.item_type = item_type;
+        this.unit_price = unit_price;
+        this.quantity = quantity;
+        this.subtotal = subtotal;
+    }
+    public Integer getInvoice_id() {
+        return invoice_id;
     }
 
-    public void setInvoiceId(Integer invoiceId) {
-        this.invoiceId = invoiceId;
+    public void setInvoice_id(Integer invoice_id) {
+        this.invoice_id = invoice_id;
+    }
+
+    public void setUnit_price(Double unit_price) {
+        this.unit_price = unit_price;
     }
 
     public String getName() {
@@ -136,28 +200,28 @@ public class Invoice implements Serializable {
         this.zipcode = zipcode;
     }
 
-    public String getItemType() {
-        return itemType;
+    public Integer getItem_id() {
+        return item_id;
     }
 
-    public void setItemType(String itemType) {
-        this.itemType = itemType;
+    public void setItem_id(Integer item_id) {
+        this.item_id = item_id;
     }
 
-    public Integer getItemId() {
-        return itemId;
+    public String getItem_type() {
+        return item_type;
     }
 
-    public void setItemId(Integer itemId) {
-        this.itemId = itemId;
+    public void setItem_type(String item_type) {
+        this.item_type = item_type;
     }
 
-    public Double getUnitPrice() {
-        return unitPrice;
+    public double getUnit_price() {
+        return unit_price;
     }
 
-    public void setUnitPrice(Double unitPrice) {
-        this.unitPrice = unitPrice;
+    public void setUnit_price(double unit_price) {
+        this.unit_price = unit_price;
     }
 
     public int getQuantity() {
@@ -168,12 +232,18 @@ public class Invoice implements Serializable {
         this.quantity = quantity;
     }
 
-    public double getSubtotal() {
+    public void setSubtotal(double subtotal){
+        this.subtotal = subtotal;
+    }
+    public double getSubtotal(){
         return subtotal;
     }
+    public double getProcessing_fee() {
+        return processing_fee;
+    }
 
-    public void setSubtotal(double subtotal) {
-        this.subtotal = subtotal;
+    public void setProcessing_fee(double processing_fee) {
+        this.processing_fee = processing_fee;
     }
 
     public double getTax() {
@@ -182,14 +252,6 @@ public class Invoice implements Serializable {
 
     public void setTax(double tax) {
         this.tax = tax;
-    }
-
-    public double getProceesingFee() {
-        return proceesingFee;
-    }
-
-    public void setProceesingFee(double proceesingFee) {
-        this.proceesingFee = proceesingFee;
     }
 
     public double getTotal() {
@@ -203,32 +265,31 @@ public class Invoice implements Serializable {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof Invoice)) return false;
+        if (o == null || getClass() != o.getClass()) return false;
         Invoice invoice = (Invoice) o;
-        return getQuantity() == invoice.getQuantity() && Double.compare(invoice.getSubtotal(), getSubtotal()) == 0 && Double.compare(invoice.getTax(), getTax()) == 0 && Double.compare(invoice.getProceesingFee(), getProceesingFee()) == 0 && Double.compare(invoice.getTotal(), getTotal()) == 0 && Objects.equals(getInvoiceId(), invoice.getInvoiceId()) && Objects.equals(getName(), invoice.getName()) && Objects.equals(getStreet(), invoice.getStreet()) && Objects.equals(getCity(), invoice.getCity()) && Objects.equals(getState(), invoice.getState()) && Objects.equals(getZipcode(), invoice.getZipcode()) && Objects.equals(getItemType(), invoice.getItemType()) && Objects.equals(getItemId(), invoice.getItemId()) && Objects.equals(getUnitPrice(), invoice.getUnitPrice());
+        return Double.compare(invoice.unit_price, unit_price) == 0 && quantity == invoice.quantity && Double.compare(invoice.processing_fee, processing_fee) == 0 && Double.compare(invoice.tax, tax) == 0 && Double.compare(invoice.total, total) == 0 && Objects.equals(invoice_id, invoice.invoice_id) && Objects.equals(name, invoice.name) && Objects.equals(street, invoice.street) && Objects.equals(city, invoice.city) && Objects.equals(state, invoice.state) && Objects.equals(zipcode, invoice.zipcode) && Objects.equals(item_id, invoice.item_id) && Objects.equals(item_type, invoice.item_type);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getInvoiceId(), getName(), getStreet(), getCity(), getState(), getZipcode(), getItemType(), getItemId(), getUnitPrice(), getQuantity(), getSubtotal(), getTax(), getProceesingFee(), getTotal());
+        return Objects.hash(invoice_id, name, street, city, state, zipcode, item_id, item_type, unit_price, quantity, processing_fee, tax, total);
     }
 
     @Override
     public String toString() {
         return "Invoice{" +
-                "invoiceId=" + invoiceId +
+                "invoice_id=" + invoice_id +
                 ", name='" + name + '\'' +
                 ", street='" + street + '\'' +
                 ", city='" + city + '\'' +
                 ", state='" + state + '\'' +
                 ", zipcode='" + zipcode + '\'' +
-                ", itemType='" + itemType + '\'' +
-                ", itemId=" + itemId +
-                ", unitPrice=" + unitPrice +
+                ", item_id=" + item_id +
+                ", item_type='" + item_type + '\'' +
+                ", unit_price=" + unit_price +
                 ", quantity=" + quantity +
-                ", subtotal=" + subtotal +
+                ", processing_fee=" + processing_fee +
                 ", tax=" + tax +
-                ", proceesingFee=" + proceesingFee +
                 ", total=" + total +
                 '}';
     }

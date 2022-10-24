@@ -2,6 +2,7 @@ package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.TShirt;
 import com.company.Summative1CristieJBNicholas.repository.TShirtRepository;
+import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,8 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(TShirtController.class)
-
-
 public class TShirtControllerTest {
     @Autowired
     private MockMvc mockMvc;
@@ -35,15 +34,22 @@ public class TShirtControllerTest {
     @MockBean
     private TShirtRepository repo;
 
+    @MockBean
+    ServiceLayer serviceLayer;
     private ObjectMapper mapper = new ObjectMapper();
 
     private TShirt gameStoreTShirt;
 
-    private String tShirtJson;
+    private TShirt tShirts;
 
+    private String outputTshirtJson;
+    private String tShirtJson;
     private List<TShirt> allTShirts = new ArrayList<>();
 
     private String allTShirtsJson;
+
+//    public TShirtControllerTest() {
+//    }
 
     @Before
     public void setUp() throws Exception {
@@ -58,39 +64,38 @@ public class TShirtControllerTest {
         tShirtJson = mapper.writeValueAsString(gameStoreTShirt);
 
         // output
-        TShirt tShirt = new TShirt();
-        tShirt.settShirtId(1);
-        tShirt.setSize("X-Small");
-        tShirt.setColor("Blue");
-        tShirt.setDescription("GameStorePromo");
-        tShirt.setPrice(10.99);
-        tShirt.setQuantity(20);
+        TShirt tShirts = new TShirt();
+        tShirts.settShirtId(1);
+        tShirts.setSize("X-Small");
+        tShirts.setColor("Blue");
+        tShirts.setDescription("GameStorePromo");
+        tShirts.setPrice(10.99);
+        tShirts.setQuantity(20);
 
-        allTShirts.add(tShirt);
-
+        outputTshirtJson = mapper.writeValueAsString(tShirts);
+        allTShirts.add(tShirts);
         allTShirtsJson = mapper.writeValueAsString(allTShirts);
     }
 
     //from work done with RSVP-Service
     @Test
     public void shouldCreateNewConsoleOnPostRequest() throws Exception {
-        TShirt inputTShirt = new TShirt();
-        inputTShirt.settShirtId(1);
-        inputTShirt.setSize("X-Small");
-        inputTShirt.setColor("Blue");
-        inputTShirt.setDescription("GameStorePromo");
-        inputTShirt.setPrice(10.99);
-        inputTShirt.setQuantity(20);
+//        TShirt inputTShirt = new TShirt();
+//        inputTShirt.settShirtId(1);
+//        inputTShirt.setSize("X-Small");
+//        inputTShirt.setColor("Blue");
+//        inputTShirt.setDescription("GameStorePromo");
+//        inputTShirt.setPrice(10.99);
+//        inputTShirt.setQuantity(20);
 
-        String inputJson = mapper.writeValueAsString(inputTShirt);
-        doReturn(gameStoreTShirt).when(repo).save(inputTShirt);
-
+        String inputJson = mapper.writeValueAsString(tShirts);
+        doReturn(tShirts).when(serviceLayer).addTshirt(tShirts);
         mockMvc.perform(
-                        post("/TShirt")
+                        post("/TShirt/add")
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(tShirtJson));
+                .andExpect(content().json(outputTshirtJson));
 
     }
 
@@ -134,12 +139,13 @@ public class TShirtControllerTest {
                 .andExpect(content().json(allTShirtsJson)
                 );
     }
+
     @Test
     public void shouldReturnAllTShirts() throws Exception {
         doReturn(allTShirts).when(repo).findAll();
 
         mockMvc.perform(
-                        get("/TShirt"))
+                        get("/TShirt/getall"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(allTShirtsJson)
                 );
@@ -147,16 +153,18 @@ public class TShirtControllerTest {
 
     @Test
     public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
-        mockMvc.perform(
-                        put("/TShirt")
-                                .content(tShirtJson)
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
+        doReturn(Optional.of(tShirts)).when(serviceLayer).getSingleTshirt(1);
+
+        mockMvc.perform(delete("/TShirt/update/{tShirtId}" ,1)
+                        .content(tShirtJson)
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isNoContent());
     }
 
     @Test
     public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
-        mockMvc.perform(delete("/TShirt/2")).andExpect(status().isNoContent());
+        doReturn(Optional.of(tShirts)).when(serviceLayer).getSingleGameById(2);
+        mockMvc.perform(delete("/TShirt/1"))
+                .andExpect(status().isNoContent());
     }
 }
