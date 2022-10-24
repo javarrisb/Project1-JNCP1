@@ -29,7 +29,7 @@ function GameStore() {
        
 
     function addClick() {
-        setScopedGame({ id: 0, title: "Tetris", esrbRating: "", description: "", studio: "",});
+        setScopedGame({ gameId: 0, title: "Tetris", esrbRating: "",description: "", price: 0, studio: "", quantity:0});
         setShowForm(true);
     }
 
