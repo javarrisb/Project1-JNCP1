@@ -55,10 +55,9 @@ public class ConsoleController {
     }
 
     // update an existing Console record
-    @PutMapping(value = "/Console/{consoleId}")
+    @PutMapping(value = "/Console")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateConsole(@RequestBody Console console, @PathVariable Integer consoleId) {
-        console.setConsoleId(consoleId);
+    public void updateConsole(@RequestBody Console console) {
         repo.save(console);
     }
 

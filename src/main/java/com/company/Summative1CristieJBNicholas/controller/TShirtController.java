@@ -62,7 +62,7 @@ public class TShirtController {
     // update an existing TShirt record
     @PutMapping("/TShirt")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateTShirt(@RequestBody TShirt tShirt, @PathVariable Integer tShirtId) {
+    public void updateTShirt(@RequestBody TShirt tShirt) {
         repo.save(tShirt);
     }
 

@@ -3,7 +3,7 @@ package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.exception.ProductNotFoundException;
 import com.company.Summative1CristieJBNicholas.exception.QueryNotFoundException;
-import com.company.Summative1CristieJBNicholas.models.Console;
+
 import com.company.Summative1CristieJBNicholas.models.Games;
 
 import com.company.Summative1CristieJBNicholas.repository.GameRepository;
@@ -58,6 +58,12 @@ public class GameController {
         return repo.findByTitle(title);
     }
 
+    // find by Esrb Rating
+    @GetMapping(value="/games/esrbRating/{esrbRating}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Games> getGameByEsrbRating(@PathVariable String esrbRating) {
+        return repo.findByEsrbRating(esrbRating);
+    }
     // find by studio
     @GetMapping(value="/games/studio/{studio}")
     @ResponseStatus(HttpStatus.OK)
@@ -65,19 +71,10 @@ public class GameController {
         return repo.findByStudio(studio);
     }
 
-    // create game
-    @PostMapping(value="/games")
-    @ResponseStatus(HttpStatus.CREATED)
-    public Games addGame(@RequestBody Games game) {
-        return repo.save(game);
-      }
-
-
     // update an existing Game record
-    @PutMapping(value = "/games/{gameId}")
+    @PutMapping(value = "/games")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateConsole(@RequestBody Games games, @PathVariable Integer gameId) {
-        games.setGameId(gameId);
+    public void updateGame(@RequestBody Games games) {
         repo.save(games);
     }
 
