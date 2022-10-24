@@ -2,8 +2,8 @@ package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.TShirt;
 import com.company.Summative1CristieJBNicholas.repository.TShirtRepository;
-import com.company.Summative1CristieJBNicholas.services.ProcessingFeeServiceLayer;
-import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
+//import com.company.Summative1CristieJBNicholas.services.ProcessingFeeServiceLayer;
+//import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import com.company.Summative1CristieJBNicholas.services.TaxServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,21 +14,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class TShirtDataLoaderController {
 
-    @Autowired
-    ProcessingFeeServiceLayer processingFeeServiceLayer;
+//    @Autowired
+//    ProcessingFeeServiceLayer processingFeeServiceLayer;
     @Autowired
     TaxServiceLayer taxServiceLayer;
-    @Autowired
-    ServiceLayer serviceLayer;
+//    @Autowired
+//    ServiceLayer serviceLayer;
     @Autowired
     TShirtRepository repo;
 
     @GetMapping("/load-tshirt-data")
     @ResponseStatus(HttpStatus.CREATED)
     public void loadData() {
-        serviceLayer.clearDatabase();
+//        serviceLayer.clearDatabase();
         taxServiceLayer.loadTaxRate();
-        processingFeeServiceLayer.loadFee();
+//        processingFeeServiceLayer.loadFee();
 
         TShirt tShirt  = new TShirt();
         tShirt.setSize("X-Small");

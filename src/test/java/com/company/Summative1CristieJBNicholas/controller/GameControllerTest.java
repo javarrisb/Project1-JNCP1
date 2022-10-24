@@ -2,7 +2,7 @@ package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.Games;
 import com.company.Summative1CristieJBNicholas.repository.GameRepository;
-import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
+//import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,8 +36,8 @@ GameControllerTest {
 
     @MockBean
     private GameRepository repo;
-    @MockBean
-    ServiceLayer serviceLayer;
+//    @MockBean
+//    ServiceLayer serviceLayer;
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -63,8 +63,6 @@ GameControllerTest {
 
         inputGameJson = mapper.writeValueAsString(gameStoreGames);
         // output
-//        Games games = new Games();
-//        games.setId(1);
         games = new Games();
         games.setGameId(1);
         games.setTitle("Minecraft");
@@ -83,7 +81,7 @@ GameControllerTest {
     public void shouldCreateNewGameOnPostRequest() throws Exception {
 
         String inputJson = mapper.writeValueAsString(gameStoreGames);
-        doReturn(games).when(serviceLayer).addGame(gameStoreGames);
+        doReturn(games).when(repo).save(gameStoreGames);
 
         mockMvc.perform(
                         post("/games/add")
@@ -93,89 +91,89 @@ GameControllerTest {
                 .andExpect(content().json(outGameJson));
 
     }
-
-    @Test
-    public void shouldReturnGamesById() throws Exception {
-        doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(1);
-        ResultActions result = mockMvc.perform(
-                        get("/games/1"))
-                .andExpect(status().isOk())
-                .andExpect((content().json(outGameJson))
-                );
-    }
-
-    @Test
-    public void shouldReturnTitleOnValidGetRequest() throws Exception {
-        doReturn(Optional.of(games)).when(serviceLayer).findByTitle("Minecraft");
-        mockMvc.perform(
-                        get("/games/title/Minecraft")
-//                                .contentType(MediaType.APPLICATION_JSON)****** used only for puts and posts
-                )
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().json(outGameJson)
-                );
-    }
-
-    @Test
-    public void shouldReturnStudioOnValidGetRequest() throws Exception {
-
-        doReturn(allGames).when(serviceLayer).getGamesByStudio("Mojang");
-
-        mockMvc.perform(
-                        get("/games/studio/Mojang")
-//                                .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().json(allGamesJson)
-                );
-    }
-
+//
 //    @Test
-////    public void shouldReturnEsrbRatingOnValidGetRequest() throws Exception {
-//////should I have this as local variable and initialized as null??
-////        String esrbRating = null;
-////
-////        doReturn(allGames).when(serviceLayer).findByEsrbRating("NR", esrbRating);
-////
-////        mockMvc.perform(
-////                        get("/games/esrbRating/NR")
+//    public void shouldReturnGamesById() throws Exception {
+//        doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(1);
+//        ResultActions result = mockMvc.perform(
+//                        get("/games/1"))
+//                .andExpect(status().isOk())
+//                .andExpect((content().json(outGameJson))
+//                );
+//    }
+//
+//    @Test
+//    public void shouldReturnTitleOnValidGetRequest() throws Exception {
+//        doReturn(Optional.of(games)).when(serviceLayer).findByTitle("Minecraft");
+//        mockMvc.perform(
+//                        get("/games/title/Minecraft")
+////                                .contentType(MediaType.APPLICATION_JSON)****** used only for puts and posts
+//                )
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(content().json(outGameJson)
+//                );
+//    }
+//
+//    @Test
+//    public void shouldReturnStudioOnValidGetRequest() throws Exception {
+//
+//        doReturn(allGames).when(serviceLayer).getGamesByStudio("Mojang");
+//
+//        mockMvc.perform(
+//                        get("/games/studio/Mojang")
 ////                                .contentType(MediaType.APPLICATION_JSON)
-////                )
-////                .andDo(print())
-////                .andExpect(status().isOk())
-////                .andExpect(content().json(allGamesJson)
-////                );
-////    }
-
-
-    @Test
-    public void shouldReturnAllGames() throws Exception {
-        doReturn(allGames).when(serviceLayer).getAllGames();
-
-        mockMvc.perform(
-                        get("/games/allgames"))
-                .andExpect(status().isOk())
-                .andExpect(content().json(allGamesJson)
-                );
-    }
-
-    @Test
-    public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
-        doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(1);/** needed this*/
-        mockMvc.perform(
-                        put("/games/{id}", 1)
-                                .content(outGameJson)
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isNoContent());
-    }
-
-    @Test
-    public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
-        doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(2);   /** needed this*/
-        mockMvc.perform(delete("/games/delete/2"))
-                .andExpect(status().isNoContent());
-    }
+//                )
+//                .andDo(print())
+//                .andExpect(status().isOk())
+//                .andExpect(content().json(allGamesJson)
+//                );
+//    }
+//
+////    @Test
+//////    public void shouldReturnEsrbRatingOnValidGetRequest() throws Exception {
+////////should I have this as local variable and initialized as null??
+//////        String esrbRating = null;
+//////
+//////        doReturn(allGames).when(serviceLayer).findByEsrbRating("NR", esrbRating);
+//////
+//////        mockMvc.perform(
+//////                        get("/games/esrbRating/NR")
+//////                                .contentType(MediaType.APPLICATION_JSON)
+//////                )
+//////                .andDo(print())
+//////                .andExpect(status().isOk())
+//////                .andExpect(content().json(allGamesJson)
+//////                );
+//////    }
+//
+//
+//    @Test
+//    public void shouldReturnAllGames() throws Exception {
+//        doReturn(allGames).when(serviceLayer).getAllGames();
+//
+//        mockMvc.perform(
+//                        get("/games/allgames"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().json(allGamesJson)
+//                );
+//    }
+//
+//    @Test
+//    public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
+//        doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(1);/** needed this*/
+//        mockMvc.perform(
+//                        put("/games/{id}", 1)
+//                                .content(outGameJson)
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                )
+//                .andExpect(status().isNoContent());
+//    }
+//
+//    @Test
+//    public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
+//        doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(2);   /** needed this*/
+//        mockMvc.perform(delete("/games/delete/2"))
+//                .andExpect(status().isNoContent());
+//    }
 }

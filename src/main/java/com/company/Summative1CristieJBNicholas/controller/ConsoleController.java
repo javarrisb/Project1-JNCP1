@@ -31,7 +31,6 @@ public class ConsoleController {
     @RequestMapping(value = "/Console", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<Console> getAllConsoles() {
-        System.out.println("Getting All Consoles");
         return repo.findAll();
     }
 
