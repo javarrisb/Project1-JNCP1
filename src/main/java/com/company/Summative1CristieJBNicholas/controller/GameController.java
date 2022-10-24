@@ -78,7 +78,7 @@ public class GameController {
         repo.save(games);
     }
 
-    @DeleteMapping(value="/games/{id}")
+    @DeleteMapping(value="/games/{gameId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteGame(@PathVariable Integer gameId)  {
        repo.deleteById(gameId);

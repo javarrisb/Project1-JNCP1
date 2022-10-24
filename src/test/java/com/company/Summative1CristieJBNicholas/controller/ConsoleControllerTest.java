@@ -136,7 +136,7 @@ public class ConsoleControllerTest {
     @Test
     public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
         mockMvc.perform(
-                        put("/Console/1")
+                        put("/Console")
                                 .content(gameStoreJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )

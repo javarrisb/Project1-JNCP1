@@ -37,8 +37,6 @@ GameControllerTest {
 
     @MockBean
     private GameRepository repo;
-//    @MockBean
-//    ServiceLayer serviceLayer;
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -112,7 +110,7 @@ GameControllerTest {
 
     @Test
     public void shouldReturnTitleOnValidGetRequest() throws Exception {
-        doReturn(Optional.of(games)).when(repo).findByTitle("Minecraft");
+        doReturn(allGames).when(repo).findByTitle("Minecraft");
         mockMvc.perform(
                         get("/games/title/Minecraft")
                 )
@@ -167,7 +165,7 @@ GameControllerTest {
     @Test
     public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
         mockMvc.perform(
-                        put("/games/{id}")
+                        put("/games")
                                 .content(outGameJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
