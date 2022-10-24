@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import './GameStore.css';
 import GamesCard from './GamesCard.js';
-import ConsoleCard from './ConsoleCard.js';
+//import ConsoleCard from './ConsoleCard.js';
 // import TShirtCard from './TShirtCard.js';
 import GameStoreForm from './GameStoreForm.js';
 
@@ -9,27 +9,31 @@ import GameStoreForm from './GameStoreForm.js';
 function GameStore() {
     const [games, setGames] = useState([]);
     const [showForm, setShowForm] = useState(false);
-    
+
     const [scopedGame, setScopedGame] = useState({});
-    // const [scopedConsoles, setScopedConsoles] = useState({});
-    // const [scopedTShirts, setScopedTShirts] = useState({});
-    
+  // const [scopedConsoles, setScopedConsoles] = useState({});
+   //const [scopedTShirts, setScopedTShirts] = useState({});
+
     const [error, setError] = useState();
 
     useEffect(() => {
-        fetch("http://localhost:8080")
-        .then(response => response.json())
-        .then(result => setGames(result))
-        .catch(console.log);
+        fetchFromAPI();
     }, []);
 
+    function fetchFromAPI() {
+        fetch("http://localhost:8080/games")
+            .then(response => response.json())
+            .then(result => { setGames(result); })
+            .catch(console.log);
+    }
+
+
     function addClick() {
-        const now = new Date();
-        setScopedGame({ id: 0, title: "", esrbRating: "", description: "", studio: "", year: now.getFullYear() });
+        setScopedGame({ gameId: 0, title: "Tetris", esrbRating: "",description: "", price: 0, studio: "", quantity:0});
         setShowForm(true);
     }
 
-    function notify({ action, record, error }) {
+    function notify({ action, game, error }) {
 
         if (error) {
             setError(error);
@@ -37,27 +41,29 @@ function GameStore() {
             return;
         }
 
-        // switch (action) {
-        //     case "add":
-        //         setGames([...games, games]);
-        //         break;
-        //     case "edit":
-        //         setGames(records.map(e => {
-        //             if (e.id === record.id) {
-        //                 return games;
-        //             }
-        //             return e;
-        //         }));
-        //         break;
-        //     case "edit-form":
-        //         setScopedGame(game);
-        //         setShowForm(true);
-        //         return;
-        //     case "delete":
-        //         setGames(games.filter(e => e.id !== id));
-        //         break;
-        // }
-        
+       switch (action) {
+           case "add":
+               setGames([...games, game]);
+               break;
+           case "edit":
+               setGames(games.map(e => {
+                   if (e.gameId === game.gameId) {
+                       return games;
+                   }
+                   return e;
+               }));
+               break;
+           case "edit-form":
+               setScopedGame(game);
+               setShowForm(true);
+               return;
+           case "delete":
+               setGames(games.filter(e => e.gameId !== game.gameId));
+               break;
+            default:
+                break;
+       }
+
         setError("");
         setShowForm(false);
     }
@@ -70,18 +76,20 @@ function GameStore() {
         <>
             {error && <div className="alert alert-danger">{error}</div>}
             <div>
-                <h1 i='gameTitle'>Games</h1>
+                <h1 id='gameTitle'>Games</h1>
                 <button className="btn btn-primary" type="button" onClick={addClick}> Add a Game </button>
                 <table id='games'>
                     <tr>
                         <th>Title</th>
-                        <th>ESRN Rating</th>
+                        <th>ESRB Rating</th>
                         <th>Description</th>
+                        <th>Price</th>
                         <th>Studio</th>
+                        <th>Quantity</th>
                     </tr>
                     <tbody>
-                        {games.map(r => <GamesCard key={r.id} record={r} notify={notify} />)}
-                        {console.map(r => <ConsoleCard key={r.id} record={r} notify={notify} />)}
+                        {games.map(g => <GamesCard key={g.gameId} games={g} notify={notify} />)}
+                        {/*console.map(c => <ConsoleCard key={c.consoleId} console={c} notify={notify} />)}
                         {/* {TShirts.map(r => <TShirtCard key={r.id} record={r} notify={notify} />)} */}
                     </tbody>
                 </table>
