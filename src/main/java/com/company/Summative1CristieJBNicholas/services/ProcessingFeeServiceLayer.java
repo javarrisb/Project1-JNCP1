@@ -14,7 +14,7 @@ public class ProcessingFeeServiceLayer {
     ProcessingFeeRepository processingFeeRepo;
 
     public ProcessingFee findProcessingFee(Invoice invoice){
-        return processingFeeRepo.findByProductType(invoice.getItem_type());
+        return processingFeeRepo.findByProductType(invoice.getItemType());
     }
     public void loadFee(){
         processingFeeRepo.deleteAll();

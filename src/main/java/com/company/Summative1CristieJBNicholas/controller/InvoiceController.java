@@ -21,17 +21,17 @@ public class InvoiceController {
 
     @Autowired
     ServiceLayer serviceLayer;
-    @Autowired
-    TaxServiceLayer taxServiceLayer;
+//    @Autowired
+//    TaxServiceLayer taxServiceLayer;
+////
+////    @Autowired
 
-    @Autowired
-    InvoiceRepository invoiceRepository;
 //    private static int idCounter = 1;
 
     // Create, Read and Read All operations
     @GetMapping(value = "/invoices/all")
     @ResponseStatus(HttpStatus.OK)
-    public List<Invoice> findAllInvoices(@RequestParam(required = false)Integer invoice_id) {
+    public List<Invoice> findInvoices(@RequestBody Integer invoiceId) {
              return serviceLayer.findAllInvoices();
       }
     /**

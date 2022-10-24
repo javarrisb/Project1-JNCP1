@@ -65,10 +65,7 @@ public class GameControllerTest {
         inputGameJson = mapper.writeValueAsString(gameStoreGames);
 
         // output
-//        Games games = new Games();
-//        games.setId(1);
-
-         games = new Games();
+        games = new Games();
         games.setGame_Id(1);
 
         games.setTitle("Minecraft");
@@ -85,26 +82,6 @@ public class GameControllerTest {
 
     @Test
     public void shouldCreateNewGameOnPostRequest() throws Exception {
-
-//       // orig
-//        Games inputGames = new Games();
-//        inputGames.setId(1);
-//        inputGames.setTitle("Minecraft");
-//        inputGames.setEsrbRating("Ten+");
-//        inputGames.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
-//        inputGames.setPrice(19.99);
-//        inputGames.setStudio("Mojang");
-//        inputGames.setQuantity(100);
-
-//        Games inputGames = new Games();
-////        inputGames.setGame_Id(1);
-//        inputGames.setTitle("Minecraft");
-//        inputGames.setEsrbRating("Ten+");
-//        inputGames.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
-//        inputGames.setPrice(19.99);
-//        inputGames.setStudio("Mojang");
-//        inputGames.setQuantity(100);
-
 
         String inputJson = mapper.writeValueAsString(gameStoreGames);
         doReturn(games).when(serviceLayer).addGame(gameStoreGames);
@@ -133,7 +110,6 @@ public class GameControllerTest {
         doReturn(Optional.of(games)).when(serviceLayer).findByTitle("Minecraft");
         mockMvc.perform(
                         get("/games/title/Minecraft")
-//                                .contentType(MediaType.APPLICATION_JSON)****** used only for puts and posts
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -148,7 +124,6 @@ public class GameControllerTest {
 
         mockMvc.perform(
                         get("/games/studio/Mojang")
-//                                .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -156,23 +131,18 @@ public class GameControllerTest {
                 );
     }
 
-//    @Test
-////    public void shouldReturnEsrbRatingOnValidGetRequest() throws Exception {
-//////should I have this as local variable and initialized as null??
-////        String esrbRating = null;
-////
-////        doReturn(allGames).when(serviceLayer).findByEsrbRating("NR", esrbRating);
-////
-////        mockMvc.perform(
-////                        get("/games/esrbRating/NR")
-////                                .contentType(MediaType.APPLICATION_JSON)
-////                )
-////                .andDo(print())
-////                .andExpect(status().isOk())
-////                .andExpect(content().json(allGamesJson)
-////                );
-////    }
 
+    @Test
+    public void shouldReturnEsrbRatingOnValidGetRequest() throws Exception {
+        doReturn(Optional.of(games)).when(serviceLayer).findByEsrbRating("Mature");
+        mockMvc.perform(
+                        get("/games/esrbRating/Mature")
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(outGameJson)
+                );
+    }
 
     @Test
     public void shouldReturnAllGames() throws Exception {

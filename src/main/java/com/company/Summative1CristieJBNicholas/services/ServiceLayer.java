@@ -94,7 +94,7 @@ public class ServiceLayer{
      /**   CHECK on this/** */
     }
  //     return Optional.of( );  ???
-    public Optional<Games> findByTitle(String title) {
+    public List<Games> findByTitle(String title) {
         return gameRepo.findByTitle(title);
     }
 
@@ -163,7 +163,7 @@ public class ServiceLayer{
         double total = calculateTotal(subtotal, processingFee, salesTax);
 
         updatedInvoice.setTax(salesTax);
-        updatedInvoice.setProcessing_fee(processingFee);
+        updatedInvoice.setProceesingFee(processingFee);
         updatedInvoice.setSubtotal(subtotal);
         updatedInvoice.setTotal(total);
 
@@ -177,13 +177,13 @@ public class ServiceLayer{
     }
 
     public double applyTaxRate(Invoice invoice) {
-        double priceBeforeTax = invoice.getQuantity() * invoice.getUnit_price();
+        double priceBeforeTax = invoice.getQuantity() * invoice.getUnitPrice();
         double taxRate = taxRateRepo.findByState(invoice.getState()).getRate();
             return formatDouble(priceBeforeTax * taxRate);
     }
 
      public double applyProcessingFee(Invoice invoice){
-        double processingFee = processingFeeRepo.findByProductType(invoice.getItem_type()).getFee();
+        double processingFee = processingFeeRepo.findByProductType(invoice.getItemType()).getFee();
         if (invoice.getQuantity() >=10 ){
             processingFee += 15.49;
         }
@@ -195,7 +195,7 @@ public class ServiceLayer{
     }
 
      public double calculateSubtotal(Invoice invoice) {
-        return formatDouble(invoice.getQuantity() * invoice.getUnit_price());
+        return formatDouble(invoice.getQuantity() * invoice.getUnitPrice());
     }
 
     public int checkQuantity(int requestedAmount, int availableAmount) {
@@ -207,9 +207,9 @@ public class ServiceLayer{
     }
 
     public int getItemQuantity(Invoice invoice) {
-        int itemId = invoice.getItem_id();
+        int itemId = invoice.getItemId();
 
-        switch (invoice.getItem_type()) {
+        switch (invoice.getItemType()) {
             case "Games" :
                 return getSingleGameById(itemId).get().getQuantity();
             case "T-shirts" :
@@ -225,23 +225,23 @@ public class ServiceLayer{
 
         int requestedAmount = invoice.getQuantity();
 
-        switch (invoice.getItem_type()) {
+        switch (invoice.getItemType()) {
             case "Games":
-                Games game = getSingleGameById(invoice.getItem_id()).get();
+                Games game = getSingleGameById(invoice.getItemId()).get();
                 availableAmount = game.getQuantity();
                 updatedAmount = checkQuantity(requestedAmount, availableAmount);
                 game.setQuantity(updatedAmount);
                 updateGame(game);
                 break;
             case "Consoles":
-                Console console = getSingleConsole(invoice.getItem_id()).get();
+                Console console = getSingleConsole(invoice.getItemId()).get();
                 availableAmount = console.getQuantity();
                 updatedAmount = availableAmount - requestedAmount;
                 console.setQuantity(updatedAmount);
                 updateConsole(console);
                 break;
             case "T-shirts":
-                TShirt tshirt = getSingleTshirt(invoice.getItem_id()).get();
+                TShirt tshirt = getSingleTshirt(invoice.getItemId()).get();
                 availableAmount = tshirt.getQuantity();
                 updatedAmount = availableAmount - requestedAmount;
                 tshirt.setQuantity(updatedAmount);
@@ -249,6 +249,10 @@ public class ServiceLayer{
                 break;
         }
     }
+
+    public void findByEsrbRating(String mature) {
+    }
+
 }
 
 
