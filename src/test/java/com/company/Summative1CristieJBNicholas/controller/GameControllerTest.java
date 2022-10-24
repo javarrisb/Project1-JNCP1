@@ -28,7 +28,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(GameController.class)
-public class GameControllerTest {
+public class
+GameControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -65,7 +66,7 @@ public class GameControllerTest {
 //        Games games = new Games();
 //        games.setId(1);
         games = new Games();
-        games.setGame_Id(1);
+        games.setGameId(1);
         games.setTitle("Minecraft");
         games.setEsrbRating("Ten+");
         games.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");

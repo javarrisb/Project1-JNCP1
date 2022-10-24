@@ -2,6 +2,9 @@ package com.company.Summative1CristieJBNicholas.models;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Objects;
 
 @Entity
@@ -14,14 +17,19 @@ public class TShirt {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer tShirtId;
 
+    @NotEmpty(message = "Size can't be empty.")
     private String size;
 
+    @NotEmpty(message = "Color can't be empty.")
     private String color;
 
+    @NotEmpty(message = "Description can't be empty.")
     private String description;
-
+    @NotNull (message = "You must select a price.")
     private Double price;
 
+    @NotNull
+    @Positive(message = "You must select at least 1.")
     private Integer quantity;
 
     public TShirt() {

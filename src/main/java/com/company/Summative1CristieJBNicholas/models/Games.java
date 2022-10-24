@@ -3,6 +3,9 @@ package com.company.Summative1CristieJBNicholas.models;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 import java.util.Objects;
 
 @Entity
@@ -12,22 +15,33 @@ public class Games {
     @Id
     @Column(name = "game_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer game_Id;
+    private Integer gameId;
 
+    @NotEmpty(message = "Title can't be empty.")
     private String title;
+
+    @NotEmpty(message = "ESRB Rating can't be empty.")
     @Column(name="esrb_rating")
     private String esrbRating;
 
+    @NotEmpty(message = "Description can't be empty.")
     private String description;
 
+    @NotNull (message = "You must select a price.")
     private Double price;
 
+    @NotEmpty(message = "Studio can't be empty.")
     private String studio;
 
+    @NotNull
+    @Positive(message = "You must select at least 1.")
     private Integer quantity;
 
-    public Games(Integer game_Id, String title, String esrbRating, String description, Double price, String studio, Integer quantity) {
-        this.game_Id = game_Id;
+    public Games() {
+    }
+
+    public Games(Integer gameId, String title, String esrbRating, String description, Double price, String studio, Integer quantity) {
+        this.gameId = gameId;
         this.title = title;
         this.esrbRating = esrbRating;
         this.description = description;
@@ -36,17 +50,12 @@ public class Games {
         this.quantity = quantity;
     }
 
-    public Games() {
+    public Integer getGameId() {
+        return gameId;
     }
 
-
-
-    public Integer getGame_Id() {
-        return game_Id;
-    }
-
-    public void setGame_Id(Integer game_Id) {
-        this.game_Id = game_Id;
+    public void setGameId(Integer gameId) {
+        this.gameId = gameId;
     }
 
     public String getTitle() {
@@ -100,23 +109,20 @@ public class Games {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Games)) return false;
         Games games = (Games) o;
-        return Objects.equals(getGame_Id(), games.getGame_Id()) && Objects.equals(getTitle(), games.getTitle()) &&
-                Objects.equals(getEsrbRating(), games.getEsrbRating()) && Objects.equals(getDescription(),
-                games.getDescription()) && Objects.equals(getPrice(), games.getPrice()) && Objects.equals(getStudio(),
-                games.getStudio()) && Objects.equals(getQuantity(), games.getQuantity());
+        return Objects.equals(getGameId(), games.getGameId()) && Objects.equals(getTitle(), games.getTitle()) && Objects.equals(getEsrbRating(), games.getEsrbRating()) && Objects.equals(getDescription(), games.getDescription()) && Objects.equals(getPrice(), games.getPrice()) && Objects.equals(getStudio(), games.getStudio()) && Objects.equals(getQuantity(), games.getQuantity());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getGame_Id(), getTitle(), getEsrbRating(), getDescription(), getPrice(), getStudio(), getQuantity());
+        return Objects.hash(getGameId(), getTitle(), getEsrbRating(), getDescription(), getPrice(), getStudio(), getQuantity());
     }
 
     @Override
     public String toString() {
         return "Games{" +
-                "id=" + game_Id +
+                "gameId=" + gameId +
                 ", title='" + title + '\'' +
                 ", esrbRating='" + esrbRating + '\'' +
                 ", description='" + description + '\'' +
