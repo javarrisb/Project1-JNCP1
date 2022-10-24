@@ -61,9 +61,7 @@ public class GameControllerTest {
         gameStoreGames.setQuantity(100);
 
         inputGameJson = mapper.writeValueAsString(gameStoreGames);
-        // output
-//        Games games = new Games();
-//        games.setId(1);
+
         games = new Games();
         games.setGame_Id(1);
         games.setTitle("Minecraft");

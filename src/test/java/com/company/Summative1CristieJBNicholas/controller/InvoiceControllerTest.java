@@ -59,10 +59,10 @@ public class InvoiceControllerTest {
 
     @Before
     public void setup() throws QueryNotFoundException, JsonProcessingException {
-       serviceLayer.clearDatabase();
-       setUpInvoiceMocks();
+        serviceLayer.clearDatabase();
+        setUpInvoiceMocks();
     }
-//Integer id, String name, String street, String city, String state, String zipcode,
+    //Integer id, String name, String street, String city, String state, String zipcode,
 //                   Integer item_id, String item_type, double unit_price, int quantity, double subtotal,
 //                   double processing_fee, double tax, double total)
     private void setUpInvoiceMocks() throws QueryNotFoundException, JsonProcessingException  {
@@ -83,15 +83,12 @@ public class InvoiceControllerTest {
         allInvoices = Arrays.asList(invoice1, invoice2);
         allInvoicesJson = mapper.writeValueAsString(allInvoices);
 
-         TaxRate salesTaxRate = new  TaxRate("NM",0.03);
+        TaxRate salesTaxRate = new  TaxRate("NM",0.03);
         when(serviceLayer.findAllInvoices()).thenReturn(allInvoices);
         when(serviceLayer.findById(1)).thenReturn(Optional.of(invoice1));
         when(serviceLayer.createInvoice(customerInvoice)).thenReturn(invoice1);
 
         when (taxServiceLayer.findSalesTaxRateByState("NM")) .thenReturn(salesTaxRate);
-
-//        when(TaxServiceLayer.findSalesTaxRateByState("NM")).thenReturn(salesTaxRate);
-//        when(TaxServiceLayer.findSalesTaxRateByState("Not a state code!")).thenReturn(null);
         when(serviceLayer.applyProcessingFee(customerInvoice)).thenReturn(1.49);
         when(serviceLayer.getItemQuantity(customerInvoice)).thenReturn(40);
     }
@@ -114,26 +111,17 @@ public class InvoiceControllerTest {
     public void shouldReturnAllInvoices() throws Exception {
         doReturn(allInvoices).when(serviceLayer).findAllInvoices();
         mockMvc.perform(
-                get("/invoices/all"))
+                        get("/invoices/all"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(allInvoicesJson));
-//        mockMvc.perform(get("/invoices"))
-//            .andDo(print())
-//            .andExpect(status().isOk())
-//            .andExpect(jsonPath("$[0]").isNotEmpty())
-//            .andExpect(jsonPath("$[0].name").isNotEmpty())
-//            .andExpect(jsonPath("$[0].street").isNotEmpty())
-//            .andExpect(jsonPath("$[0].id").isNotEmpty());
-}
+    }
 
     @Test
     public void shouldReturnInvoiceById() throws Exception, QueryNotFoundException {
-       doReturn(Optional.of(customerInvoice)).when(invoiceRepository).findById(1);
-//        inputJson = mapper.writeValueAsString(customerInvoice);
-//        outputJson = mapper.writeValueAsString(invoice1);
+        doReturn(Optional.of(customerInvoice)).when(invoiceRepository).findById(1);
         ResultActions result = mockMvc.perform(
                         get("/invoice/1"))
-                                .andExpect(status().isOk())
-                            .andExpect(content().json(outputJson2));
+                .andExpect(status().isOk())
+                .andExpect(content().json(outputJson2));
     }
 }

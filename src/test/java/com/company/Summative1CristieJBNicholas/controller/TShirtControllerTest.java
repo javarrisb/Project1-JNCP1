@@ -64,7 +64,7 @@ public class TShirtControllerTest {
         tShirtJson = mapper.writeValueAsString(gameStoreTShirt);
 
         // output
-        TShirt tShirts = new TShirt();
+        TShirt tshirts = new TShirt();
         tShirts.settShirtId(1);
         tShirts.setSize("X-Small");
         tShirts.setColor("Blue");
@@ -72,9 +72,9 @@ public class TShirtControllerTest {
         tShirts.setPrice(10.99);
         tShirts.setQuantity(20);
 
-        outputTshirtJson = mapper.writeValueAsString(tShirts);
         allTShirts.add(tShirts);
         allTShirtsJson = mapper.writeValueAsString(allTShirts);
+        outputTshirtJson = mapper.writeValueAsString(tShirts);
     }
 
     //from work done with RSVP-Service
@@ -88,7 +88,6 @@ public class TShirtControllerTest {
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
                 .andExpect(content().json(outputTshirtJson));
-
     }
 
     @Test
