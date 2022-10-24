@@ -149,7 +149,8 @@ public class TShirtControllerTest {
     }
     @Test
     public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
-          mockMvc.perform(delete("/TShirt/2")
+          mockMvc.perform(
+                  put("/TShirt")
                         .content(tShirtJson)
                         .contentType(MediaType.APPLICATION_JSON)
                   )
