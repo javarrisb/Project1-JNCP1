@@ -1,4 +1,4 @@
-package com.company.Summative1CristieJBNicholas.services;
+//package com.company.Summative1CristieJBNicholas.services;
 
 import com.company.Summative1CristieJBNicholas.exception.QueryNotFoundException;
 import com.company.Summative1CristieJBNicholas.models.*;
@@ -14,78 +14,78 @@ import java.util.List;
 import java.util.Optional;
 
 
-@Service
-public class ServiceLayer{
+//@Service
+//public class ServiceLayer{
 
-    ConsoleRepository consoleRepo;
-    TShirtRepository tshirtRepo;
-    GameRepository gameRepo;
+    //   ConsoleRepository consoleRepo;
+//    TShirtRepository tshirtRepo;
+//    GameRepository gameRepo;
 //    InvoiceRepository invoiceRepo;
-    TaxRateRepository taxRateRepo;
-    ProcessingFeeRepository processingFeeRepo;
+    //  TaxRateRepository taxRateRepo;
+    // ProcessingFeeRepository processingFeeRepo;
 
-    int availableAmount;
-    int updatedAmount;
+    //  int availableAmount;
+    // int updatedAmount;
 
 
 
-    @Autowired
-    public ServiceLayer(ConsoleRepository consoleRepo,
-                        TShirtRepository tshirtRepo, GameRepository gameRepo, InvoiceRepository invoiceRepo,
-                        TaxRateRepository taxRateRepo, ProcessingFeeRepository processingFeeRepo) {
-        this.consoleRepo = consoleRepo;
-        this.tshirtRepo = tshirtRepo;
-        this.gameRepo = gameRepo;
+    //   @Autowired
+    // public ServiceLayer(ConsoleRepository consoleRepo,
+    //                     TShirtRepository tshirtRepo, GameRepository gameRepo, InvoiceRepository invoiceRepo,
+    //                      TaxRateRepository taxRateRepo, ProcessingFeeRepository processingFeeRepo) {
+        //      this.consoleRepo = consoleRepo;
+        //      this.tshirtRepo = tshirtRepo;
+        //      this.gameRepo = gameRepo;
 //        this.invoiceRepo = invoiceRepo;
-        this.taxRateRepo = taxRateRepo;
-        this.processingFeeRepo = processingFeeRepo;
-    }
+        //     this.taxRateRepo = taxRateRepo;
+        //      this.processingFeeRepo = processingFeeRepo;
+        //  }
 //database
-    public void clearDatabase() {
-        gameRepo.deleteAll();
-        tshirtRepo.deleteAll();
-        consoleRepo.deleteAll();
-        invoiceRepo.deleteAll();
-    }
+    //  public void clearDatabase() {
+        //     gameRepo.deleteAll();
+        //     tshirtRepo.deleteAll();
+        //     consoleRepo.deleteAll();
+        //    invoiceRepo.deleteAll();
+//  }
 //Jpa search
-    public List<TShirt> getTshirtByColor(String color){
-        return tshirtRepo.findByColor(color);
-    }
-    public List<TShirt> getTshirtBySize(String size){
-        return tshirtRepo.findBySize(size);
-    }
+    //   public List<TShirt> getTshirtByColor(String color){
+        //      return tshirtRepo.findByColor(color);
+        //  }
+    //   public List<TShirt> getTshirtBySize(String size){
+        //     return tshirtRepo.findBySize(size);
+        //  }
     /** find by color and size or separately?? Both??*/
-    public List<TShirt> getTshirtByColorAndSize(String color, String size){
-        return tshirtRepo.findByColorAndSize(color, size);
-    }
+    //  public List<TShirt> getTshirtByColorAndSize(String color, String size){
+        //      return tshirtRepo.findByColorAndSize(color, size);
+        // }
 
 //Tshirt
-    public List<TShirt> getAllTshirt(){
-        return tshirtRepo.findAll();
-    }
-    public Optional<TShirt> getSingleTshirt(int id) {
-        Optional<TShirt> tshirt = tshirtRepo.findById(id);
-        return tshirt.map(Optional::of).orElse(null);
-    }
-    public TShirt addTshirt(TShirt tshirt) {
-        return tshirtRepo.save(tshirt);
-    }
+    // public List<TShirt> getAllTshirt(){
+        //    return tshirtRepo.findAll();
+        //  }
+    // public Optional<TShirt> getSingleTshirt(int id) {
+        //      Optional<TShirt> tshirt = tshirtRepo.findById(id);
+        //      return tshirt.map(Optional::of).orElse(null);
+        //  }
+    //  public TShirt addTshirt(TShirt tshirt) {
+        //      return tshirtRepo.save(tshirt);
+        //   }
 
-    public void updateTshirt(TShirt tshirt) {
-        tshirtRepo.save(tshirt);
-    }
+    //  public void updateTshirt(TShirt tshirt) {
+        //      tshirtRepo.save(tshirt);
+        //   }
 
-    public void deleteTShirt(int id) {
-        tshirtRepo.deleteById(id);
-    }
+  //  public void deleteTShirt(int id) {
+   //     tshirtRepo.deleteById(id);
+  //  }
 
     // Game
-    public List<Games> getAllGames() {
-        return gameRepo.findAll();
-    }
-    public List<Games> getGamesByStudio(String studio) {
-        return gameRepo.findByStudio(studio);
-    }
+ //   public List<Games> getAllGames() {
+ //       return gameRepo.findAll();
+// }
+ //   public List<Games> getGamesByStudio(String studio) {
+        //       return gameRepo.findByStudio(studio);
+//    }
 //    public List<Games> getGamesByEsrbRating(String esrbRating, String rating) {
 //        return gameRepo.findByEsrbRating(esrbRating, esrbRating);
 //    }
