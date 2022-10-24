@@ -49,8 +49,6 @@ public class CustomResponseController {
         ResponseEntity<CustomResponse> responseEntity = new ResponseEntity<>(error, HttpStatus.UNPROCESSABLE_ENTITY);
         return responseEntity;
     }
-
-
 }
 
 

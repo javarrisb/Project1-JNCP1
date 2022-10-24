@@ -2,7 +2,7 @@ package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.Games;
 import com.company.Summative1CristieJBNicholas.repository.GameRepository;
-import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
+//import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -28,15 +28,14 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @RunWith(SpringRunner.class)
 @WebMvcTest(GameController.class)
-public class GameControllerTest {
+public class
+GameControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
 
     @MockBean
     private GameRepository repo;
-    @MockBean
-    ServiceLayer serviceLayer;
 
     private ObjectMapper mapper = new ObjectMapper();
 
@@ -61,9 +60,9 @@ public class GameControllerTest {
         gameStoreGames.setQuantity(100);
 
         inputGameJson = mapper.writeValueAsString(gameStoreGames);
-
+        // output
         games = new Games();
-        games.setGame_Id(1);
+        games.setGameId(1);
         games.setTitle("Minecraft");
         games.setEsrbRating("Ten+");
         games.setDescription("A 3D sandbox game that allows players a large amount of freedom in choosing how to play the game.");
@@ -76,14 +75,21 @@ public class GameControllerTest {
         allGamesJson = mapper.writeValueAsString(allGames);
     }
 
-    @Test
+        @Test
     public void shouldCreateNewGameOnPostRequest() throws Exception {
 
+        Games inputGames = new Games();
+        inputGames.setTitle("Minecraft");
+        inputGames.setEsrbRating("Ten+");
+        inputGames.setDescription("Words words words");
+        inputGames.setPrice(19.99);
+        inputGames.setStudio("Monjang");
+        inputGames.setQuantity(100);
         String inputJson = mapper.writeValueAsString(gameStoreGames);
-        doReturn(games).when(serviceLayer).addGame(gameStoreGames);
+        doReturn(games).when(repo).save(gameStoreGames);
 
         mockMvc.perform(
-                        post("/games/add")
+                        post("/games")
                                 .content(inputJson)
                                 .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isCreated())
@@ -93,7 +99,7 @@ public class GameControllerTest {
 
     @Test
     public void shouldReturnGamesById() throws Exception {
-        doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(1);
+        doReturn(Optional.of(games)).when(repo).findById(1);
         ResultActions result = mockMvc.perform(
                         get("/games/1"))
                 .andExpect(status().isOk())
@@ -103,37 +109,53 @@ public class GameControllerTest {
 
     @Test
     public void shouldReturnTitleOnValidGetRequest() throws Exception {
-        doReturn(Optional.of(games)).when(serviceLayer).findByTitle("Minecraft");
+        doReturn(allGames).when(repo).findByTitle("Minecraft");
         mockMvc.perform(
                         get("/games/title/Minecraft")
-//                                .contentType(MediaType.APPLICATION_JSON)****** used only for puts and posts
-                )
-                .andDo(print())
-                .andExpect(status().isOk())
-                .andExpect(content().json(outGameJson)
-                );
-    }
-
-    @Test
-    public void shouldReturnStudioOnValidGetRequest() throws Exception {
-
-        doReturn(allGames).when(serviceLayer).getGamesByStudio("Mojang");
-
-        mockMvc.perform(
-                        get("/games/studio/Mojang")
-//                                .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().json(allGamesJson)
                 );
     }
+
     @Test
-    public void shouldReturnAllGames() throws Exception {
-        doReturn(allGames).when(serviceLayer).getAllGames();
+    public void shouldReturnStudioOnValidGetRequest() throws Exception {
+
+        doReturn(allGames).when(repo).findByStudio("Mojang");
 
         mockMvc.perform(
-                        get("/games/allgames"))
+                        get("/games/studio/Mojang")
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(allGamesJson)
+                );
+    }
+
+
+    @Test
+    public void shouldReturnEsrbRatingOnValidGetRequest() throws Exception {
+
+        doReturn(allGames).when(repo).findByEsrbRating("Mature");
+
+        mockMvc.perform(
+                        get("/games/esrbRating/Mature")
+                                .contentType(MediaType.APPLICATION_JSON)
+                )
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(content().json(allGamesJson)
+                );
+    }
+
+
+    @Test
+    public void shouldReturnAllGames() throws Exception {
+        doReturn(allGames).when(repo).findAll();
+
+        mockMvc.perform(
+                        get("/games"))
                 .andExpect(status().isOk())
                 .andExpect(content().json(allGamesJson)
                 );
@@ -141,18 +163,17 @@ public class GameControllerTest {
 
     @Test
     public void shouldUpdateByIdAndReturn204StatusCode() throws Exception {
-        doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(1);/** needed this*/
         mockMvc.perform(
-                        put("/games/{id}", 1)
+                        put("/games")
                                 .content(outGameJson)
                                 .contentType(MediaType.APPLICATION_JSON)
                 )
                 .andExpect(status().isNoContent());
     }
+
     @Test
     public void shouldDeleteByIdAndReturn204StatusCode() throws Exception {
-        doReturn(Optional.of(games)).when(serviceLayer).getSingleGameById(1);   /** needed this*/
-            mockMvc.perform(delete("/games/{id}", 1))
-                    .andExpect(status().isNoContent());
+        mockMvc.perform(delete("/games/2"))
+                .andExpect(status().isNoContent());
     }
 }

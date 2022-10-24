@@ -31,7 +31,6 @@ public class ConsoleController {
     @RequestMapping(value = "/Console", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     public List<Console> getAllConsoles() {
-        System.out.println("Getting All Consoles");
         return repo.findAll();
     }
 
@@ -56,10 +55,9 @@ public class ConsoleController {
     }
 
     // update an existing Console record
-    @PutMapping(value = "/Console/{consoleId}")
+    @PutMapping(value = "/Console")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateConsole(@RequestBody Console console, @PathVariable Integer consoleId) {
-        console.setConsoleId(consoleId);
+    public void updateConsole(@RequestBody Console console) {
         repo.save(console);
     }
 

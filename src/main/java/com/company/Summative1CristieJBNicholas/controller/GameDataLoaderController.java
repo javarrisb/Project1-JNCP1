@@ -2,8 +2,8 @@ package com.company.Summative1CristieJBNicholas.controller;
 
 import com.company.Summative1CristieJBNicholas.models.Games;
 import com.company.Summative1CristieJBNicholas.repository.GameRepository;
-import com.company.Summative1CristieJBNicholas.services.ProcessingFeeServiceLayer;
-import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
+//import com.company.Summative1CristieJBNicholas.services.ProcessingFeeServiceLayer;
+//import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import com.company.Summative1CristieJBNicholas.services.TaxServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,21 +15,21 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 public class GameDataLoaderController {
 
-    @Autowired
-    ProcessingFeeServiceLayer processingFeeServiceLayer;
+//    @Autowired
+//    ProcessingFeeServiceLayer processingFeeServiceLayer;
     @Autowired
     TaxServiceLayer taxServiceLayer;
-    @Autowired
-    ServiceLayer serviceLayer;
+//    @Autowired
+//    ServiceLayer serviceLayer;
     @Autowired
     GameRepository repo;
 
     @GetMapping("/load-game-data")
 //    @ResponseStatus(HttpStatus.CREATED)
     public void loadData() {
-        serviceLayer.clearDatabase();
+//        serviceLayer.clearDatabase();
         taxServiceLayer.loadTaxRate();
-        processingFeeServiceLayer.loadFee();
+//        processingFeeServiceLayer.loadFee();
 
         Games game = new Games();
         game.setTitle("Minecraft");

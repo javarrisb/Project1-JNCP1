@@ -20,7 +20,7 @@ public class ServiceLayer{
     ConsoleRepository consoleRepo;
     TShirtRepository tshirtRepo;
     GameRepository gameRepo;
-    InvoiceRepository invoiceRepo;
+//    InvoiceRepository invoiceRepo;
     TaxRateRepository taxRateRepo;
     ProcessingFeeRepository processingFeeRepo;
 
@@ -36,7 +36,7 @@ public class ServiceLayer{
         this.consoleRepo = consoleRepo;
         this.tshirtRepo = tshirtRepo;
         this.gameRepo = gameRepo;
-        this.invoiceRepo = invoiceRepo;
+//        this.invoiceRepo = invoiceRepo;
         this.taxRateRepo = taxRateRepo;
         this.processingFeeRepo = processingFeeRepo;
     }
@@ -89,166 +89,169 @@ public class ServiceLayer{
 //    public List<Games> getGamesByEsrbRating(String esrbRating, String rating) {
 //        return gameRepo.findByEsrbRating(esrbRating, esrbRating);
 //    }
-    public List<Games> getGamesByStudioAndEsrbRating(String esrbRating, String rating) {
-        return gameRepo.findByEsrbRating(  esrbRating);
-     /**   CHECK on this/** */
-    }
- //     return Optional.of( );  ???
-    public Optional<Games> findByTitle(String title) {
-        return gameRepo.findByTitle(title);
-    }
+//    public List<Games> getGamesByStudioAndEsrbRating(String esrbRating, String rating) {
+//        return gameRepo.findByEsrbRating(  esrbRating);
+//     /**   CHECK on this/** */
+//    }
+// //     return Optional.of( );  ???
+//    public List<Games> findByTitle(String title) {
+//        return gameRepo.findByTitle(title);
+//    }
+//
+//    public Optional<Games> getSingleGameById(int id) {
+//        return gameRepo.findById(id);
+//    }
+//
+//    public Games addGame(Games game) {
+//        return gameRepo.save(game);
+//    }
+//
+//    public void updateGame(Games game) {
+//        gameRepo.save(game);
+//    }
+//
+//    public void deleteGame(int id) {
+//        gameRepo.deleteById(id);
+//    }
 
-    public Optional<Games> getSingleGameById(int id) {
-        return gameRepo.findById(id);
-    }
-
-    public Games addGame(Games game) {
-        return gameRepo.save(game);
-    }
-
-    public void updateGame(Games game) {
-        gameRepo.save(game);
-    }
-
-    public void deleteGame(int id) {
-        gameRepo.deleteById(id);
-    }
-
-    // CONSOLE CRUD OPERATIONS
-    public List<Console> getConsolesByManufacturer(String manufacturer) {
-        return consoleRepo.findByManufacturer(manufacturer);
-    }
-
-    public List<Console> getAllConsoles(){
-        return consoleRepo.findAll();
-    }
-
-    public Optional<Console> getSingleConsole(int id) {
-        return consoleRepo.findById(id);
-    }
-
-    public Console addConsole(Console console) {
-        return consoleRepo.save(console);
-    }
-
-    public void updateConsole(Console console) {
-        consoleRepo.save(console);
-    }
-
-    public void deleteConsole(int id) {
-        consoleRepo.deleteById(id);
-    }
+//    // CONSOLE CRUD OPERATIONS
+//    public List<Console> getConsolesByManufacturer(String manufacturer) {
+//        return consoleRepo.findByManufacturer(manufacturer);
+//    }
+//
+//    public List<Console> getAllConsoles(){
+//        return consoleRepo.findAll();
+//    }
+//
+//    public Optional<Console> getSingleConsole(int id) {
+//        return consoleRepo.findById(id);
+//    }
+//
+//    public Console addConsole(Console console) {
+//        return consoleRepo.save(console);
+//    }
+//
+//    public void updateConsole(Console console) {
+//        consoleRepo.save(console);
+//    }
+//
+//    public void deleteConsole(int id) {
+//        consoleRepo.deleteById(id);
+//    }
 
 
 
 // Invoice--------- CRUD but We Do not need to update/delete!! -------------
 
-    public List<Invoice> findAllInvoices() {
-        return invoiceRepo.findAll();
-    }
+//    public List<Invoice> findAllInvoices() {
+//        return invoiceRepo.findAll();
+//    }
+//
+//    public Optional<Invoice> findById(int id) throws QueryNotFoundException {
+//        if (invoiceRepo.findById(id).orElse(null) == null) {
+//            throw new QueryNotFoundException("Invoice with that ID does not exist.");
+//        }
+//        return invoiceRepo.findById(id);
+//    }
+//
+//    public Invoice createInvoice(Invoice invoice) {
 
-    public Optional<Invoice> findById(int id) throws QueryNotFoundException {
-        if (invoiceRepo.findById(id).orElse(null) == null) {
-            throw new QueryNotFoundException("Invoice with that ID does not exist.");
-        }
-        return invoiceRepo.findById(id);
-    }
+//        Invoice updatedInvoice = invoice;
+//        double salesTax = applyTaxRate(invoice);
+//        double processingFee = applyProcessingFee(invoice);
+//        double subtotal = calculateSubtotal(invoice);
+//        double total = calculateTotal(subtotal, processingFee, salesTax);
+//
+//        updatedInvoice.setTax(salesTax);
+////        updatedInvoice.setProceesingFee(processingFee);
+//        updatedInvoice.setSubtotal(subtotal);
+//        updatedInvoice.setTotal(total);
+//
+//        /**changed this. */
+//        decreaseItemQuantity(updatedInvoice);
+//            return invoiceRepo.save(updatedInvoice);
+//    }
+//
+//    public double formatDouble(double dbl) {
+//        return Double.parseDouble(String.format("%, .2f", dbl));
+//    }
+//
+//    public double applyTaxRate(Invoice invoice) {
+////        double priceBeforeTax = invoice.getQuantity() * invoice.getUnitPrice();
+//        double taxRate = taxRateRepo.findByState(invoice.getState()).getRate();
+//            return formatDouble(priceBeforeTax * taxRate);
+//    }
+//
+//     public double applyProcessingFee(Invoice invoice){
+////        double processingFee = processingFeeRepo.findByProductType(invoice.getItemType()).getFee();
+//        if (invoice.getQuantity() >=10 ){
+//            processingFee += 15.49;
+//        }
+//        return  formatDouble(processingFee);
+//    }
+//
+//    public double calculateTotal(double subtotal, double processingFee, double salesTax) {
+//        return formatDouble(subtotal + processingFee + salesTax);
+//    }
 
-    public Invoice createInvoice(Invoice invoice) {
+//     public double calculateSubtotal(Invoice invoice) {
+//        return formatDouble(invoice.getQuantity() * invoice.getUnitPrice());
+//    }
+//
+//    public int checkQuantity(int requestedAmount, int availableAmount) {
+//        if (availableAmount >= requestedAmount) {
+//            return availableAmount - requestedAmount;
+//        } else {
+//            throw new DataIntegrityViolationException("Sorry, item is currently out of stock.");
+//        }
+//    }
 
-        Invoice updatedInvoice = invoice;
-        double salesTax = applyTaxRate(invoice);
-        double processingFee = applyProcessingFee(invoice);
-        double subtotal = calculateSubtotal(invoice);
-        double total = calculateTotal(subtotal, processingFee, salesTax);
+//    public int getItemQuantity(Invoice invoice) {
+//        int itemId = invoice.getItemId();
+//
+//        switch (invoice.getItemType()) {
+//            case "Games" :
+//                return getSingleGameById(itemId).get().getQuantity();
+//            case "T-shirts" :
+//                return getSingleTshirt(itemId).get().getQuantity();
+//            case "Consoles" :
+//                return getSingleConsole(itemId).get().getQuantity();
+//            default:
+//                return -1;
+//        }
+////    }
+//    @Transactional
+//    public void decreaseItemQuantity(Invoice invoice) {
+//
+//        int requestedAmount = invoice.getQuantity();
 
-        updatedInvoice.setTax(salesTax);
-        updatedInvoice.setProcessing_fee(processingFee);
-        updatedInvoice.setSubtotal(subtotal);
-        updatedInvoice.setTotal(total);
-
-        /**changed this. */
-        decreaseItemQuantity(updatedInvoice);
-            return invoiceRepo.save(updatedInvoice);
-    }
-
-    public double formatDouble(double dbl) {
-        return Double.parseDouble(String.format("%, .2f", dbl));
-    }
-
-    public double applyTaxRate(Invoice invoice) {
-        double priceBeforeTax = invoice.getQuantity() * invoice.getUnit_price();
-        double taxRate = taxRateRepo.findByState(invoice.getState()).getRate();
-            return formatDouble(priceBeforeTax * taxRate);
-    }
-
-     public double applyProcessingFee(Invoice invoice){
-        double processingFee = processingFeeRepo.findByProductType(invoice.getItem_type()).getFee();
-        if (invoice.getQuantity() >=10 ){
-            processingFee += 15.49;
-        }
-        return  formatDouble(processingFee);
-    }
-
-    public double calculateTotal(double subtotal, double processingFee, double salesTax) {
-        return formatDouble(subtotal + processingFee + salesTax);
-    }
-
-     public double calculateSubtotal(Invoice invoice) {
-        return formatDouble(invoice.getQuantity() * invoice.getUnit_price());
-    }
-
-    public int checkQuantity(int requestedAmount, int availableAmount) {
-        if (availableAmount >= requestedAmount) {
-            return availableAmount - requestedAmount;
-        } else {
-            throw new DataIntegrityViolationException("Sorry, item is currently out of stock.");
-        }
-    }
-
-    public int getItemQuantity(Invoice invoice) {
-        int itemId = invoice.getItem_id();
-
-        switch (invoice.getItem_type()) {
-            case "Games" :
-                return getSingleGameById(itemId).get().getQuantity();
-            case "T-shirts" :
-                return getSingleTshirt(itemId).get().getQuantity();
-            case "Consoles" :
-                return getSingleConsole(itemId).get().getQuantity();
-            default:
-                return -1;
-        }
-    }
-    @Transactional
-    public void decreaseItemQuantity(Invoice invoice) {
-
-        int requestedAmount = invoice.getQuantity();
-
-        switch (invoice.getItem_type()) {
-            case "Games":
-                Games game = getSingleGameById(invoice.getItem_id()).get();
-                availableAmount = game.getQuantity();
-                updatedAmount = checkQuantity(requestedAmount, availableAmount);
-                game.setQuantity(updatedAmount);
-                updateGame(game);
-                break;
-            case "Consoles":
-                Console console = getSingleConsole(invoice.getItem_id()).get();
-                availableAmount = console.getQuantity();
-                updatedAmount = availableAmount - requestedAmount;
-                console.setQuantity(updatedAmount);
-                updateConsole(console);
-                break;
-            case "T-shirts":
-                TShirt tshirt = getSingleTshirt(invoice.getItem_id()).get();
-                availableAmount = tshirt.getQuantity();
-                updatedAmount = availableAmount - requestedAmount;
-                tshirt.setQuantity(updatedAmount);
-                updateTshirt(tshirt);
-                break;
-        }
-    }
-}
+//        switch (invoice.getItemType()) {
+//            case "Games":
+//                Games game = getSingleGameById(invoice.getItemId()).get();
+//                availableAmount = game.getQuantity();
+//                updatedAmount = checkQuantity(requestedAmount, availableAmount);
+//                game.setQuantity(updatedAmount);
+//                updateGame(game);
+//                break;
+//            case "Consoles":
+//                Console console = getSingleConsole(invoice.getItemId()).get();
+//                availableAmount = console.getQuantity();
+//                updatedAmount = availableAmount - requestedAmount;
+//                console.setQuantity(updatedAmount);
+//                updateConsole(console);
+//                break;
+//            case "T-shirts":
+//                TShirt tshirt = getSingleTshirt(invoice.getItemId()).get();
+//                availableAmount = tshirt.getQuantity();
+//                updatedAmount = availableAmount - requestedAmount;
+//                tshirt.setQuantity(updatedAmount);
+//                updateTshirt(tshirt);
+//                break;
+//        }
+//    }
+//
+//    public void findByEsrbRating(String mature) {
+//    }
+//}
 
 

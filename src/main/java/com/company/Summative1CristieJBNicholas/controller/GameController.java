@@ -1,10 +1,13 @@
 package com.company.Summative1CristieJBNicholas.controller;
 
 
+import com.company.Summative1CristieJBNicholas.exception.ProductNotFoundException;
 import com.company.Summative1CristieJBNicholas.exception.QueryNotFoundException;
+
 import com.company.Summative1CristieJBNicholas.models.Games;
 
-import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
+import com.company.Summative1CristieJBNicholas.repository.GameRepository;
+//import com.company.Summative1CristieJBNicholas.services.ServiceLayer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 
@@ -17,85 +20,67 @@ import java.util.Optional;
 @RestController
 public class GameController {
 
-//    @Autowired
-//    GameRepository repo;
-
     @Autowired
-    ServiceLayer serviceLayer;
+    GameRepository repo;
 
-
-//    @GetMapping(value="/games/game")
-    @GetMapping(value="/games/allgames")
-    @ResponseStatus(HttpStatus.OK)
-    public List<Games> getAllGames(@RequestParam(required = false) String studio, @RequestParam(required = false) String esrbRating) {
-        if(studio != null && esrbRating != null){
-            return serviceLayer.getGamesByStudioAndEsrbRating(studio, esrbRating);
-        }else if(studio != null){
-            return serviceLayer.getGamesByStudio(studio);
-        }else if (esrbRating != null){
-            return serviceLayer.getGamesByStudio(esrbRating);
-        }
-        return serviceLayer.getAllGames();
+    // create a new Game
+    @PostMapping("/games")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Games addGames(@RequestBody Games games) {
+        return repo.save(games);
     }
 
-    // get games by ID
-    @GetMapping("/games/{id}")
+    // find all Games; from rsvp-service classwork
+    @RequestMapping(value = "/games", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Games> getSingleGameById(@PathVariable Integer id, @RequestParam(required = false)String title) throws QueryNotFoundException {
-        if (title != null) {
-            return serviceLayer.findByTitle(title);
-        }
-        if (serviceLayer.getSingleGameById(id).orElse(null) == null) {
-            throw new QueryNotFoundException("The game with that title does not exist in our inventory.");
-        }
-        return serviceLayer.getSingleGameById(id);
+    public List<Games> getAllGames() {
+        return repo.findAll();
     }
 
+    // find Game by iD
+    @GetMapping("/games/{gameId}")
+    public Games getGameById(@PathVariable Integer gameId) {
+        if (gameId < 1) {
+            throw new IllegalArgumentException("Game ID must be at least 1");
+        }
+        Optional<Games> returnVal = repo.findById(gameId);
+        if (returnVal.isPresent()){
+            return returnVal.get();
+        } else {
+            throw new ProductNotFoundException("No such game. id:  " + gameId);
+        }
+    }
 
-
+    // find by title
     @GetMapping(value="/games/title/{title}")
     @ResponseStatus(HttpStatus.OK)
-    public Optional<Games> getGamesbyTitle(@PathVariable String title)
-    {
-        return serviceLayer.findByTitle(title);
+    public List<Games> getGameByTitle(@PathVariable String title) {
+        return repo.findByTitle(title);
     }
 
+    // find by Esrb Rating
+    @GetMapping(value="/games/esrbRating/{esrbRating}")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Games> getGameByEsrbRating(@PathVariable String esrbRating) {
+        return repo.findByEsrbRating(esrbRating);
+    }
+    // find by studio
     @GetMapping(value="/games/studio/{studio}")
     @ResponseStatus(HttpStatus.OK)
     public List<Games> getGamesByStudio(@PathVariable String studio){
-        return serviceLayer.getGamesByStudio(studio);
+        return repo.findByStudio(studio);
     }
 
-    @PostMapping(value="/games/add")
-    @ResponseStatus(HttpStatus.CREATED)
-//    "create game"
-    public Games addGame(@RequestBody Games game) {
-//        return repo.save(game);
-    return serviceLayer.addGame(game);
-    }
-    @PutMapping(value="/games/{game_id}")
+    // update an existing Game record
+    @PutMapping(value = "/games")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateGame(@RequestBody Games game, @PathVariable Integer game_id) throws QueryNotFoundException {
-        if(game.getGame_Id() == null){
-            game.setGame_Id(game_id);
-    }
-        if(game_id != game.getGame_Id()){
-            throw new DataIntegrityViolationException("Request body ID does not match Path Variable Id.");
-        }
-        if(serviceLayer.getSingleGameById(game_id).orElse(null) == null){
-            throw new QueryNotFoundException("That game title does not exist in our inventory.");
-        }
-        serviceLayer.updateGame(game);
-
-
+    public void updateGame(@RequestBody Games games) {
+        repo.save(games);
     }
 
-    @DeleteMapping(value="/games/{game_id}")
+    @DeleteMapping(value="/games/{gameId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void deleteGame(@PathVariable Integer game_id) throws QueryNotFoundException {
-        if(serviceLayer.getSingleGameById(game_id).orElse(null) == null){
-            throw new QueryNotFoundException("That game title does not exist in our inventory.");
-        }
-
+    public void deleteGame(@PathVariable Integer gameId)  {
+       repo.deleteById(gameId);
     }
 }

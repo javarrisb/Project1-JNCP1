@@ -18,7 +18,7 @@ public class Invoice implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "invoice_id")//PK
     private Integer  invoice_id;
-/**made into invoice_id */
+    /**made into invoice_id */
     @NotEmpty(message = "You must supply a name for the invoice please.")
     @Column(name = "name")
     private String name;
@@ -72,7 +72,7 @@ public class Invoice implements Serializable {
 
     }
     public Invoice( Integer invoice_id, String name, String street, String city, String state, String zipcode,
-                   Integer item_id, double unit_price, int quantity, double subtotal) {
+                    Integer item_id, double unit_price, int quantity, double subtotal) {
         this.invoice_id = invoice_id;
         this.name = name;
         this.street = street;
@@ -90,20 +90,20 @@ public class Invoice implements Serializable {
     }
     public Invoice( Integer invoice_id,String name, String street, String city, String state, String zipcode,
                     String item_type, int item_id, double unit_price, int quantity){
-            this.invoice_id = invoice_id;
-            this.name = name;
-            this.street = street;
-            this.city = city;
-            this.state = state;
-            this.zipcode = zipcode;
-            this.item_type = item_type;
-            this.item_id = item_id;
-            this.unit_price = unit_price;
-            this.quantity = quantity;
-        }
+        this.invoice_id = invoice_id;
+        this.name = name;
+        this.street = street;
+        this.city = city;
+        this.state = state;
+        this.zipcode = zipcode;
+        this.item_type = item_type;
+        this.item_id = item_id;
+        this.unit_price = unit_price;
+        this.quantity = quantity;
+    }
 
     public Invoice( String name, String street, String city, String state, String zipcode,
-                   String item_type, int item_id, double unit_price, int quantity) {
+                    String item_type, int item_id, double unit_price, int quantity) {
         this.name = name;
         this.street = street;
         this.city = city;
@@ -294,36 +294,3 @@ public class Invoice implements Serializable {
                 '}';
     }
 }
-// invoice_id int not null auto_increment primary key,
-//    name varchar(80) not null,
-//    street varchar(30) not null,
-//    city varchar(30) not null,
-//    state char(2) not null,
-//    zipcode varchar(5) not null,
-//    item_type varchar(20) not null,
-//    item_id int not null,
-//    unit_price decimal(5,2) not null,
-//    quantity int not null,
-//    subtotal decimal(5,2) not null,
-//    tax decimal(5,2) not null,
-//    processing_fee decimal (5,2) not null,
-//    total decimal(5,2) not null
-//
-//Create
-//   Read
-//  Read All
-//  By Customer Name
-
-//        select invoice0_.`invoice_id` as invoice_1_2_,
-//        invoice0_.`city` as city2_2_,
-//        invoice0_.`item_id` as item_id3_2_,
-//        invoice0_.`item_type` as item_typ4_2_,
-//        invoice0_.`name` as name5_2_, invoice0_.`processing_fee` as processi6_2_,
-//        invoice0_.`quantity` as quantity7_2_,
-//        invoice0_.`state` as state8_2_,
-//        invoice0_.`street` as street9_2_,
-//        invoice0_.`subtotal` as subtota10_2_,
-//        invoice0_.`tax` as tax11_2_,
-//        invoice0_.`total` as total12_2_,
-//        invoice0_.`unit_price` as unit_pr13_2_,
-//        invoice0_.`zipcode` as zipcode14_2_ from `invoice` invoice0_

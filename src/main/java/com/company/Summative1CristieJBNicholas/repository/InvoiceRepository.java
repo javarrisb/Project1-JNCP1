@@ -10,6 +10,10 @@ import java.util.List;
 @Repository
 public interface InvoiceRepository extends JpaRepository<Invoice, Integer> {
 
+
+//    List<Invoice> findAll(Integer invoiceId);
+//    List<Invoice> findAllInvoices(Integer invoiceId);
+
     List<Invoice> findAll();
 
 

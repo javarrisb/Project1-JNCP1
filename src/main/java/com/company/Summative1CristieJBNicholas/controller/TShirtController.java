@@ -20,6 +20,7 @@ public class TShirtController {
     // create a new tShirt
     @PostMapping("/TShirt")
     @ResponseStatus(HttpStatus.CREATED)
+
     public TShirt addTShirt(@RequestBody TShirt tShirt) {
         return repo.save(tShirt);
     }
@@ -59,15 +60,14 @@ public class TShirtController {
     }
 
     // update an existing TShirt record
-
-    @PutMapping("/TShirt/{id}")
+    @PutMapping("/TShirt")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void updateTShirt(@RequestBody TShirt tShirt, @PathVariable Integer tShirtId) {
+    public void updateTShirt(@RequestBody TShirt tShirt) {
         repo.save(tShirt);
     }
 
     // delete an existing TShirt record
-    @DeleteMapping("/TShirt/delete/{tShirtId}")
+    @DeleteMapping("/TShirt/{tShirtId}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void deleteTShirt(@PathVariable Integer tShirtId) {
         if (tShirtId < 1) {

@@ -93,35 +93,35 @@ public class InvoiceControllerTest {
         when(serviceLayer.getItemQuantity(customerInvoice)).thenReturn(40);
     }
 
-    @Test
-    public void shouldReturnNewInvoiceWithStatus201() throws Exception {
-
-        inputJson = mapper.writeValueAsString(customerInvoice);
-        outputJson = mapper.writeValueAsString(invoice1);
-        mockMvc.perform(
-                        post("/invoice/add")
-                                .content(inputJson)
-                                .contentType(MediaType.APPLICATION_JSON)
-                )
-                .andExpect(status().isCreated())
-                .andExpect(content().json(outputJson));
-
-    }
-    @Test
-    public void shouldReturnAllInvoices() throws Exception {
-        doReturn(allInvoices).when(serviceLayer).findAllInvoices();
-        mockMvc.perform(
-                        get("/invoices/all"))
-                .andExpect(status().isOk())
-                .andExpect(content().json(allInvoicesJson));
-    }
-
-    @Test
-    public void shouldReturnInvoiceById() throws Exception, QueryNotFoundException {
-        doReturn(Optional.of(customerInvoice)).when(invoiceRepository).findById(1);
-        ResultActions result = mockMvc.perform(
-                        get("/invoice/1"))
-                .andExpect(status().isOk())
-                .andExpect(content().json(outputJson2));
-    }
-}
+//    @Test
+//    public void shouldReturnNewInvoiceWithStatus201() throws Exception {
+//
+//        inputJson = mapper.writeValueAsString(customerInvoice);
+//        outputJson = mapper.writeValueAsString(invoice1);
+//        mockMvc.perform(
+//                        post("/invoice/add")
+//                                .content(inputJson)
+//                                .contentType(MediaType.APPLICATION_JSON)
+//                )
+//                .andExpect(status().isCreated())
+//                .andExpect(content().json(outputJson));
+//
+//    }
+//    @Test
+//    public void shouldReturnAllInvoices() throws Exception {
+//        doReturn(allInvoices).when(serviceLayer).findAllInvoices();
+//        mockMvc.perform(
+//                        get("/invoices/all"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().json(allInvoicesJson));
+//    }
+//
+//    @Test
+//    public void shouldReturnInvoiceById() throws Exception, QueryNotFoundException {
+//        doReturn(Optional.of(customerInvoice)).when(invoiceRepository).findById(1);
+//        ResultActions result = mockMvc.perform(
+//                        get("/invoice/1"))
+//                .andExpect(status().isOk())
+//                .andExpect(content().json(outputJson2));
+//    }
+//}
